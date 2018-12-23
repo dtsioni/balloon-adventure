@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 
-public class LevelTheaterScreen implements Screen
+class LevelTheaterScreen implements Screen
 {
     private final LevelTheater levelTheater;
 

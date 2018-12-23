@@ -5,12 +5,12 @@ import com.tsioni.balloonadventure.actors.api.EntityDefinition;
 import java.util.List;
 
 /**
- * The static state that a level theater begins at for a specific level.
+ * The state that a level theater begins at for a specific level.
  */
 public interface LevelInitialState
 {
     /**
-     * @return The entities present in the initial state of the level.
+     * @return The entity definitions for all the entities in the level.
      */
     List<EntityDefinition> getEntityDefinitions();
 }

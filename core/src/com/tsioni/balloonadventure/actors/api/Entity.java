@@ -15,4 +15,9 @@ public interface Entity
      * @return The body of this entity, if it has one.
      */
     Optional<Body> getBody();
+
+    /**
+     * @return The layer of this entity.
+     */
+    int getLayerId();
 }

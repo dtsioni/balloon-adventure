@@ -1,7 +1,6 @@
 package com.tsioni.balloonadventure.actors.impl;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -26,8 +25,32 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     public void visit(
         final BalloonEntityDefinition balloonEntityDefinition)
     {
-        final Body body = world.createBody(balloonEntityDefinition.getBox2dDefinition().getBodyDef());
+        final BodyDef bodyDef = new BodyDef();
+        final FixtureDef fixtureDef = new FixtureDef();
+        final CircleShape shape = new CircleShape();
+        final boolean isSensor = false;
+        final float density = 0f;
+        final float friction = 0f;
+        final float restitution = 0f;
+        final float width = 10;
+        final BodyDef.BodyType bodyType = BodyDef.BodyType.DynamicBody;
 
-        stage.addActor(new BalloonEntity(body).getActor());
+        bodyDef.type = bodyType;
+        bodyDef.position.set(balloonEntityDefinition.getX(), balloonEntityDefinition.getY());
+        bodyDef.fixedRotation = true;
+
+        shape.setRadius(width/2f);
+
+        fixtureDef.shape = shape;
+        fixtureDef.density = density;
+        fixtureDef.friction = friction;
+        fixtureDef.restitution = restitution;
+        fixtureDef.isSensor = isSensor;
+
+        final Body body = world.createBody(bodyDef);
+
+        body.createFixture(fixtureDef);
+
+        stage.addActor(new BalloonEntity(body, balloonEntityDefinition.getLayerId()).getActor());
     }
 }
