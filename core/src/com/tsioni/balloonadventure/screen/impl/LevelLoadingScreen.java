@@ -1,4 +1,4 @@
-package com.tsioni.balloonadventure.screen;
+package com.tsioni.balloonadventure.screen.impl;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
@@ -7,6 +7,7 @@ import com.tsioni.balloonadventure.level.api.LevelInitialStateFetcher;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 import com.tsioni.balloonadventure.level.api.LevelTheaterGenerator;
 import com.tsioni.balloonadventure.level.api.LevelInitialState;
+import com.tsioni.balloonadventure.screen.api.LevelTheaterScreenFactory;
 
 public class LevelLoadingScreen implements Screen
 {
@@ -16,7 +17,7 @@ public class LevelLoadingScreen implements Screen
     private final LevelTheaterGenerator levelTheaterGenerator;
     private final LevelTheaterScreenFactory levelTheaterScreenFactory;
 
-    private LevelTheaterScreen loadedLevelTheaterScreen;
+    private Screen loadedLevelTheaterScreen;
 
     LevelLoadingScreen(
         final Game game,

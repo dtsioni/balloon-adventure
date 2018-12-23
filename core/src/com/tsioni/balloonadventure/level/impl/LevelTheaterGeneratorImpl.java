@@ -10,15 +10,15 @@ import com.tsioni.balloonadventure.level.api.LevelTheaterGenerator;
 
 public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 {
-    private final EntityFactoryVisitorFactory entityFactoryVisitorFactory;
+    private final TheaterInstantiatorFactory theaterInstantiatorFactory;
     private final LevelTheaterFactory levelTheaterFactory;
 
     LevelTheaterGeneratorImpl(
         final LevelTheaterFactory levelTheaterFactory,
-        final EntityFactoryVisitorFactory entityFactoryVisitorFactory)
+        final TheaterInstantiatorFactory theaterInstantiatorFactory)
     {
         this.levelTheaterFactory = levelTheaterFactory;
-        this.entityFactoryVisitorFactory = entityFactoryVisitorFactory;
+        this.theaterInstantiatorFactory = theaterInstantiatorFactory;
     }
 
     @Override
@@ -28,12 +28,12 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 
         final World world = new World(null, false);
 
-        final EntityFactoryVisitor entityFactoryVisitor =
-            entityFactoryVisitorFactory.createEntityFactoryVisitor(world, stage);
+        final EntityDefinitionVisitor theaterInstantiator =
+            theaterInstantiatorFactory.createTheaterInstantiator(world, stage);
 
         for (final EntityDefinition entityDefinition : levelInitialState.getEntityDefinitions())
         {
-            entityDefinition.hostFactoryVisitor(entityFactoryVisitor);
+            entityDefinition.hostVisitor(theaterInstantiator);
         }
 
         return levelTheaterFactory.createLevelTheater(stage, world);

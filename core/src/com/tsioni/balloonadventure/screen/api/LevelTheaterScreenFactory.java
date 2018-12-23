@@ -1,5 +1,6 @@
-package com.tsioni.balloonadventure.screen;
+package com.tsioni.balloonadventure.screen.api;
 
+import com.badlogic.gdx.Screen;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 
 public interface LevelTheaterScreenFactory
@@ -7,5 +8,5 @@ public interface LevelTheaterScreenFactory
     /**
      * Create a new level theater screen.
      */
-    LevelTheaterScreen createLevelTheaterScreen(LevelTheater levelTheater);
+    Screen createLevelTheaterScreen(LevelTheater levelTheater);
 }

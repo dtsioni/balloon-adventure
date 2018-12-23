@@ -17,8 +17,8 @@ public class BalloonEntityDefinitionImpl implements BalloonEntityDefinition
     }
 
     @Override
-    public void hostFactoryVisitor(final EntityFactoryVisitor visitor)
+    public void hostVisitor(final EntityDefinitionVisitor visitor)
     {
-        visitor.createEntity(this);
+        visitor.visit(this);
     }
 }

@@ -1,18 +1,25 @@
-package com.tsioni.balloonadventure;
+package com.tsioni.balloonadventure.impl;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.tsioni.balloonadventure.screen.LevelTheaterScreen;
+import com.google.inject.Inject;
+import com.tsioni.balloonadventure.screen.impl.LevelTheaterScreen;
 
-import javax.inject.Inject;
-
-public class BalloonAdventure extends Game
+class BalloonAdventure extends Game
 {
     private SpriteBatch batch;
     private Texture img;
+    private final LevelTheaterScreen levelTheaterScreen;
+
+    @Inject
+    public BalloonAdventure(
+        final LevelTheaterScreen levelTheaterScreen)
+    {
+        this.levelTheaterScreen = levelTheaterScreen;
+    }
 
     @Override
     public void create()
@@ -55,7 +62,4 @@ public class BalloonAdventure extends Game
         batch.dispose();
         img.dispose();
     }
-
-    @Inject
-    private LevelTheaterScreen levelTheaterScreen;
 }

@@ -1,14 +1,18 @@
-package com.tsioni.balloonadventure.screen;
+package com.tsioni.balloonadventure.screen.impl;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 
 public class LevelTheaterScreen implements Screen
 {
     private final LevelTheater levelTheater;
 
-    public LevelTheaterScreen(final LevelTheater levelTheater)
+    @Inject
+    public LevelTheaterScreen(
+        @Assisted final LevelTheater levelTheater)
     {
         this.levelTheater = levelTheater;
     }

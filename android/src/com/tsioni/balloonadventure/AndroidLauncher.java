@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.tsioni.balloonadventure.BalloonAdventure;
+import com.tsioni.balloonadventure.impl.BalloonAdventure;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
