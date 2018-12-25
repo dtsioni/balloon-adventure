@@ -4,17 +4,17 @@ import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.Steppable;
 
 /**
- * The interactive level.
+ * A playable level. A theater can be stepped through time and drawn.
  */
 public interface LevelTheater
 {
     /**
-     * @return The drawable for the theater.
+     * @return The drawable for the theater. This will draw the theater.
      */
     Drawable getDrawable();
 
     /**
-     * @return The steppable for the theater.
+     * @return The steppable for the theater. This will step the theater.
      */
     Steppable getSteppable();
 }

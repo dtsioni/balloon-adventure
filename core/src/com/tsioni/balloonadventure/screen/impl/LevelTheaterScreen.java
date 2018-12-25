@@ -1,6 +1,5 @@
 package com.tsioni.balloonadventure.screen.impl;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
