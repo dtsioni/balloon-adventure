@@ -20,13 +20,13 @@ class LevelTheaterScreen implements Screen
     @Override
     public void show()
     {
-        Gdx.input.setInputProcessor(levelTheater.getInputProcessor());
+
     }
 
     @Override
     public void render(final float delta)
     {
-        levelTheater.stepTheater(delta);
+        levelTheater.getSteppable().step(delta);
         levelTheater.getDrawable().draw();
     }
 

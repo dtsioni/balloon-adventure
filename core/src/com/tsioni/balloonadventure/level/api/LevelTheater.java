@@ -1,7 +1,7 @@
 package com.tsioni.balloonadventure.level.api;
 
-import com.badlogic.gdx.InputProcessor;
 import com.tsioni.balloonadventure.Drawable;
+import com.tsioni.balloonadventure.Steppable;
 
 /**
  * The interactive level.
@@ -9,19 +9,12 @@ import com.tsioni.balloonadventure.Drawable;
 public interface LevelTheater
 {
     /**
-     * The input processor for the theater.
-     */
-    InputProcessor getInputProcessor();
-
-    /**
-     * The drawable for the theater.
+     * @return The drawable for the theater.
      */
     Drawable getDrawable();
 
     /**
-     * Advances the theater in response to the current processed input.
-     *
-     * @param deltaTime The number of milliseconds since stepTheater was last called.
+     * @return The steppable for the theater.
      */
-    void stepTheater(float deltaTime);
+    Steppable getSteppable();
 }
