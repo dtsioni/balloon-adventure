@@ -1,9 +1,12 @@
 package com.tsioni.balloonadventure.level.api;
 
+import com.badlogic.gdx.utils.viewport.Viewport;
+
 public interface LevelTheaterGenerator
 {
     /**
-     * @return A LevelTheater set to the LevelInitialState.
+     * @param levelInitialState The initial state to start the level theater at.
+     * @param viewport The viewport to use when viewing the level theater.
      */
-    LevelTheater generateLevelTheater(LevelInitialState levelInitialState);
+    LevelTheater generateLevelTheater(LevelInitialState levelInitialState, Viewport viewport);
 }

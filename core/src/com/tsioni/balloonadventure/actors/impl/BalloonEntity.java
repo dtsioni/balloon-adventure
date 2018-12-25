@@ -62,7 +62,7 @@ public class BalloonEntity implements Entity
             return getBody().get().getPosition().y;
         }
 
-        private final String IMG_PATH = "img/balloon.png";
+        private final String IMG_PATH = "core/assets/img/balloon.png";
         private final Texture texture;
         private final TextureRegion textureRegion;
     }

@@ -3,6 +3,7 @@ package com.tsioni.balloonadventure.level.impl;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.tsioni.balloonadventure.actors.api.EntityDefinition;
 import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
@@ -23,9 +24,11 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
     }
 
     @Override
-    public LevelTheater generateLevelTheater(final LevelInitialState levelInitialState)
+    public LevelTheater generateLevelTheater(
+        final LevelInitialState levelInitialState,
+        final Viewport viewport)
     {
-        final Stage stage = new Stage();
+        final Stage stage = new Stage(viewport);
 
         final World world = new World(new Vector2(0, -10), false);
 
@@ -37,6 +40,6 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
             entityDefinition.hostVisitor(theaterInstantiator);
         }
 
-        return new LevelTheaterImpl(stage, world);
+        return new LevelTheaterImpl(stage, world, viewport);
     }
 }
