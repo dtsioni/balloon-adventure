@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.google.inject.Guice;
-import com.tsioni.balloonadventure.guice.GameModule;
+import com.tsioni.balloonadventure.game.guice.GameModule;
 
 public class DesktopLauncher
 {

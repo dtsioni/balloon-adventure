@@ -1,4 +1,4 @@
-package com.tsioni.balloonadventure.impl;
+package com.tsioni.balloonadventure.game.impl;
 
 import com.badlogic.gdx.Game;
 import com.google.inject.Inject;
