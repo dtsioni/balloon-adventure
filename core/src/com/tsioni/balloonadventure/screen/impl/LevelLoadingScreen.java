@@ -1,10 +1,6 @@
 package com.tsioni.balloonadventure.screen.impl;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.level.api.*;
@@ -49,9 +45,7 @@ class LevelLoadingScreen implements Screen
     {
         final LevelInitialState levelInitialState = levelInitialStateFetcher.fetchLevelInitialState(levelId);
 
-        final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(
-                levelInitialState,
-                null);
+        final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(levelInitialState);
 
         loadedLevelTheaterScreen = screenFactory.createLevelTheaterScreen(levelTheater);
     }

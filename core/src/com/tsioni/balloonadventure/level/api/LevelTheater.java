@@ -1,6 +1,5 @@
 package com.tsioni.balloonadventure.level.api;
 
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.Steppable;
 
@@ -18,9 +17,4 @@ public interface LevelTheater
      * @return The steppable for the theater.
      */
     Steppable getSteppable();
-
-    /**
-     * @return The viewport used to view the theater.
-     */
-    Viewport getViewport();
 }

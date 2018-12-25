@@ -2,7 +2,6 @@ package com.tsioni.balloonadventure.level.impl;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.Steppable;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
@@ -15,16 +14,11 @@ public class LevelTheaterImpl implements LevelTheater
 
     private final Stage stage;
     private final World world;
-    private final Viewport viewport;
 
-    LevelTheaterImpl(
-        final Stage stage,
-        final World world,
-        final Viewport viewport)
+    LevelTheaterImpl(final Stage stage, final World world)
     {
         this.stage = stage;
         this.world = world;
-        this.viewport = viewport;
     }
 
     @Override
@@ -51,11 +45,5 @@ public class LevelTheaterImpl implements LevelTheater
                 stage.act(delta);
             }
         };
-    }
-
-    @Override
-    public Viewport getViewport()
-    {
-        return viewport;
     }
 }
