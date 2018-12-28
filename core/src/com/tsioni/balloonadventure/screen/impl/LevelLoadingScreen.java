@@ -48,6 +48,8 @@ class LevelLoadingScreen implements Screen
         final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(levelInitialState);
 
         loadedLevelTheaterScreen = screenFactory.createLevelTheaterScreen(levelTheater);
+
+        this.dispose();
     }
 
     @Override

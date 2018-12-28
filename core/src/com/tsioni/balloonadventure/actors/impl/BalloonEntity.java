@@ -45,6 +45,8 @@ public class BalloonEntity implements Entity
         {
             texture = new Texture(IMG_PATH);
             textureRegion = new TextureRegion(texture);
+            setWidth(32);
+            setHeight(32);
         }
 
         @Override
