@@ -12,6 +12,8 @@ public class DesktopLauncher
     {
         final Game balloonAdventure = Guice.createInjector(new GameModule()).getInstance(Game.class);
         final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 1000;
+        config.height = 1000;
         new LwjglApplication(balloonAdventure, config);
     }
 }
