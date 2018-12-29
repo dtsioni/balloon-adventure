@@ -47,11 +47,50 @@ public class BalloonEntity implements Entity
             textureRegion = new TextureRegion(texture);
             setWidth(32);
             setHeight(32);
+
+            this.addListener(new BalloonActorInputListener(this));
         }
 
         @Override
-        public void draw(Batch batch, float alpha) {
-            batch.draw(textureRegion, getX() - getOriginX(), getY() - getOriginY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        public void draw(Batch batch, float alpha)
+        {
+            batch.draw(
+                textureRegion,
+                getX() - getOriginX(),
+                getY() - getOriginY(),
+                getOriginX(),
+                getOriginY(),
+                getWidth(),
+                getHeight(),
+                getScaleX(),
+                getScaleY(),
+                getRotation());
+        }
+
+        @Override
+        public void act(float delta)
+        {
+            if(isTouched)
+            {
+                if(getBody().get().getLinearVelocity().y < 0)
+                {
+                    getBody().get().setLinearVelocity(getBody().get().getLinearVelocity().x, getBody().get().getLinearVelocity().y + IMPULSE);
+                }
+                else
+                {
+                    getBody().get().applyForceToCenter(0, FORCE_IMPULSE, true);
+                }
+            }
+        }
+
+        public boolean touchDown()
+        {
+            return isTouched = true;
+        }
+
+        public void touchUp()
+        {
+            isTouched = false;
         }
 
         public float getX()
@@ -63,6 +102,17 @@ public class BalloonEntity implements Entity
         {
             return getBody().get().getPosition().y;
         }
+
+        @Override
+        public Actor hit(float x, float y, boolean touchable)
+        {
+            return this;
+        }
+
+        private boolean isTouched;
+
+        private final float IMPULSE = 4;
+        private final float FORCE_IMPULSE = 700;
 
         private final String IMG_PATH = "img/balloon.png";
         private final Texture texture;
