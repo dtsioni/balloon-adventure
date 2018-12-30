@@ -6,4 +6,6 @@ package com.tsioni.balloonadventure.actors.api;
 public interface EntityDefinitionVisitor
 {
     void visit(BalloonEntityDefinition balloonEntityDefinition);
+
+    void visit(SquareWallEntityDefinition squareWallEntityDefinition);
 }

@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.Entity;
 import com.tsioni.balloonadventure.util.api.Optional;
 
+/**
+ * TODO: This should be package-private
+ */
 public class BalloonEntity implements Entity
 {
     private final Body body;

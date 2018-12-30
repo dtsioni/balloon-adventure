@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.actors.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
+import com.tsioni.balloonadventure.actors.api.SquareWallEntityDefinition;
 
 class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisitor
 {
@@ -52,5 +53,12 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         body.createFixture(fixtureDef);
 
         stage.addActor(new BalloonEntity(body, balloonEntityDefinition.getLayerId()).getActor());
+    }
+
+    @Override
+    public void visit(
+        final SquareWallEntityDefinition squareWallEntityDefinition)
+    {
+        stage.addActor(new SquareWallEntity().getActor());
     }
 }

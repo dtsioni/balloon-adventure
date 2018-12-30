@@ -1,17 +1,17 @@
 package com.tsioni.balloonadventure.actors.impl;
 
-import com.tsioni.balloonadventure.actors.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.actors.api.EntityId;
 import com.tsioni.balloonadventure.actors.api.EntityIds;
+import com.tsioni.balloonadventure.actors.api.SquareWallEntityDefinition;
 
-class BalloonEntityDefinitionImpl implements BalloonEntityDefinition
+class SquareWallEntityDefinitionImpl implements SquareWallEntityDefinition
 {
     private final int x;
     private final int y;
     private final int layerId;
 
-    BalloonEntityDefinitionImpl(
+    SquareWallEntityDefinitionImpl(
         final int x,
         final int y,
         final int layerId)
@@ -24,7 +24,7 @@ class BalloonEntityDefinitionImpl implements BalloonEntityDefinition
     @Override
     public EntityId getEntityId()
     {
-        return EntityIds.BALLOON;
+        return EntityIds.SQUARE_WALL;
     }
 
     @Override
@@ -46,8 +46,8 @@ class BalloonEntityDefinitionImpl implements BalloonEntityDefinition
     }
 
     @Override
-    public void hostVisitor(final EntityDefinitionVisitor visitor)
+    public void hostVisitor(final EntityDefinitionVisitor entityDefinitionVisitor)
     {
-        visitor.visit(this);
+        entityDefinitionVisitor.visit(this);
     }
 }
