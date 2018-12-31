@@ -8,4 +8,6 @@ public interface EntityDefinitionVisitor
     void visit(BalloonEntityDefinition balloonEntityDefinition);
 
     void visit(SquareWallEntityDefinition squareWallEntityDefinition);
+
+    void visit(WindEntityDefinition windEntityDefinition);
 }
