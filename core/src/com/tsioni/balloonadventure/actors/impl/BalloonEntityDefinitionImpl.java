@@ -2,8 +2,6 @@ package com.tsioni.balloonadventure.actors.impl;
 
 import com.tsioni.balloonadventure.actors.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.actors.api.EntityId;
-import com.tsioni.balloonadventure.actors.api.EntityIds;
 
 class BalloonEntityDefinitionImpl implements BalloonEntityDefinition
 {
@@ -19,12 +17,6 @@ class BalloonEntityDefinitionImpl implements BalloonEntityDefinition
         this.x = x;
         this.y = y;
         this.layerId = layerId;
-    }
-
-    @Override
-    public EntityId getEntityId()
-    {
-        return EntityIds.BALLOON;
     }
 
     @Override

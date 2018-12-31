@@ -1,23 +1,27 @@
 package com.tsioni.balloonadventure.actors.api;
 
 /**
- * The EntityDefinition has all of the information needed to create a single instance of an entity
+ * An EntityDefinition has all of the information needed to create a single instance of an Entity
  * in the theater.
+ *
+ * The fields present here are the fields which are common across all Entities. This interface
+ * should be extended for every Entity that exists in the game. Those interfaces can contain any
+ * further information which is needed to define that specific Entity.
  */
 public interface EntityDefinition extends EntityDefinitionVisitorHost
 {
     /**
-     * TODO: Remove this and the EntityIds, since it is not needed.
-     * @return This string uniquely identifies a certain entity in the game.
+     * @return The X of the entity being defined.
      */
-    EntityId getEntityId();
-
     int getX();
 
+    /**
+     * @return The Y of the entity being defined.
+     */
     int getY();
 
     /**
-     * @return The layer of the entity to be created.
+     * @return The Layer of the entity being defined.
      */
     int getLayerId();
 }
