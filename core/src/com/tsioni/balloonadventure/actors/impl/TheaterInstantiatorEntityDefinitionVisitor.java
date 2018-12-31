@@ -59,6 +59,30 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     public void visit(
         final SquareWallEntityDefinition squareWallEntityDefinition)
     {
-        stage.addActor(new SquareWallEntity().getActor());
+        final BodyDef bodyDef = new BodyDef();
+        final FixtureDef fixtureDef = new FixtureDef();
+        final PolygonShape shape = new PolygonShape();
+        final boolean isSensor = false;
+        final float density = 0f;
+        final float friction = 0f;
+        final float restitution = 0f;
+        final float width = 5;
+        final BodyDef.BodyType bodyType = BodyDef.BodyType.StaticBody;
+
+        bodyDef.type = bodyType;
+        bodyDef.position.set(squareWallEntityDefinition.getX(), squareWallEntityDefinition.getY());
+        bodyDef.fixedRotation = true;
+
+        shape.setAsBox(width, width);
+
+        fixtureDef.shape = shape;
+        fixtureDef.density = density;
+        fixtureDef.friction = friction;
+        fixtureDef.restitution = restitution;
+        fixtureDef.isSensor = isSensor;
+
+        final Body body = world.createBody(bodyDef);
+
+        body.createFixture(fixtureDef);
     }
 }

@@ -7,6 +7,17 @@ import com.tsioni.balloonadventure.util.api.Optional;
 
 class SquareWallEntity implements Entity
 {
+    private final Body body;
+    private final int layerId;
+
+    SquareWallEntity(
+        final Body body,
+        final int layerId)
+    {
+        this.body = body;
+        this.layerId = layerId;
+    }
+
     @Override
     public Actor getActor()
     {
@@ -16,12 +27,12 @@ class SquareWallEntity implements Entity
     @Override
     public Optional<Body> getBody()
     {
-        return null;
+        return Optional.of(body);
     }
 
     @Override
     public int getLayerId()
     {
-        return 0;
+        return layerId;
     }
 }
