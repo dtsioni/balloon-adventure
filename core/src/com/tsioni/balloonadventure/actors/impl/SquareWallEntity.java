@@ -19,9 +19,9 @@ class SquareWallEntity implements Entity
     }
 
     @Override
-    public Actor getActor()
+    public Optional<? extends Actor> getActor()
     {
-        return null;
+        return Optional.empty();
     }
 
     @Override

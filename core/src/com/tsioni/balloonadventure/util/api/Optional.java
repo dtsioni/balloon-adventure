@@ -28,4 +28,9 @@ public class Optional<T>
     {
         return new Optional<T>(val);
     }
+
+    public static <T> Optional<T> empty()
+    {
+        return new Optional<T>(null);
+    }
 }

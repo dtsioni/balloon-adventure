@@ -7,9 +7,9 @@ import com.tsioni.balloonadventure.util.api.Optional;
 public interface Entity
 {
     /**
-     * @return This entities actor on the stage.
+     * @return This entities actor on the stage, if it has one.
      */
-    Actor getActor();
+    Optional<? extends Actor> getActor();
 
     /**
      * @return The body of this entity, if it has one.

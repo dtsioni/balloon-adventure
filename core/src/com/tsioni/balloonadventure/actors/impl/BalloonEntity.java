@@ -25,9 +25,9 @@ public class BalloonEntity implements Entity
     }
 
     @Override
-    public Actor getActor()
+    public Optional<? extends Actor> getActor()
     {
-        return new BalloonActor();
+        return Optional.of(new BalloonActor());
     }
 
     @Override

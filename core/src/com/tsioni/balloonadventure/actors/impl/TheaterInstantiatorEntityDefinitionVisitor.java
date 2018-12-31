@@ -52,7 +52,8 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         body.createFixture(fixtureDef);
 
-        stage.addActor(new BalloonEntity(body, balloonEntityDefinition.getLayerId()).getActor());
+        stage.addActor(new BalloonEntity(body, balloonEntityDefinition.getLayerId())
+            .getActor().get());
     }
 
     @Override
