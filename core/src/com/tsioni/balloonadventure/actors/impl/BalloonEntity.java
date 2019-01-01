@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.Entity;
 import com.tsioni.balloonadventure.actors.api.EntityId;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ public class BalloonEntity implements Entity
             entityIdList.add((EntityId) contact.getFixtureA().getBody().getUserData());
             entityIdList.add((EntityId) contact.getFixtureB().getBody().getUserData());
 
-            System.out.println(entityIdList.get(0) + ", " + entityIdList.get(1));
+            Debug.out.println(entityIdList.get(0) + ", " + entityIdList.get(1));
         }
 
         @Override
