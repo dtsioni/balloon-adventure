@@ -9,11 +9,18 @@ import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.actors.api.EntityIds;
 import com.tsioni.balloonadventure.actors.api.SquareWallEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.WindEntityDefinition;
+import com.tsioni.balloonadventure.actors.contact.api.ContactListenerMultiplexer;
 
 class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisitor
 {
     private final World world;
     private final Stage stage;
+
+    /**
+     * This contact listener will multiplex all the contact listeners from the Entities being added
+     * to the world.
+     */
+    private ContactListener multiplexedContactListener = new ContactListenerMultiplexer();
 
     @Inject
     TheaterInstantiatorEntityDefinitionVisitor(
@@ -57,8 +64,6 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         stage.addActor(new BalloonEntity(body, balloonEntityDefinition.getLayerId())
             .getActor().get());
-
-        world.setContactListener(new BalloonEntity.BalloonContactListener());
     }
 
     @Override
@@ -127,5 +132,16 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final WindEntity windEntity = new WindEntity(body, windEntityDefinition.getLayerId());
 
         stage.addActor(windEntity.getActor().get());
+
+        registerNewContactListener(new WindEntityContactListener());
+    }
+
+    private void registerNewContactListener(
+        final ContactListener newContactListener)
+    {
+        multiplexedContactListener = new ContactListenerMultiplexer(
+            multiplexedContactListener, newContactListener);
+
+        world.setContactListener(multiplexedContactListener);
     }
 }
