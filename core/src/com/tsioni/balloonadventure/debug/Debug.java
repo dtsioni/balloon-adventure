@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tsioni.balloonadventure.Drawable;
+import com.tsioni.balloonadventure.input.AbstractBaseInputProcessor;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -116,7 +117,7 @@ public class Debug implements Drawable
         }
     }
 
-    class DebutInputProcessor implements InputProcessor
+    class DebutInputProcessor extends AbstractBaseInputProcessor
     {
         @Override
         public boolean keyDown(final int keycode)
@@ -125,61 +126,6 @@ public class Debug implements Drawable
             {
                 visible = !visible;
             }
-            return false;
-        }
-
-        @Override
-        public boolean keyUp(final int keycode)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean keyTyped(final char character)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean touchDown(
-            final int screenX,
-            final int screenY,
-            final int pointer,
-            final int button)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean touchUp(
-            final int screenX,
-            final int screenY,
-            final int pointer,
-            final int button)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean touchDragged(
-            final int screenX,
-            final int screenY,
-            final int pointer)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean mouseMoved(
-            final int screenX,
-            final int screenY)
-        {
-            return false;
-        }
-
-        @Override
-        public boolean scrolled(final int amount)
-        {
             return false;
         }
     }
