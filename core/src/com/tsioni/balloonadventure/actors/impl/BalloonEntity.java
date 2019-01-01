@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.Entity;
+import com.tsioni.balloonadventure.actors.contact.api.EntityContactHandler;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 /**
@@ -42,6 +43,25 @@ public class BalloonEntity implements Entity
     public int getLayerId()
     {
         return layerId;
+    }
+
+    @Override
+    public EntityContactHandler getEntityContactHandler()
+    {
+        return new EntityContactHandler()
+        {
+            @Override
+            public void beginContact(final Entity entity)
+            {
+
+            }
+
+            @Override
+            public void endContact(final Entity entity)
+            {
+
+            }
+        };
     }
 
     class BalloonActor extends Actor

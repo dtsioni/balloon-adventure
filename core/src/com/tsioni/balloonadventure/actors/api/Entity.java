@@ -2,6 +2,7 @@ package com.tsioni.balloonadventure.actors.api;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.actors.contact.api.EntityContactHandler;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 public interface Entity
@@ -20,4 +21,9 @@ public interface Entity
      * @return The layer of this entity.
      */
     int getLayerId();
+
+    /**
+     * @return The entity contact handler of this entity.
+     */
+    EntityContactHandler getEntityContactHandler();
 }

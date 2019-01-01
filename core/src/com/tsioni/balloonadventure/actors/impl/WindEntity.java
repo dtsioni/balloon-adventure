@@ -1,17 +1,11 @@
 package com.tsioni.balloonadventure.actors.impl;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.Entity;
-import com.tsioni.balloonadventure.actors.api.EntityId;
+import com.tsioni.balloonadventure.actors.contact.api.EntityContactHandler;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.util.api.Optional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class WindEntity implements Entity
 {
@@ -44,6 +38,27 @@ class WindEntity implements Entity
     public int getLayerId()
     {
         return layerId;
+    }
+
+    @Override
+    public EntityContactHandler getEntityContactHandler()
+    {
+        return new EntityContactHandler()
+        {
+            @Override
+            public void beginContact(
+                final Entity entity)
+            {
+                Debug.out.println("Wind begin contact with: " + entity);
+            }
+
+            @Override
+            public void endContact(
+                final Entity entity)
+            {
+                Debug.out.println("Wind end contact with: " + entity);
+            }
+        };
     }
 
     class WindActor extends Actor

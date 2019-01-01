@@ -6,15 +6,16 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.actors.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.actors.api.EntityIds;
 import com.tsioni.balloonadventure.actors.api.SquareWallEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.WindEntityDefinition;
+import com.tsioni.balloonadventure.actors.contact.api.ContactListenerFactory;
 import com.tsioni.balloonadventure.actors.contact.api.ContactListenerMultiplexer;
 
 class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisitor
 {
     private final World world;
     private final Stage stage;
+    private final ContactListenerFactory contactListenerFactory;
 
     /**
      * This contact listener will multiplex all the contact listeners from the Entities being added
@@ -25,10 +26,12 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     @Inject
     TheaterInstantiatorEntityDefinitionVisitor(
         @Assisted final World world,
-        @Assisted final Stage stage)
+        @Assisted final Stage stage,
+        final ContactListenerFactory contactListenerFactory)
     {
         this.world = world;
         this.stage = stage;
+        this.contactListenerFactory = contactListenerFactory;
     }
 
     @Override
@@ -60,10 +63,13 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final Body body = world.createBody(bodyDef);
 
         body.createFixture(fixtureDef);
-        body.setUserData(EntityIds.BALLOON);
 
-        stage.addActor(new BalloonEntity(body, balloonEntityDefinition.getLayerId())
-            .getActor().get());
+        final BalloonEntity balloonEntity =
+            new BalloonEntity(body, balloonEntityDefinition.getLayerId());
+
+        body.setUserData(balloonEntity);
+
+        stage.addActor(balloonEntity.getActor().get());
     }
 
     @Override
@@ -94,8 +100,11 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final Body body = world.createBody(bodyDef);
 
+        final SquareWallEntity squareWallEntity =
+            new SquareWallEntity(body, squareWallEntityDefinition.getLayerId());
+
         body.createFixture(fixtureDef);
-        body.setUserData(EntityIds.SQUARE_WALL);
+        body.setUserData(squareWallEntity);
     }
 
     @Override
@@ -127,13 +136,13 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final Body body = world.createBody(bodyDef);
 
         body.createFixture(fixtureDef);
-        body.setUserData(EntityIds.WIND);
 
         final WindEntity windEntity = new WindEntity(body, windEntityDefinition.getLayerId());
 
+        body.setUserData(windEntity);
         stage.addActor(windEntity.getActor().get());
 
-        registerNewContactListener(new WindEntityContactListener());
+        registerNewContactListener(contactListenerFactory.createEntityContactListener(windEntity));
     }
 
     private void registerNewContactListener(

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This multiplexer will delegate a contact to many contact listeners.
+ */
 public class ContactListenerMultiplexer implements ContactListener
 {
     final List<ContactListener> contactListenerMultiplex = new ArrayList<ContactListener>();
