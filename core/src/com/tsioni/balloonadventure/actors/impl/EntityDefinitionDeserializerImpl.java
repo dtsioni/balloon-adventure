@@ -14,10 +14,9 @@ class EntityDefinitionDeserializerImpl implements EntityDefinitionDeserializer
         final List<EntityDefinition> entityDefinitions = new ArrayList<EntityDefinition>();
 
         entityDefinitions.add(new SquareWallEntityDefinitionImpl(100, 80, 0));
-        entityDefinitions.add(new SquareWallEntityDefinitionImpl(100, 150, 0));
+        entityDefinitions.add(new SquareWallEntityDefinitionImpl(100, 180, 0));
         entityDefinitions.add(new BalloonEntityDefinitionImpl(100,100,0));
         entityDefinitions.add(new WindEntityDefinitionImpl(100, 140, 0));
-        entityDefinitions.add(new WindEntityDefinitionImpl(100, 90, 0));
 
         return entityDefinitions;
     }

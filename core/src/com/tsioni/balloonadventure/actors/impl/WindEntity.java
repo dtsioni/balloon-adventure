@@ -12,6 +12,10 @@ class WindEntity implements Entity
     private final Actor actor;
     private final Body body;
     private final int layerId;
+    private final float FORCE_IMPULSE = 50;
+
+    private boolean isBlowing;
+    private Entity blowee;
 
     WindEntity(
         final Body body,
@@ -50,6 +54,12 @@ class WindEntity implements Entity
                 final Entity entity)
             {
                 Debug.out.println("Wind begin contact with: " + entity);
+
+                if (entity.getBody().isPresent())
+                {
+                    isBlowing = true;
+                    blowee = entity;
+                }
             }
 
             @Override
@@ -57,6 +67,12 @@ class WindEntity implements Entity
                 final Entity entity)
             {
                 Debug.out.println("Wind end contact with: " + entity);
+
+                if (blowee == entity)
+                {
+                    isBlowing = false;
+                    blowee = null;
+                }
             }
         };
     }
@@ -66,7 +82,10 @@ class WindEntity implements Entity
         @Override
         public void act(float delta)
         {
-
+            if (isBlowing)
+            {
+                blowee.getBody().get().applyForceToCenter(FORCE_IMPULSE, 0, true);
+            }
         }
     }
 }
