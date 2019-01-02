@@ -67,8 +67,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         body.createFixture(fixtureDef);
 
-        final BalloonEntity balloonEntity =
-            new BalloonEntityImpl(body, balloonEntityDefinition.getLayerId());
+        final BalloonEntity balloonEntity = new BalloonEntityImpl(body);
 
         body.setUserData(balloonEntity);
 
@@ -103,8 +102,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final Body body = world.createBody(bodyDef);
 
-        final SquareWallEntity squareWallEntity =
-            new SquareWallEntityImpl(body, squareWallEntityDefinition.getLayerId());
+        final SquareWallEntity squareWallEntity = new SquareWallEntityImpl();
 
         body.createFixture(fixtureDef);
         body.setUserData(squareWallEntity);
@@ -140,7 +138,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         body.createFixture(fixtureDef);
 
-        final WindEntity windEntity = new WindEntityImpl(body, windEntityDefinition.getLayerId());
+        final WindEntity windEntity = new WindEntityImpl();
 
         body.setUserData(windEntity);
         stage.addActor(windEntity.getActor().get());

@@ -9,40 +9,24 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.actors.api.BalloonEntity;
 import com.tsioni.balloonadventure.actors.api.EntityVisitor;
-import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 class BalloonEntityImpl implements BalloonEntity
 {
     private final Actor actor;
     private final Body body;
-    private final int layerId;
 
     BalloonEntityImpl(
-        final Body body,
-        final int layerId)
+        final Body body)
     {
         this.actor = new BalloonActor();
         this.body = body;
-        this.layerId = layerId;
     }
 
     @Override
     public Optional<? extends Actor> getActor()
     {
         return Optional.of(actor);
-    }
-
-    @Override
-    public Optional<Body> getBody()
-    {
-        return Optional.of(body);
-    }
-
-    @Override
-    public int getLayerId()
-    {
-        return layerId;
     }
 
     @Override
@@ -102,13 +86,13 @@ class BalloonEntityImpl implements BalloonEntity
         {
             if(isTouched)
             {
-                if(getBody().get().getLinearVelocity().y < 0)
+                if(body.getLinearVelocity().y < 0)
                 {
-                    getBody().get().setLinearVelocity(getBody().get().getLinearVelocity().x, getBody().get().getLinearVelocity().y + IMPULSE);
+                    body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y + IMPULSE);
                 }
                 else
                 {
-                    getBody().get().applyForceToCenter(0, FORCE_IMPULSE, true);
+                    body.applyForceToCenter(0, FORCE_IMPULSE, true);
                 }
             }
         }
@@ -125,12 +109,12 @@ class BalloonEntityImpl implements BalloonEntity
 
         public float getX()
         {
-            return getBody().get().getPosition().x;
+            return body.getPosition().x;
         }
 
         public float getY()
         {
-            return getBody().get().getPosition().y;
+            return body.getPosition().y;
         }
 
         @Override
