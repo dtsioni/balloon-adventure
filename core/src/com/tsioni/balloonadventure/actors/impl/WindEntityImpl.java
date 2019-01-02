@@ -1,10 +1,10 @@
 package com.tsioni.balloonadventure.actors.impl;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.actors.api.BalloonEntity;
-import com.tsioni.balloonadventure.actors.api.Entity;
 import com.tsioni.balloonadventure.actors.api.EntityVisitor;
 import com.tsioni.balloonadventure.actors.api.WindEntity;
 import com.tsioni.balloonadventure.debug.Debug;
@@ -16,9 +16,9 @@ class WindEntityImpl implements WindEntity
     private final Body body;
     private final int layerId;
     private final float FORCE_IMPULSE = 50;
+    private final Vector2 blowVector = new Vector2(FORCE_IMPULSE, 0);
 
-    private boolean isBlowing;
-    private Entity blowee;
+    private Optional<BalloonEntity> blowingBalloon = Optional.empty();
 
     WindEntityImpl(
         final Body body,
@@ -57,11 +57,7 @@ class WindEntityImpl implements WindEntity
             {
                 Debug.out.println("Wind begin contact with: " + balloonEntity);
 
-                if (balloonEntity.getBody().isPresent())
-                {
-                    isBlowing = true;
-                    blowee = balloonEntity;
-                }
+                blowingBalloon = Optional.of(balloonEntity);
             }
         };
     }
@@ -76,11 +72,7 @@ class WindEntityImpl implements WindEntity
             {
                 Debug.out.println("Wind end contact with: " + balloonEntity);
 
-                if (blowee == balloonEntity)
-                {
-                    isBlowing = false;
-                    blowee = null;
-                }
+                blowingBalloon = Optional.empty();
             }
         };
     }
@@ -96,9 +88,9 @@ class WindEntityImpl implements WindEntity
         @Override
         public void act(float delta)
         {
-            if (isBlowing)
+            if (blowingBalloon.isPresent())
             {
-                blowee.getBody().get().applyForceToCenter(FORCE_IMPULSE, 0, true);
+                blowingBalloon.get().blowBalloon(blowVector);
             }
         }
     }

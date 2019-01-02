@@ -3,11 +3,13 @@ package com.tsioni.balloonadventure.actors.impl;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.actors.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.actors.api.BalloonEntity;
 import com.tsioni.balloonadventure.actors.api.EntityVisitor;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 class BalloonEntityImpl implements BalloonEntity
@@ -59,6 +61,12 @@ class BalloonEntityImpl implements BalloonEntity
     public void hostVisitor(final EntityVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    @Override
+    public void blowBalloon(final Vector2 blowVector)
+    {
+        this.body.applyForceToCenter(blowVector, true);
     }
 
     class BalloonActor extends Actor

@@ -34,7 +34,7 @@ public class Debug implements Drawable
 
     private static List<String> bufferRows = new ArrayList<String>();
 
-    {
+    static {
         bufferRows.add("");
     }
 
