@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class BalloonActorInputListener extends InputListener
 {
-    public BalloonActorInputListener(BalloonEntity.BalloonActor balloon)
+    public BalloonActorInputListener(BalloonEntityImpl.BalloonActor balloon)
     {
         this.balloon = balloon;
     }
@@ -22,5 +22,5 @@ public class BalloonActorInputListener extends InputListener
         balloon.touchUp();
     }
 
-    private BalloonEntity.BalloonActor balloon;
+    private BalloonEntityImpl.BalloonActor balloon;
 }

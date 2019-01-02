@@ -2,12 +2,15 @@ package com.tsioni.balloonadventure.actors.impl;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.actors.api.AbstractBaseEntityVisitor;
+import com.tsioni.balloonadventure.actors.api.BalloonEntity;
 import com.tsioni.balloonadventure.actors.api.Entity;
-import com.tsioni.balloonadventure.actors.contact.api.EntityContactHandler;
+import com.tsioni.balloonadventure.actors.api.EntityVisitor;
+import com.tsioni.balloonadventure.actors.api.WindEntity;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.util.api.Optional;
 
-class WindEntity implements Entity
+class WindEntityImpl implements WindEntity
 {
     private final Actor actor;
     private final Body body;
@@ -17,7 +20,7 @@ class WindEntity implements Entity
     private boolean isBlowing;
     private Entity blowee;
 
-    WindEntity(
+    WindEntityImpl(
         final Body body,
         final int layerId)
     {
@@ -45,36 +48,47 @@ class WindEntity implements Entity
     }
 
     @Override
-    public EntityContactHandler getEntityContactHandler()
+    public EntityVisitor getEntityContactBeginVisitor()
     {
-        return new EntityContactHandler()
+        return new AbstractBaseEntityVisitor()
         {
             @Override
-            public void beginContact(
-                final Entity entity)
+            public void visit(final BalloonEntity balloonEntity)
             {
-                Debug.out.println("Wind begin contact with: " + entity);
+                Debug.out.println("Wind begin contact with: " + balloonEntity);
 
-                if (entity.getBody().isPresent())
+                if (balloonEntity.getBody().isPresent())
                 {
                     isBlowing = true;
-                    blowee = entity;
+                    blowee = balloonEntity;
                 }
             }
+        };
+    }
 
+    @Override
+    public EntityVisitor getEntityContactEndVisitor()
+    {
+        return new AbstractBaseEntityVisitor()
+        {
             @Override
-            public void endContact(
-                final Entity entity)
+            public void visit(final BalloonEntity balloonEntity)
             {
-                Debug.out.println("Wind end contact with: " + entity);
+                Debug.out.println("Wind end contact with: " + balloonEntity);
 
-                if (blowee == entity)
+                if (blowee == balloonEntity)
                 {
                     isBlowing = false;
                     blowee = null;
                 }
             }
         };
+    }
+
+    @Override
+    public void hostVisitor(final EntityVisitor visitor)
+    {
+        visitor.visit(this);
     }
 
     class WindActor extends Actor

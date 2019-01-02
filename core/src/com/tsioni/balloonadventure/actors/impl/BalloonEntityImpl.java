@@ -5,20 +5,18 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.actors.api.Entity;
-import com.tsioni.balloonadventure.actors.contact.api.EntityContactHandler;
+import com.tsioni.balloonadventure.actors.api.AbstractBaseEntityVisitor;
+import com.tsioni.balloonadventure.actors.api.BalloonEntity;
+import com.tsioni.balloonadventure.actors.api.EntityVisitor;
 import com.tsioni.balloonadventure.util.api.Optional;
 
-/**
- * TODO: This should be package-private
- */
-public class BalloonEntity implements Entity
+class BalloonEntityImpl implements BalloonEntity
 {
     private final Actor actor;
     private final Body body;
     private final int layerId;
 
-    BalloonEntity(
+    BalloonEntityImpl(
         final Body body,
         final int layerId)
     {
@@ -46,22 +44,21 @@ public class BalloonEntity implements Entity
     }
 
     @Override
-    public EntityContactHandler getEntityContactHandler()
+    public EntityVisitor getEntityContactBeginVisitor()
     {
-        return new EntityContactHandler()
-        {
-            @Override
-            public void beginContact(final Entity entity)
-            {
+        return new AbstractBaseEntityVisitor(){};
+    }
 
-            }
+    @Override
+    public EntityVisitor getEntityContactEndVisitor()
+    {
+        return new AbstractBaseEntityVisitor(){};
+    }
 
-            @Override
-            public void endContact(final Entity entity)
-            {
-
-            }
-        };
+    @Override
+    public void hostVisitor(final EntityVisitor visitor)
+    {
+        visitor.visit(this);
     }
 
     class BalloonActor extends Actor

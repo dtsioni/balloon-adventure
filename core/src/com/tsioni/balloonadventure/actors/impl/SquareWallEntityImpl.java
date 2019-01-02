@@ -2,16 +2,17 @@ package com.tsioni.balloonadventure.actors.impl;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.actors.api.Entity;
-import com.tsioni.balloonadventure.actors.contact.api.EntityContactHandler;
+import com.tsioni.balloonadventure.actors.api.AbstractBaseEntityVisitor;
+import com.tsioni.balloonadventure.actors.api.EntityVisitor;
+import com.tsioni.balloonadventure.actors.api.SquareWallEntity;
 import com.tsioni.balloonadventure.util.api.Optional;
 
-class SquareWallEntity implements Entity
+class SquareWallEntityImpl implements SquareWallEntity
 {
     private final Body body;
     private final int layerId;
 
-    SquareWallEntity(
+    SquareWallEntityImpl(
         final Body body,
         final int layerId)
     {
@@ -38,21 +39,20 @@ class SquareWallEntity implements Entity
     }
 
     @Override
-    public EntityContactHandler getEntityContactHandler()
+    public EntityVisitor getEntityContactBeginVisitor()
     {
-        return new EntityContactHandler()
-        {
-            @Override
-            public void beginContact(final Entity entity)
-            {
+        return new AbstractBaseEntityVisitor(){};
+    }
 
-            }
+    @Override
+    public EntityVisitor getEntityContactEndVisitor()
+    {
+        return new AbstractBaseEntityVisitor(){};
+    }
 
-            @Override
-            public void endContact(final Entity entity)
-            {
-
-            }
-        };
+    @Override
+    public void hostVisitor(final EntityVisitor visitor)
+    {
+        visitor.visit(this);
     }
 }

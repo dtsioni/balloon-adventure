@@ -4,9 +4,12 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.tsioni.balloonadventure.actors.api.BalloonEntity;
 import com.tsioni.balloonadventure.actors.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.actors.api.EntityDefinitionVisitor;
+import com.tsioni.balloonadventure.actors.api.SquareWallEntity;
 import com.tsioni.balloonadventure.actors.api.SquareWallEntityDefinition;
+import com.tsioni.balloonadventure.actors.api.WindEntity;
 import com.tsioni.balloonadventure.actors.api.WindEntityDefinition;
 import com.tsioni.balloonadventure.actors.contact.api.ContactListenerFactory;
 import com.tsioni.balloonadventure.actors.contact.api.ContactListenerMultiplexer;
@@ -65,7 +68,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         body.createFixture(fixtureDef);
 
         final BalloonEntity balloonEntity =
-            new BalloonEntity(body, balloonEntityDefinition.getLayerId());
+            new BalloonEntityImpl(body, balloonEntityDefinition.getLayerId());
 
         body.setUserData(balloonEntity);
 
@@ -101,7 +104,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final Body body = world.createBody(bodyDef);
 
         final SquareWallEntity squareWallEntity =
-            new SquareWallEntity(body, squareWallEntityDefinition.getLayerId());
+            new SquareWallEntityImpl(body, squareWallEntityDefinition.getLayerId());
 
         body.createFixture(fixtureDef);
         body.setUserData(squareWallEntity);
@@ -137,7 +140,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         body.createFixture(fixtureDef);
 
-        final WindEntity windEntity = new WindEntity(body, windEntityDefinition.getLayerId());
+        final WindEntity windEntity = new WindEntityImpl(body, windEntityDefinition.getLayerId());
 
         body.setUserData(windEntity);
         stage.addActor(windEntity.getActor().get());

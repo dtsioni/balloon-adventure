@@ -24,11 +24,11 @@ class ContactListenerFactoryImpl implements ContactListenerFactory
 
                 if (entityA == contactSubject)
                 {
-                    contactSubject.getEntityContactHandler().beginContact(entityB);
+                    entityB.hostVisitor(entityA.getEntityContactBeginVisitor());
                 }
                 else if (entityB == contactSubject)
                 {
-                    contactSubject.getEntityContactHandler().beginContact(entityA);
+                    entityA.hostVisitor(entityB.getEntityContactBeginVisitor());
                 }
             }
 
@@ -41,11 +41,11 @@ class ContactListenerFactoryImpl implements ContactListenerFactory
 
                 if (entityA == contactSubject)
                 {
-                    contactSubject.getEntityContactHandler().endContact(entityB);
+                    entityB.hostVisitor(entityA.getEntityContactEndVisitor());
                 }
                 else if (entityB == contactSubject)
                 {
-                    contactSubject.getEntityContactHandler().endContact(entityA);
+                    entityA.hostVisitor(entityB.getEntityContactEndVisitor());
                 }
             }
 
