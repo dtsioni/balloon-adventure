@@ -19,6 +19,6 @@ class BalloonAdventure extends Game
     @Override
     public void create()
     {
-        this.setScreen(screenFactory.createLevelLoadingScreen(new LevelId("1")));
+        this.setScreen(screenFactory.createLevelLoadingScreen(new LevelId("test1")));
     }
 }

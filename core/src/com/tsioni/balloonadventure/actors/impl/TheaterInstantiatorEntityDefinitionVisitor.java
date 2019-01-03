@@ -85,7 +85,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final float density = 0f;
         final float friction = 0f;
         final float restitution = 0f;
-        final float width = 5;
+        final float width = 16;
         final BodyDef.BodyType bodyType = BodyDef.BodyType.StaticBody;
 
         bodyDef.type = bodyType;
