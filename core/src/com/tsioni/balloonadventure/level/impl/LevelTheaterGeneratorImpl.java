@@ -14,17 +14,22 @@ import com.tsioni.balloonadventure.entity.api.TheaterInstantiatorFactory;
 import com.tsioni.balloonadventure.level.api.LevelInitialState;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 import com.tsioni.balloonadventure.level.api.LevelTheaterGenerator;
+import com.tsioni.balloonadventure.level.state.api.LevelGameState;
+import com.tsioni.balloonadventure.level.state.api.LevelGameStateFactory;
 import com.tsioni.balloonadventure.stage.impl.StageInputProcessorImpl;
 
 public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 {
     private final TheaterInstantiatorFactory theaterInstantiatorFactory;
+    private final LevelGameStateFactory levelGameStateFactory;
 
     @Inject
     LevelTheaterGeneratorImpl(
-        final TheaterInstantiatorFactory theaterInstantiatorFactory)
+        final TheaterInstantiatorFactory theaterInstantiatorFactory,
+        final LevelGameStateFactory levelGameStateFactory)
     {
         this.theaterInstantiatorFactory = theaterInstantiatorFactory;
+        this.levelGameStateFactory = levelGameStateFactory;
     }
 
     @Override
@@ -46,14 +51,16 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 
         final World world = new World(new Vector2(0, -100), false);
 
+        final LevelGameState levelGameState = levelGameStateFactory.createLevelGameState();
+
         final EntityDefinitionVisitor theaterInstantiator =
-            theaterInstantiatorFactory.createTheaterInstantiator(world, stage);
+            theaterInstantiatorFactory.createTheaterInstantiator(world, stage, levelGameState);
 
         for (final EntityDefinition entityDefinition : levelInitialState.getEntityDefinitions())
         {
             entityDefinition.hostVisitor(theaterInstantiator);
         }
 
-        return new LevelTheaterImpl(stage, world);
+        return new LevelTheaterImpl(stage, world, levelGameState);
     }
 }

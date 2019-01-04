@@ -13,12 +13,14 @@ import com.tsioni.balloonadventure.entity.api.WindEntity;
 import com.tsioni.balloonadventure.entity.api.WindEntityDefinition;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerFactory;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerMultiplexer;
+import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisitor
 {
     private final World world;
     private final Stage stage;
     private final ContactListenerFactory contactListenerFactory;
+    private final LevelGameState levelGameState;
 
     /**
      * This contact listener will multiplex all the contact listeners from the Entities being added
@@ -30,11 +32,13 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     TheaterInstantiatorEntityDefinitionVisitor(
         @Assisted final World world,
         @Assisted final Stage stage,
-        final ContactListenerFactory contactListenerFactory)
+        final ContactListenerFactory contactListenerFactory,
+        @Assisted final LevelGameState levelGameState)
     {
         this.world = world;
         this.stage = stage;
         this.contactListenerFactory = contactListenerFactory;
+        this.levelGameState = levelGameState;
     }
 
     @Override

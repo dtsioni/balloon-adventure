@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
+import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 class LevelTheaterScreen implements Screen
 {
@@ -30,6 +31,14 @@ class LevelTheaterScreen implements Screen
     {
         levelTheater.getSteppable().step(delta);
         levelTheater.getDrawable().draw();
+
+        final LevelGameState levelGameState = levelTheater.getLevelGameState();
+
+        if (levelGameState.playerHasWon())
+        {
+            Debug.out.println("You win.");
+            levelGameState.setPlayerHasWon(false);
+        }
 
         debug.draw();
     }

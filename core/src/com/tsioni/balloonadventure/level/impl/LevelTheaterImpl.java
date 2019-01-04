@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.Steppable;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
+import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 public class LevelTheaterImpl implements LevelTheater
 {
@@ -18,14 +19,19 @@ public class LevelTheaterImpl implements LevelTheater
 
     private final Stage stage;
     private final World world;
+    private final LevelGameState levelGameState;
 
     private Matrix4 debugMatrix;
     private Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
-    LevelTheaterImpl(final Stage stage, final World world)
+    LevelTheaterImpl(
+        final Stage stage,
+        final World world,
+        final LevelGameState levelGameState)
     {
         this.stage = stage;
         this.world = world;
+        this.levelGameState = levelGameState;
     }
 
     @Override
@@ -56,5 +62,11 @@ public class LevelTheaterImpl implements LevelTheater
                 stage.act(delta);
             }
         };
+    }
+
+    @Override
+    public LevelGameState getLevelGameState()
+    {
+        return levelGameState;
     }
 }
