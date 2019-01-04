@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.google.inject.Inject;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.api.*;
 
 import java.util.ArrayList;
@@ -61,6 +62,11 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
                 if(EntityIds.WIND.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId));
+                }
+
+                if(EntityIds.GOAL.equals(entityId))
+                {
+                    entityDefinitions.add(entityDefinitionFactory.createGoalEntityDef(entityX, entityY, entityLayerId));
                 }
             }
         }

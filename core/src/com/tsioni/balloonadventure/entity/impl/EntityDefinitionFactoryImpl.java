@@ -22,4 +22,10 @@ public class EntityDefinitionFactoryImpl implements EntityDefinitionFactory
     {
         return new WindEntityDefinitionImpl(x, y, layerId);
     }
+
+    @Override
+    public EntityDefinition createGoalEntityDef(final int x, final int y, final int layerId)
+    {
+        return new GoalEntityDefinitionImpl(x, y, layerId);
+    }
 }

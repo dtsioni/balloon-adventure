@@ -7,4 +7,6 @@ public interface EntityVisitor
     void visit(SquareWallEntity squareWallEntity);
 
     void visit(WindEntity windEntity);
+
+    void visit(GoalEntity goalEntity);
 }

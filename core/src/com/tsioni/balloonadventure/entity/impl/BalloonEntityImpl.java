@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
+import com.tsioni.balloonadventure.entity.api.GoalEntity;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 class BalloonEntityImpl implements BalloonEntity
@@ -32,7 +34,14 @@ class BalloonEntityImpl implements BalloonEntity
     @Override
     public EntityVisitor getEntityContactBeginVisitor()
     {
-        return new AbstractBaseEntityVisitor(){};
+        return new AbstractBaseEntityVisitor()
+        {
+            @Override
+            public void visit(final GoalEntity goalEntity)
+            {
+                goalEntity.collect();
+            }
+        };
     }
 
     @Override

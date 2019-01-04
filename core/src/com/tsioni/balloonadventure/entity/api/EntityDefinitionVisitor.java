@@ -10,4 +10,6 @@ public interface EntityDefinitionVisitor
     void visit(SquareWallEntityDefinition squareWallEntityDefinition);
 
     void visit(WindEntityDefinition windEntityDefinition);
+
+    void visit(GoalEntityDefinition goalEntityDefinition);
 }

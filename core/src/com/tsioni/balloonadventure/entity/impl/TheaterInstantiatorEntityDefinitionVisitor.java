@@ -7,6 +7,8 @@ import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
 import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
+import com.tsioni.balloonadventure.entity.api.GoalEntity;
+import com.tsioni.balloonadventure.entity.api.GoalEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.SquareWallEntity;
 import com.tsioni.balloonadventure.entity.api.SquareWallEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.WindEntity;
@@ -76,6 +78,9 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         body.setUserData(balloonEntity);
 
         stage.addActor(balloonEntity.getActor().get());
+
+        registerNewContactListener(contactListenerFactory
+            .createEntityContactListener(balloonEntity));
     }
 
     @Override
@@ -148,6 +153,40 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         stage.addActor(windEntity.getActor().get());
 
         registerNewContactListener(contactListenerFactory.createEntityContactListener(windEntity));
+    }
+
+    @Override
+    public void visit(final GoalEntityDefinition goalEntityDefinition)
+    {
+        final BodyDef bodyDef = new BodyDef();
+        final FixtureDef fixtureDef = new FixtureDef();
+        final PolygonShape shape = new PolygonShape();
+        final boolean isSensor = true;
+        final float density = 0f;
+        final float friction = 0f;
+        final float restitution = 0f;
+        final float width = 5;
+        final BodyDef.BodyType bodyType = BodyDef.BodyType.KinematicBody;
+
+        bodyDef.type = bodyType;
+        bodyDef.position.set(goalEntityDefinition.getX(), goalEntityDefinition.getY());
+        bodyDef.fixedRotation = true;
+
+        shape.setAsBox(width, width);
+
+        fixtureDef.shape = shape;
+        fixtureDef.density = density;
+        fixtureDef.friction = friction;
+        fixtureDef.restitution = restitution;
+        fixtureDef.isSensor = isSensor;
+
+        final Body body = world.createBody(bodyDef);
+
+        body.createFixture(fixtureDef);
+
+        final GoalEntity goalEntity = new GoalEntityImpl(levelGameState);
+
+        body.setUserData(goalEntity);
     }
 
     private void registerNewContactListener(
