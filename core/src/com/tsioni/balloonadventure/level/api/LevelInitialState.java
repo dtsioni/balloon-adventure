@@ -1,6 +1,6 @@
 package com.tsioni.balloonadventure.level.api;
 
-import com.tsioni.balloonadventure.actors.api.EntityDefinition;
+import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 
 import java.util.List;
 

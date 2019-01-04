@@ -1,8 +1,8 @@
 package com.tsioni.balloonadventure.level.impl;
 
 import com.google.inject.Inject;
-import com.tsioni.balloonadventure.actors.api.EntityDefinition;
-import com.tsioni.balloonadventure.actors.api.EntityDefinitionLoader;
+import com.tsioni.balloonadventure.entity.api.EntityDefinition;
+import com.tsioni.balloonadventure.entity.api.EntityDefinitionLoader;
 import com.tsioni.balloonadventure.level.api.LevelId;
 import com.tsioni.balloonadventure.level.api.LevelInitialState;
 import com.tsioni.balloonadventure.level.api.LevelInitialStateFetcher;
