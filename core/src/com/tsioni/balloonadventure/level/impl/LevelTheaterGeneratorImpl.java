@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.google.inject.Inject;
+import com.tsioni.balloonadventure.entity.api.Entity;
 import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.TheaterInstantiatorFactory;
@@ -17,6 +18,9 @@ import com.tsioni.balloonadventure.level.api.LevelTheaterGenerator;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.level.state.api.LevelGameStateFactory;
 import com.tsioni.balloonadventure.stage.impl.StageInputProcessorImpl;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 {
@@ -53,14 +57,19 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 
         final LevelGameState levelGameState = levelGameStateFactory.createLevelGameState();
 
+        final Map<EntityDefinition, Entity> entityDefinitionMap =
+            new HashMap<EntityDefinition, Entity>();
+
         final EntityDefinitionVisitor theaterInstantiator =
-            theaterInstantiatorFactory.createTheaterInstantiator(world, stage, levelGameState);
+            theaterInstantiatorFactory.createTheaterInstantiator(
+                world, stage, levelGameState, entityDefinitionMap);
 
         for (final EntityDefinition entityDefinition : levelInitialState.getEntityDefinitions())
         {
             entityDefinition.hostVisitor(theaterInstantiator);
         }
 
-        return new LevelTheaterImpl(stage, world, levelGameState);
+        return new LevelTheaterImpl(stage, world, levelGameState, levelInitialState,
+            entityDefinitionMap);
     }
 }

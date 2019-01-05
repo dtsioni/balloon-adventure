@@ -7,8 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.debug.Debug;
+import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
+import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
+import com.tsioni.balloonadventure.entity.api.EntityDefinition;
+import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
 import com.tsioni.balloonadventure.util.api.Optional;
@@ -48,6 +52,19 @@ class BalloonEntityImpl implements BalloonEntity
     public EntityVisitor getEntityContactEndVisitor()
     {
         return new AbstractBaseEntityVisitor(){};
+    }
+
+    @Override
+    public EntityDefinitionVisitor getEntityDefinitionStateSetterVisitor()
+    {
+        return new AbstractBaseEntityDefinitionVisitor()
+        {
+            @Override
+            public void visit(final BalloonEntityDefinition balloonEntityDefinition)
+            {
+                Debug.out.println("Set the balloon state.");
+            }
+        };
     }
 
     @Override

@@ -23,4 +23,9 @@ public interface LevelTheater
      * @return Get the current game state for the level.
      */
     LevelGameState getLevelGameState();
+
+    /**
+     * Set the level back to it's initial state.
+     */
+    void restartLevel();
 }

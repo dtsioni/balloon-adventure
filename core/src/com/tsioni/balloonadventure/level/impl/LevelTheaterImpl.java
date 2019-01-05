@@ -8,8 +8,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.Steppable;
+import com.tsioni.balloonadventure.debug.Debug;
+import com.tsioni.balloonadventure.entity.api.Entity;
+import com.tsioni.balloonadventure.entity.api.EntityDefinition;
+import com.tsioni.balloonadventure.level.api.LevelInitialState;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
+
+import java.util.Map;
 
 public class LevelTheaterImpl implements LevelTheater
 {
@@ -20,6 +26,8 @@ public class LevelTheaterImpl implements LevelTheater
     private final Stage stage;
     private final World world;
     private final LevelGameState levelGameState;
+    private final LevelInitialState levelInitialState;
+    private final Map<EntityDefinition, Entity> entityDefinitionMap;
 
     private Matrix4 debugMatrix;
     private Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
@@ -27,11 +35,15 @@ public class LevelTheaterImpl implements LevelTheater
     LevelTheaterImpl(
         final Stage stage,
         final World world,
-        final LevelGameState levelGameState)
+        final LevelGameState levelGameState,
+        final LevelInitialState levelInitialState,
+        final Map<EntityDefinition, Entity> entityDefinitionMap)
     {
         this.stage = stage;
         this.world = world;
         this.levelGameState = levelGameState;
+        this.levelInitialState = levelInitialState;
+        this.entityDefinitionMap = entityDefinitionMap;
     }
 
     @Override
@@ -68,5 +80,20 @@ public class LevelTheaterImpl implements LevelTheater
     public LevelGameState getLevelGameState()
     {
         return levelGameState;
+    }
+
+    @Override
+    public void restartLevel()
+    {
+        Debug.out.println("Restarting the level");
+
+        levelGameState.reset();
+
+        for (final EntityDefinition entityDefinition : levelInitialState.getEntityDefinitions())
+        {
+            final Entity entity = entityDefinitionMap.get(entityDefinition);
+
+            entityDefinition.hostVisitor(entity.getEntityDefinitionStateSetterVisitor());
+        }
     }
 }

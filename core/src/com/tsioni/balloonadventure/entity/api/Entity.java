@@ -19,4 +19,11 @@ public interface Entity extends EntityVisitorHost
      * This visitor will handle the end of contact with another Entity.
      */
     EntityVisitor getEntityContactEndVisitor();
+
+    /**
+     * This visitor will handle setting this Entity's state based on it's Entity definition. This
+     * visitor should only visit the Entity definition which corresponds to the concrete Entity's
+     * type.
+     */
+    EntityDefinitionVisitor getEntityDefinitionStateSetterVisitor();
 }

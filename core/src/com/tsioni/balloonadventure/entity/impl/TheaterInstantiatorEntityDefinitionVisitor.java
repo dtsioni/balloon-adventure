@@ -7,6 +7,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
 import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.Entity;
+import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
 import com.tsioni.balloonadventure.entity.api.GoalEntityDefinition;
@@ -19,6 +20,8 @@ import com.tsioni.balloonadventure.entity.contact.api.ContactListenerFactory;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerMultiplexer;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
+import java.util.Map;
+
 class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisitor
 {
     private final World world;
@@ -26,6 +29,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     private final ContactListenerFactory contactListenerFactory;
     private final LevelGameState levelGameState;
     private final BodyFactory bodyFactory;
+    private final Map<EntityDefinition, Entity> entityDefinitionMap;
 
     /**
      * This contact listener will multiplex all the contact listeners from the Entities being added
@@ -39,13 +43,15 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         @Assisted final Stage stage,
         final ContactListenerFactory contactListenerFactory,
         @Assisted final LevelGameState levelGameState,
-        final BodyFactory bodyFactory)
+        final BodyFactory bodyFactory,
+        @Assisted final Map<EntityDefinition, Entity> entityDefinitionMap)
     {
         this.world = world;
         this.stage = stage;
         this.contactListenerFactory = contactListenerFactory;
         this.levelGameState = levelGameState;
         this.bodyFactory = bodyFactory;
+        this.entityDefinitionMap = entityDefinitionMap;
     }
 
     @Override
@@ -65,7 +71,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final BalloonEntity balloonEntity = new BalloonEntityImpl(body);
 
-        finalizeNewEntity(balloonEntity, body);
+        finalizeNewEntity(balloonEntity, balloonEntityDefinition, body);
     }
 
     @Override
@@ -85,7 +91,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final SquareWallEntity squareWallEntity = new SquareWallEntityImpl();
 
-        finalizeNewEntity(squareWallEntity, body);
+        finalizeNewEntity(squareWallEntity, squareWallEntityDefinition, body);
     }
 
     @Override
@@ -105,7 +111,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final WindEntity windEntity = new WindEntityImpl();
 
-        finalizeNewEntity(windEntity, body);
+        finalizeNewEntity(windEntity, windEntityDefinition, body);
     }
 
     @Override
@@ -124,7 +130,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final GoalEntity goalEntity = new GoalEntityImpl(levelGameState);
 
-        finalizeNewEntity(goalEntity, body);
+        finalizeNewEntity(goalEntity, goalEntityDefinition, body);
     }
 
     /**
@@ -132,8 +138,11 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
      */
     private void finalizeNewEntity(
         final Entity entity,
+        final EntityDefinition entityDefinition,
         final Body body)
     {
+        entityDefinitionMap.put(entityDefinition, entity);
+
         body.setUserData(entity);
 
         if (entity.getActor().isPresent())

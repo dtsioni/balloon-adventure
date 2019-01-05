@@ -2,11 +2,14 @@ package com.tsioni.balloonadventure.entity.impl;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
+import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
 import com.tsioni.balloonadventure.entity.api.WindEntity;
 import com.tsioni.balloonadventure.debug.Debug;
+import com.tsioni.balloonadventure.entity.api.WindEntityDefinition;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 class WindEntityImpl implements WindEntity
@@ -54,6 +57,19 @@ class WindEntityImpl implements WindEntity
                 Debug.out.println("Wind end contact with: " + balloonEntity);
 
                 blowingBalloon = Optional.empty();
+            }
+        };
+    }
+
+    @Override
+    public EntityDefinitionVisitor getEntityDefinitionStateSetterVisitor()
+    {
+        return new AbstractBaseEntityDefinitionVisitor()
+        {
+            @Override
+            public void visit(final WindEntityDefinition windEntityDefinition)
+            {
+                Debug.out.println("Set the wind state.");
             }
         };
     }

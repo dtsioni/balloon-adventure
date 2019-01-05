@@ -23,12 +23,15 @@ class LevelInitialStateFetcherImpl implements LevelInitialStateFetcher
     @Override
     public LevelInitialState fetchLevelInitialState(final LevelId levelId)
     {
+        final List<EntityDefinition> entityDefinitions =
+            entityDefinitionLoader.loadEntityDefinitions(levelId);
+
         return new LevelInitialState()
         {
             @Override
             public List<EntityDefinition> getEntityDefinitions()
             {
-                return entityDefinitionLoader.loadEntityDefinitions(levelId);
+                return entityDefinitions;
             }
         };
     }

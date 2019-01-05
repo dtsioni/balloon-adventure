@@ -1,5 +1,7 @@
 package com.tsioni.balloonadventure.screen.impl;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -34,10 +36,10 @@ class LevelTheaterScreen implements Screen
 
         final LevelGameState levelGameState = levelTheater.getLevelGameState();
 
-        if (levelGameState.playerHasWon())
+        if (levelGameState.playerHasWon() || Gdx.input.isKeyPressed(Input.Keys.W))
         {
             Debug.out.println("You win.");
-            levelGameState.reset();
+            levelTheater.restartLevel();
         }
 
         debug.draw();

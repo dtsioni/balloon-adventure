@@ -13,7 +13,7 @@ public interface LevelGameState
     void playerCollectedAGoal();
 
     /**
-     * Resets the game state. This should only be used for debug purposes.
+     * Resets the game state.
      */
     void reset();
 }
