@@ -37,7 +37,7 @@ class LevelTheaterScreen implements Screen
         if (levelGameState.playerHasWon())
         {
             Debug.out.println("You win.");
-            levelGameState.setPlayerHasWon(false);
+            levelGameState.reset();
         }
 
         debug.draw();

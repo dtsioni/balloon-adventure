@@ -13,8 +13,14 @@ class LevelGameStateImpl implements LevelGameState
     }
 
     @Override
-    public void setPlayerHasWon(final boolean playerHasWon)
+    public void playerCollectedAGoal()
     {
-        this.playerHasWon = playerHasWon;
+        playerHasWon = true;
+    }
+
+    @Override
+    public void reset()
+    {
+        playerHasWon = false;
     }
 }

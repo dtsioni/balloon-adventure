@@ -20,7 +20,7 @@ class GoalEntityImpl implements GoalEntity
     @Override
     public void collect()
     {
-        levelGameState.setPlayerHasWon(true);
+        levelGameState.playerCollectedAGoal();
     }
 
     @Override

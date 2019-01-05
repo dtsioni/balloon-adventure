@@ -10,8 +10,10 @@ public interface LevelGameState
      */
     boolean playerHasWon();
 
+    void playerCollectedAGoal();
+
     /**
-     * Set whether or not the player has won.
+     * Resets the game state. This should only be used for debug purposes.
      */
-    void setPlayerHasWon(boolean playerHasWon);
+    void reset();
 }
