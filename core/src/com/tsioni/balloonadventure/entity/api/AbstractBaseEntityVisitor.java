@@ -25,4 +25,10 @@ public abstract class AbstractBaseEntityVisitor implements EntityVisitor
     {
 
     }
+
+    @Override
+    public void visit(final DeathEntity deathEntity)
+    {
+
+    }
 }

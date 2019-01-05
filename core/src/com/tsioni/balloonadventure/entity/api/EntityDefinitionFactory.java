@@ -9,4 +9,5 @@ public interface EntityDefinitionFactory
     EntityDefinition createSquareWallEntityDef(int x, int y, int layerId);
     EntityDefinition createWindEntityDef(int x, int y, int layerId);
     EntityDefinition createGoalEntityDef(int x, int y, int layerId);
+    EntityDefinition createDeathEntityDef(int x, int y, int layerId);
 }

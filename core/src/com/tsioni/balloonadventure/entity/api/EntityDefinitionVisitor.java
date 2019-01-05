@@ -1,8 +1,5 @@
 package com.tsioni.balloonadventure.entity.api;
 
-/**
- * A visitor for creating entities based on different entity definitions.
- */
 public interface EntityDefinitionVisitor
 {
     void visit(BalloonEntityDefinition balloonEntityDefinition);
@@ -12,4 +9,6 @@ public interface EntityDefinitionVisitor
     void visit(WindEntityDefinition windEntityDefinition);
 
     void visit(GoalEntityDefinition goalEntityDefinition);
+
+    void visit(DeathEntityDefinition deathEntityDefinition);
 }

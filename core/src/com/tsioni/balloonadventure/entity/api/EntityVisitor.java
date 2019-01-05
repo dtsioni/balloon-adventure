@@ -9,4 +9,6 @@ public interface EntityVisitor
     void visit(WindEntity windEntity);
 
     void visit(GoalEntity goalEntity);
+
+    void visit(DeathEntity deathEntity);
 }

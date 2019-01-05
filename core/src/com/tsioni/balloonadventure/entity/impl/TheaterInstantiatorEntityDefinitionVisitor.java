@@ -6,6 +6,8 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
 import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
+import com.tsioni.balloonadventure.entity.api.DeathEntity;
+import com.tsioni.balloonadventure.entity.api.DeathEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.Entity;
 import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
@@ -123,6 +125,23 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final GoalEntity goalEntity = new GoalEntityImpl(body, levelGameState, false);
 
         finalizeNewEntity(goalEntity, goalEntityDefinition, body);
+    }
+
+    @Override
+    public void visit(final DeathEntityDefinition deathEntityDefinition)
+    {
+        final Body body = bodyFactory.createCircleShapeBody(
+            world,
+            true,
+            0f,
+            0f,
+            0f,
+            10,
+            BodyDef.BodyType.KinematicBody);
+
+        final DeathEntity deathEntity = new DeathEntityImpl(body);
+
+        finalizeNewEntity(deathEntity, deathEntityDefinition, body);
     }
 
     /**
