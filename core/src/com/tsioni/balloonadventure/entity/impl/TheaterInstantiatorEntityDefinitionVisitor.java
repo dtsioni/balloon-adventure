@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
 import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
+import com.tsioni.balloonadventure.entity.api.Entity;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
 import com.tsioni.balloonadventure.entity.api.GoalEntityDefinition;
@@ -64,12 +65,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final BalloonEntity balloonEntity = new BalloonEntityImpl(body);
 
-        body.setUserData(balloonEntity);
-
-        stage.addActor(balloonEntity.getActor().get());
-
-        registerNewContactListener(contactListenerFactory
-            .createEntityContactListener(balloonEntity));
+        finalizeNewEntity(balloonEntity, body);
     }
 
     @Override
@@ -89,7 +85,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final SquareWallEntity squareWallEntity = new SquareWallEntityImpl();
 
-        body.setUserData(squareWallEntity);
+        finalizeNewEntity(squareWallEntity, body);
     }
 
     @Override
@@ -109,11 +105,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final WindEntity windEntity = new WindEntityImpl();
 
-        body.setUserData(windEntity);
-
-        stage.addActor(windEntity.getActor().get());
-
-        registerNewContactListener(contactListenerFactory.createEntityContactListener(windEntity));
+        finalizeNewEntity(windEntity, body);
     }
 
     @Override
@@ -132,7 +124,24 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
 
         final GoalEntity goalEntity = new GoalEntityImpl(levelGameState);
 
-        body.setUserData(goalEntity);
+        finalizeNewEntity(goalEntity, body);
+    }
+
+    /**
+     * These are the actions required for all new entities to be properly seated in the world/stage.
+     */
+    private void finalizeNewEntity(
+        final Entity entity,
+        final Body body)
+    {
+        body.setUserData(entity);
+
+        if (entity.getActor().isPresent())
+        {
+            stage.addActor(entity.getActor().get());
+        }
+
+        registerNewContactListener(contactListenerFactory.createEntityContactListener(entity));
     }
 
     private void registerNewContactListener(
