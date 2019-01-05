@@ -65,9 +65,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             10,
-            BodyDef.BodyType.DynamicBody,
-            balloonEntityDefinition.getX(),
-            balloonEntityDefinition.getY());
+            BodyDef.BodyType.DynamicBody);
 
         final BalloonEntity balloonEntity = new BalloonEntityImpl(body);
 
@@ -85,9 +83,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             16,
-            BodyDef.BodyType.StaticBody,
-            squareWallEntityDefinition.getX(),
-            squareWallEntityDefinition.getY());
+            BodyDef.BodyType.StaticBody);
 
         final SquareWallEntity squareWallEntity = new SquareWallEntityImpl(body);
 
@@ -105,9 +101,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             5,
-            BodyDef.BodyType.KinematicBody,
-            windEntityDefinition.getX(),
-            windEntityDefinition.getY());
+            BodyDef.BodyType.KinematicBody);
 
         final WindEntity windEntity = new WindEntityImpl(body);
 
@@ -124,9 +118,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             5,
-            BodyDef.BodyType.KinematicBody,
-            goalEntityDefinition.getX(),
-            goalEntityDefinition.getY());
+            BodyDef.BodyType.KinematicBody);
 
         final GoalEntity goalEntity = new GoalEntityImpl(body, levelGameState, false);
 
@@ -142,6 +134,8 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final Body body)
     {
         entityDefinitionMap.put(entityDefinition, entity);
+
+        entityDefinition.hostVisitor(entity.getEntityDefinitionStateSetterVisitor());
 
         body.setUserData(entity);
 

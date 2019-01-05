@@ -18,16 +18,13 @@ class BodyFactoryImpl implements BodyFactory
         float friction,
         float restitution,
         float width,
-        BodyDef.BodyType bodyType,
-        int x,
-        int y)
+        BodyDef.BodyType bodyType)
     {
         final BodyDef bodyDef = new BodyDef();
         final FixtureDef fixtureDef = new FixtureDef();
         final CircleShape shape = new CircleShape();
 
         bodyDef.type = bodyType;
-        bodyDef.position.set(x, y);
         bodyDef.fixedRotation = true;
 
         shape.setRadius(width/2f);
@@ -53,16 +50,13 @@ class BodyFactoryImpl implements BodyFactory
         final float friction,
         final float restitution,
         final float width,
-        final BodyDef.BodyType bodyType,
-        final int x,
-        final int y)
+        final BodyDef.BodyType bodyType)
     {
         final BodyDef bodyDef = new BodyDef();
         final FixtureDef fixtureDef = new FixtureDef();
         final PolygonShape shape = new PolygonShape();
 
         bodyDef.type = bodyType;
-        bodyDef.position.set(x, y);
         bodyDef.fixedRotation = true;
 
         shape.setAsBox(width, width);

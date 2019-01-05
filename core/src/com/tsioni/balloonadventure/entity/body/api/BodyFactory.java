@@ -19,9 +19,7 @@ public interface BodyFactory
         float friction,
         float restitution,
         float width,
-        BodyDef.BodyType bodyType,
-        int x,
-        int y);
+        BodyDef.BodyType bodyType);
 
     /**
      * @param isSensor A sensor can sense collisions with other bodies but won't stop their
@@ -37,7 +35,5 @@ public interface BodyFactory
         float friction,
         float restitution,
         float width,
-        BodyDef.BodyType bodyType,
-        int x,
-        int y);
+        BodyDef.BodyType bodyType);
 }
