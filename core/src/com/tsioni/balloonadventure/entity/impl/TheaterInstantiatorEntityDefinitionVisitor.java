@@ -13,6 +13,7 @@ import com.tsioni.balloonadventure.entity.api.SquareWallEntity;
 import com.tsioni.balloonadventure.entity.api.SquareWallEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.WindEntity;
 import com.tsioni.balloonadventure.entity.api.WindEntityDefinition;
+import com.tsioni.balloonadventure.entity.body.api.BodyFactory;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerFactory;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerMultiplexer;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
@@ -23,6 +24,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     private final Stage stage;
     private final ContactListenerFactory contactListenerFactory;
     private final LevelGameState levelGameState;
+    private final BodyFactory bodyFactory;
 
     /**
      * This contact listener will multiplex all the contact listeners from the Entities being added
@@ -35,43 +37,30 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         @Assisted final World world,
         @Assisted final Stage stage,
         final ContactListenerFactory contactListenerFactory,
-        @Assisted final LevelGameState levelGameState)
+        @Assisted final LevelGameState levelGameState,
+        final BodyFactory bodyFactory)
     {
         this.world = world;
         this.stage = stage;
         this.contactListenerFactory = contactListenerFactory;
         this.levelGameState = levelGameState;
+        this.bodyFactory = bodyFactory;
     }
 
     @Override
     public void visit(
         final BalloonEntityDefinition balloonEntityDefinition)
     {
-        final BodyDef bodyDef = new BodyDef();
-        final FixtureDef fixtureDef = new FixtureDef();
-        final CircleShape shape = new CircleShape();
-        final boolean isSensor = false;
-        final float density = 0f;
-        final float friction = 0f;
-        final float restitution = 0f;
-        final float width = 10;
-        final BodyDef.BodyType bodyType = BodyDef.BodyType.DynamicBody;
-
-        bodyDef.type = bodyType;
-        bodyDef.position.set(balloonEntityDefinition.getX(), balloonEntityDefinition.getY());
-        bodyDef.fixedRotation = true;
-
-        shape.setRadius(width/2f);
-
-        fixtureDef.shape = shape;
-        fixtureDef.density = density;
-        fixtureDef.friction = friction;
-        fixtureDef.restitution = restitution;
-        fixtureDef.isSensor = isSensor;
-
-        final Body body = world.createBody(bodyDef);
-
-        body.createFixture(fixtureDef);
+        final Body body = bodyFactory.createCircleShapeBody(
+            world,
+            false,
+            0f,
+            0f,
+            0f,
+            10,
+            BodyDef.BodyType.DynamicBody,
+            balloonEntityDefinition.getX(),
+            balloonEntityDefinition.getY());
 
         final BalloonEntity balloonEntity = new BalloonEntityImpl(body);
 
@@ -87,33 +76,19 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     public void visit(
         final SquareWallEntityDefinition squareWallEntityDefinition)
     {
-        final BodyDef bodyDef = new BodyDef();
-        final FixtureDef fixtureDef = new FixtureDef();
-        final PolygonShape shape = new PolygonShape();
-        final boolean isSensor = false;
-        final float density = 0f;
-        final float friction = 0f;
-        final float restitution = 0f;
-        final float width = 16;
-        final BodyDef.BodyType bodyType = BodyDef.BodyType.StaticBody;
-
-        bodyDef.type = bodyType;
-        bodyDef.position.set(squareWallEntityDefinition.getX(), squareWallEntityDefinition.getY());
-        bodyDef.fixedRotation = true;
-
-        shape.setAsBox(width, width);
-
-        fixtureDef.shape = shape;
-        fixtureDef.density = density;
-        fixtureDef.friction = friction;
-        fixtureDef.restitution = restitution;
-        fixtureDef.isSensor = isSensor;
-
-        final Body body = world.createBody(bodyDef);
+        final Body body = bodyFactory.createBoxShapeBody(
+            world,
+            false,
+            0f,
+            0f,
+            0f,
+            16,
+            BodyDef.BodyType.StaticBody,
+            squareWallEntityDefinition.getX(),
+            squareWallEntityDefinition.getY());
 
         final SquareWallEntity squareWallEntity = new SquareWallEntityImpl();
 
-        body.createFixture(fixtureDef);
         body.setUserData(squareWallEntity);
     }
 
@@ -121,35 +96,21 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     public void visit(
         final WindEntityDefinition windEntityDefinition)
     {
-        final BodyDef bodyDef = new BodyDef();
-        final FixtureDef fixtureDef = new FixtureDef();
-        final PolygonShape shape = new PolygonShape();
-        final boolean isSensor = true;
-        final float density = 0f;
-        final float friction = 0f;
-        final float restitution = 0f;
-        final float width = 5;
-        final BodyDef.BodyType bodyType = BodyDef.BodyType.KinematicBody;
-
-        bodyDef.type = bodyType;
-        bodyDef.position.set(windEntityDefinition.getX(), windEntityDefinition.getY());
-        bodyDef.fixedRotation = true;
-
-        shape.setAsBox(width, width);
-
-        fixtureDef.shape = shape;
-        fixtureDef.density = density;
-        fixtureDef.friction = friction;
-        fixtureDef.restitution = restitution;
-        fixtureDef.isSensor = isSensor;
-
-        final Body body = world.createBody(bodyDef);
-
-        body.createFixture(fixtureDef);
+        final Body body = bodyFactory.createBoxShapeBody(
+            world,
+            true,
+            0f,
+            0f,
+            0f,
+            5,
+            BodyDef.BodyType.KinematicBody,
+            windEntityDefinition.getX(),
+            windEntityDefinition.getY());
 
         final WindEntity windEntity = new WindEntityImpl();
 
         body.setUserData(windEntity);
+
         stage.addActor(windEntity.getActor().get());
 
         registerNewContactListener(contactListenerFactory.createEntityContactListener(windEntity));
@@ -158,31 +119,16 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     @Override
     public void visit(final GoalEntityDefinition goalEntityDefinition)
     {
-        final BodyDef bodyDef = new BodyDef();
-        final FixtureDef fixtureDef = new FixtureDef();
-        final PolygonShape shape = new PolygonShape();
-        final boolean isSensor = true;
-        final float density = 0f;
-        final float friction = 0f;
-        final float restitution = 0f;
-        final float width = 5;
-        final BodyDef.BodyType bodyType = BodyDef.BodyType.KinematicBody;
-
-        bodyDef.type = bodyType;
-        bodyDef.position.set(goalEntityDefinition.getX(), goalEntityDefinition.getY());
-        bodyDef.fixedRotation = true;
-
-        shape.setAsBox(width, width);
-
-        fixtureDef.shape = shape;
-        fixtureDef.density = density;
-        fixtureDef.friction = friction;
-        fixtureDef.restitution = restitution;
-        fixtureDef.isSensor = isSensor;
-
-        final Body body = world.createBody(bodyDef);
-
-        body.createFixture(fixtureDef);
+        final Body body = bodyFactory.createBoxShapeBody(
+            world,
+            true,
+            0f,
+            0f,
+            0f,
+            5,
+            BodyDef.BodyType.KinematicBody,
+            goalEntityDefinition.getX(),
+            goalEntityDefinition.getY());
 
         final GoalEntity goalEntity = new GoalEntityImpl(levelGameState);
 
