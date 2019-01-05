@@ -16,6 +16,11 @@
    <property name="entityId" value="WIND"/>
   </properties>
  </tile>
+ <tile id="52">
+  <properties>
+   <property name="entityId" value="DEATH"/>
+  </properties>
+ </tile>
  <tile id="53">
   <properties>
    <property name="entityId" value="BALLOON"/>
