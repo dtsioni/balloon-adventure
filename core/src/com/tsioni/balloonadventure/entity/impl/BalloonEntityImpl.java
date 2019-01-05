@@ -11,7 +11,6 @@ import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisito
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
 import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
@@ -62,7 +61,11 @@ class BalloonEntityImpl implements BalloonEntity
             @Override
             public void visit(final BalloonEntityDefinition balloonEntityDefinition)
             {
-                Debug.out.println("Set the balloon state.");
+                body.setTransform(new Vector2(
+                    balloonEntityDefinition.getX(), balloonEntityDefinition.getY()), 0);
+
+                body.setLinearVelocity(new Vector2(0, 0));
+                body.setAngularVelocity(0);
             }
         };
     }

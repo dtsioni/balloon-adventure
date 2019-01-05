@@ -9,6 +9,12 @@ class GoalEntityDefinitionImpl implements GoalEntityDefinition
     private final int y;
     private final int layerId;
 
+    /**
+     * TODO: This should be set in the constructor if we need to set a Goal entity definition where
+     * the Goal has already been collected.
+     */
+    private final boolean isCollected = false;
+
     GoalEntityDefinitionImpl(
         final int x,
         final int y,
@@ -41,5 +47,11 @@ class GoalEntityDefinitionImpl implements GoalEntityDefinition
     public void hostVisitor(final EntityDefinitionVisitor entityDefinitionVisitor)
     {
         entityDefinitionVisitor.visit(this);
+    }
+
+    @Override
+    public boolean isCollected()
+    {
+        return isCollected;
     }
 }

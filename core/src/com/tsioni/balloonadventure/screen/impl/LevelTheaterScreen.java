@@ -36,7 +36,7 @@ class LevelTheaterScreen implements Screen
 
         final LevelGameState levelGameState = levelTheater.getLevelGameState();
 
-        if (levelGameState.playerHasWon() || Gdx.input.isKeyPressed(Input.Keys.W))
+        if (levelGameState.playerHasWon() || Gdx.input.isKeyJustPressed(Input.Keys.W))
         {
             Debug.out.println("You win.");
             levelTheater.restartLevel();

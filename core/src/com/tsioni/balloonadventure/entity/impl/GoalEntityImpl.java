@@ -1,10 +1,11 @@
 package com.tsioni.balloonadventure.entity.impl;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
@@ -14,17 +15,25 @@ import com.tsioni.balloonadventure.util.api.Optional;
 
 class GoalEntityImpl implements GoalEntity
 {
+    private final Body body;
     private final LevelGameState levelGameState;
 
+    private boolean isCollected;
+
     GoalEntityImpl(
-        final LevelGameState levelGameState)
+        final Body body,
+        final LevelGameState levelGameState,
+        final boolean isCollected)
     {
+        this.body = body;
         this.levelGameState = levelGameState;
+        this.isCollected = isCollected;
     }
 
     @Override
     public void collect()
     {
+        isCollected = true;
         levelGameState.playerCollectedAGoal();
     }
 
@@ -54,7 +63,13 @@ class GoalEntityImpl implements GoalEntity
             @Override
             public void visit(final GoalEntityDefinition goalEntityDefinition)
             {
-                Debug.out.println("Set the goal state.");
+                body.setTransform(new Vector2(
+                    goalEntityDefinition.getX(), goalEntityDefinition.getY()), 0);
+
+                body.setLinearVelocity(new Vector2(0, 0));
+                body.setAngularVelocity(0);
+
+                isCollected = goalEntityDefinition.isCollected();
             }
         };
     }

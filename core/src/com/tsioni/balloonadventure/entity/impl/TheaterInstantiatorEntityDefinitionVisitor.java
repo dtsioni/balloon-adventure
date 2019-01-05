@@ -89,7 +89,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             squareWallEntityDefinition.getX(),
             squareWallEntityDefinition.getY());
 
-        final SquareWallEntity squareWallEntity = new SquareWallEntityImpl();
+        final SquareWallEntity squareWallEntity = new SquareWallEntityImpl(body);
 
         finalizeNewEntity(squareWallEntity, squareWallEntityDefinition, body);
     }
@@ -109,7 +109,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             windEntityDefinition.getX(),
             windEntityDefinition.getY());
 
-        final WindEntity windEntity = new WindEntityImpl();
+        final WindEntity windEntity = new WindEntityImpl(body);
 
         finalizeNewEntity(windEntity, windEntityDefinition, body);
     }
@@ -128,7 +128,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             goalEntityDefinition.getX(),
             goalEntityDefinition.getY());
 
-        final GoalEntity goalEntity = new GoalEntityImpl(levelGameState);
+        final GoalEntity goalEntity = new GoalEntityImpl(body, levelGameState, false);
 
         finalizeNewEntity(goalEntity, goalEntityDefinition, body);
     }

@@ -1,5 +1,7 @@
 package com.tsioni.balloonadventure.entity.impl;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
@@ -12,6 +14,14 @@ import com.tsioni.balloonadventure.util.api.Optional;
 
 class SquareWallEntityImpl implements SquareWallEntity
 {
+    private final Body body;
+
+    SquareWallEntityImpl(
+        final Body body)
+    {
+        this.body = body;
+    }
+
     @Override
     public Optional<? extends Actor> getActor()
     {
@@ -38,7 +48,11 @@ class SquareWallEntityImpl implements SquareWallEntity
             @Override
             public void visit(final SquareWallEntityDefinition squareWallEntityDefinition)
             {
-                Debug.out.println("Set the square wall state.");
+                body.setTransform(new Vector2(
+                    squareWallEntityDefinition.getX(), squareWallEntityDefinition.getY()), 0);
+
+                body.setLinearVelocity(new Vector2(0, 0));
+                body.setAngularVelocity(0);
             }
         };
     }

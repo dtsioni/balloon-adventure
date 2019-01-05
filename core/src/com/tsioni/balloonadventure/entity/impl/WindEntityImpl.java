@@ -1,6 +1,7 @@
 package com.tsioni.balloonadventure.entity.impl;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
@@ -15,13 +16,16 @@ import com.tsioni.balloonadventure.util.api.Optional;
 class WindEntityImpl implements WindEntity
 {
     private final Actor actor;
+    private final Body body;
     private final float FORCE_IMPULSE = 50;
     private final Vector2 blowVector = new Vector2(FORCE_IMPULSE, 0);
 
     private Optional<BalloonEntity> blowingBalloon = Optional.empty();
 
-    WindEntityImpl()
+    WindEntityImpl(
+        final Body body)
     {
+        this.body = body;
         this.actor = new WindActor();
     }
 
@@ -69,7 +73,13 @@ class WindEntityImpl implements WindEntity
             @Override
             public void visit(final WindEntityDefinition windEntityDefinition)
             {
-                Debug.out.println("Set the wind state.");
+                body.setTransform(new Vector2(
+                    windEntityDefinition.getX(), windEntityDefinition.getY()), 0);
+
+                body.setLinearVelocity(new Vector2(0, 0));
+                body.setAngularVelocity(0);
+
+                blowingBalloon = Optional.empty();
             }
         };
     }
