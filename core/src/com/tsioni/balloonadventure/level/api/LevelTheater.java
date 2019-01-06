@@ -5,7 +5,7 @@ import com.tsioni.balloonadventure.Steppable;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 /**
- * A playable level. A theater can be stepped through time and drawn.
+ * A playable level.
  */
 public interface LevelTheater
 {
@@ -25,7 +25,7 @@ public interface LevelTheater
     LevelGameState getLevelGameState();
 
     /**
-     * Set the level back to it's initial state.
+     * Set the level to an initial state.
      */
-    void restartLevel();
+    void setLevelState(LevelInitialState levelState);
 }

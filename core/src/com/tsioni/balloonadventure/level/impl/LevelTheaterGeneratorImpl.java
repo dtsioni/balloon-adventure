@@ -69,7 +69,6 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
             entityDefinition.hostVisitor(theaterInstantiator);
         }
 
-        return new LevelTheaterImpl(stage, world, levelGameState, levelInitialState,
-            entityDefinitionMap);
+        return new LevelTheaterImpl(stage, world, levelGameState, entityDefinitionMap);
     }
 }

@@ -26,7 +26,6 @@ public class LevelTheaterImpl implements LevelTheater
     private final Stage stage;
     private final World world;
     private final LevelGameState levelGameState;
-    private final LevelInitialState levelInitialState;
     private final Map<EntityDefinition, Entity> entityDefinitionMap;
 
     private Matrix4 debugMatrix;
@@ -36,13 +35,11 @@ public class LevelTheaterImpl implements LevelTheater
         final Stage stage,
         final World world,
         final LevelGameState levelGameState,
-        final LevelInitialState levelInitialState,
         final Map<EntityDefinition, Entity> entityDefinitionMap)
     {
         this.stage = stage;
         this.world = world;
         this.levelGameState = levelGameState;
-        this.levelInitialState = levelInitialState;
         this.entityDefinitionMap = entityDefinitionMap;
     }
 
@@ -83,8 +80,14 @@ public class LevelTheaterImpl implements LevelTheater
     }
 
     @Override
-    public void restartLevel()
+    public void setLevelState(
+        final LevelInitialState levelInitialState)
     {
+        /**
+         * TODO: Set the level game state to a specific state, if that is ever needed.
+         * TODO: Handle the case where the level initial state does not contain all the entities
+         * present in the level.
+         */
         Debug.out.println("Restarting the level");
 
         levelGameState.reset();

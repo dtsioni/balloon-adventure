@@ -3,6 +3,7 @@ package com.tsioni.balloonadventure.screen.impl;
 import com.badlogic.gdx.Screen;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.level.api.*;
 import com.tsioni.balloonadventure.screen.api.ScreenFactory;
 import com.tsioni.balloonadventure.screen.api.ScreenSetter;
@@ -10,28 +11,24 @@ import com.tsioni.balloonadventure.screen.api.ScreenSetter;
 class LevelLoadingScreen implements Screen
 {
     private final LevelId levelId;
-    private final LevelInitialStateFetcher levelInitialStateFetcher;
+    private final LevelFetcher levelFetcher;
     private final LevelTheaterGenerator levelTheaterGenerator;
     private final ScreenFactory screenFactory;
     private final ScreenSetter screenSetter;
 
-    private Screen loadedLevelTheaterScreen;
-
     @Inject
     LevelLoadingScreen(
         @Assisted final LevelId levelId,
-        final LevelInitialStateFetcher levelInitialStateFetcher,
+        final LevelFetcher levelFetcher,
         final LevelTheaterGenerator levelTheaterGenerator,
         final ScreenFactory screenFactory,
         final ScreenSetter screenSetter)
     {
         this.levelId = levelId;
-        this.levelInitialStateFetcher = levelInitialStateFetcher;
+        this.levelFetcher = levelFetcher;
         this.levelTheaterGenerator = levelTheaterGenerator;
         this.screenFactory = screenFactory;
         this.screenSetter = screenSetter;
-
-        loadedLevelTheaterScreen = null;
     }
 
     @Override
@@ -43,13 +40,17 @@ class LevelLoadingScreen implements Screen
     @Override
     public void render(final float delta)
     {
-        final LevelInitialState levelInitialState = levelInitialStateFetcher.fetchLevelInitialState(levelId);
+        Debug.out.println("Loading level " + levelId);
 
-        final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(levelInitialState);
+        final Level level = levelFetcher.fetchLevel(levelId);
 
-        loadedLevelTheaterScreen = screenFactory.createLevelTheaterScreen(levelTheater);
+        final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(
+            level.getLevelInitialState());
 
-        this.dispose();
+        final Screen loadedLevelTheaterScreen = screenFactory.createLevelTheaterScreen(
+            level, levelTheater);
+
+        screenSetter.setScreen(loadedLevelTheaterScreen);
     }
 
     @Override
@@ -79,9 +80,6 @@ class LevelLoadingScreen implements Screen
     @Override
     public void dispose()
     {
-        /**
-         * TODO: Handle the case when dispose is called before the level is loaded.
-         */
-        screenSetter.setScreen(loadedLevelTheaterScreen);
+
     }
 }
