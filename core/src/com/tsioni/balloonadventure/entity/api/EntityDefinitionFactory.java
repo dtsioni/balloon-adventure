@@ -10,4 +10,5 @@ public interface EntityDefinitionFactory
     EntityDefinition createWindEntityDef(int x, int y, int layerId);
     EntityDefinition createGoalEntityDef(int x, int y, int layerId);
     EntityDefinition createDeathEntityDef(int x, int y, int layerId);
+    EntityDefinition createMinorGoalEntityDef(int x, int y, int layerId);
 }

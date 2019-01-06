@@ -13,6 +13,7 @@ import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
+import com.tsioni.balloonadventure.entity.api.MinorGoalEntity;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.util.api.Optional;
 
@@ -46,6 +47,12 @@ class BalloonEntityImpl implements BalloonEntity
             public void visit(final GoalEntity goalEntity)
             {
                 goalEntity.collect();
+            }
+
+            @Override
+            public void visit(final MinorGoalEntity minorGoalEntity)
+            {
+                minorGoalEntity.collect();
             }
         };
     }

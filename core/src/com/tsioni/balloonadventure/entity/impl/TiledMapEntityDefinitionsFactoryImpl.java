@@ -73,6 +73,11 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
                 {
                     entityDefinitions.add(entityDefinitionFactory.createDeathEntityDef(entityX, entityY, entityLayerId));
                 }
+
+                if(EntityIds.MINOR_GOAL.equals(entityId))
+                {
+                    entityDefinitions.add(entityDefinitionFactory.createMinorGoalEntityDef(entityX, entityY, entityLayerId));
+                }
             }
         }
 

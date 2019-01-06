@@ -14,6 +14,8 @@ class LevelTheaterScreen implements Screen
     private final LevelTheater levelTheater;
     private final Debug debug;
 
+    private int numberOfMinorGoalsCollected = 0;
+
     @Inject
     public LevelTheaterScreen(
         @Assisted final LevelTheater levelTheater)
@@ -35,6 +37,14 @@ class LevelTheaterScreen implements Screen
         levelTheater.getDrawable().draw();
 
         final LevelGameState levelGameState = levelTheater.getLevelGameState();
+
+        if (numberOfMinorGoalsCollected != levelGameState.numberOfMinorGoalsCollected())
+        {
+            Debug.out.println("Number of minor goals collected: "
+                + levelGameState.numberOfMinorGoalsCollected());
+
+            numberOfMinorGoalsCollected = levelGameState.numberOfMinorGoalsCollected();
+        }
 
         if (levelGameState.playerHasWon() || Gdx.input.isKeyJustPressed(Input.Keys.W))
         {

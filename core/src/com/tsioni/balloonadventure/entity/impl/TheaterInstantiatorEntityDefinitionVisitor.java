@@ -13,6 +13,7 @@ import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
 import com.tsioni.balloonadventure.entity.api.GoalEntityDefinition;
+import com.tsioni.balloonadventure.entity.api.MinorGoalEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.SquareWallEntity;
 import com.tsioni.balloonadventure.entity.api.SquareWallEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.WindEntity;
@@ -142,6 +143,24 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final DeathEntity deathEntity = new DeathEntityImpl(body);
 
         finalizeNewEntity(deathEntity, deathEntityDefinition, body);
+    }
+
+    @Override
+    public void visit(final MinorGoalEntityDefinition minorGoalEntityDefinition)
+    {
+        final Body body = bodyFactory.createCircleShapeBody(
+            world,
+            true,
+            0f,
+            0f,
+            0f,
+            10,
+            BodyDef.BodyType.KinematicBody);
+
+        final MinorGoalEntityImpl minorGoalEntity =
+            new MinorGoalEntityImpl(body, levelGameState, false);
+
+        finalizeNewEntity(minorGoalEntity, minorGoalEntityDefinition, body);
     }
 
     /**

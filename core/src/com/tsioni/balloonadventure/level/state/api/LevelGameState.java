@@ -15,8 +15,24 @@ public interface LevelGameState
      */
     boolean playerHasLost();
 
+    /**
+     * @return the number of minor goals collected by the player.
+     */
+    int numberOfMinorGoalsCollected();
+
+    /**
+     * The state should reflect that the player collected a Goal.
+     */
     void playerCollectedAGoal();
 
+    /**
+     * The state should reflect that the player collected a Minor Goal.
+     */
+    void playerCollectedAMinorGoal();
+
+    /**
+     * The state should reflect that the player has died.
+     */
     void playerDied();
 
     /**

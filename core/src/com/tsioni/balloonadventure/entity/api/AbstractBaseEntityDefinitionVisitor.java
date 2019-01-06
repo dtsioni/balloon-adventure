@@ -31,4 +31,10 @@ public abstract class AbstractBaseEntityDefinitionVisitor implements EntityDefin
     {
 
     }
+
+    @Override
+    public void visit(final MinorGoalEntityDefinition minorGoalEntityDefinition)
+    {
+
+    }
 }

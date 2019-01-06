@@ -6,6 +6,7 @@ class LevelGameStateImpl implements LevelGameState
 {
     private boolean playerHasWon = false;
     private boolean playerHasLost = false;
+    private int numberOfMinorGoalsCollected = 0;
 
     @Override
     public boolean playerHasWon()
@@ -20,9 +21,21 @@ class LevelGameStateImpl implements LevelGameState
     }
 
     @Override
+    public int numberOfMinorGoalsCollected()
+    {
+        return numberOfMinorGoalsCollected;
+    }
+
+    @Override
     public void playerCollectedAGoal()
     {
         playerHasWon = true;
+    }
+
+    @Override
+    public void playerCollectedAMinorGoal()
+    {
+        numberOfMinorGoalsCollected++;
     }
 
     @Override
@@ -36,5 +49,6 @@ class LevelGameStateImpl implements LevelGameState
     {
         playerHasWon = false;
         playerHasLost = false;
+        numberOfMinorGoalsCollected = 0;
     }
 }

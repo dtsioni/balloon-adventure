@@ -7,4 +7,5 @@ public class EntityIds
     public static final EntityId WIND = new EntityId("WIND");
     public static final EntityId GOAL = new EntityId("GOAL");
     public static final EntityId DEATH = new EntityId("DEATH");
+    public static final EntityId MINOR_GOAL = new EntityId("MINOR_GOAL");
 }
