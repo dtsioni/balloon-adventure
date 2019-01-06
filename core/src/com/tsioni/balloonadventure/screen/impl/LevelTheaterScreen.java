@@ -41,6 +41,11 @@ class LevelTheaterScreen implements Screen
             Debug.out.println("You win.");
             levelTheater.restartLevel();
         }
+        else if (levelGameState.playerHasLost() || Gdx.input.isKeyJustPressed(Input.Keys.L))
+        {
+            Debug.out.println("You lose.");
+            levelTheater.restartLevel();
+        }
 
         debug.draw();
     }

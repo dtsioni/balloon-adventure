@@ -69,7 +69,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             10,
             BodyDef.BodyType.DynamicBody);
 
-        final BalloonEntity balloonEntity = new BalloonEntityImpl(body);
+        final BalloonEntity balloonEntity = new BalloonEntityImpl(body, levelGameState);
 
         finalizeNewEntity(balloonEntity, balloonEntityDefinition, body);
     }

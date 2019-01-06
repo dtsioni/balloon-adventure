@@ -37,7 +37,7 @@ class DeathEntityImpl implements DeathEntity
             @Override
             public void visit(final BalloonEntity balloonEntity)
             {
-                Debug.out.println("Death entity collided with the balloon.");
+                balloonEntity.killBalloon();
             }
         };
     }

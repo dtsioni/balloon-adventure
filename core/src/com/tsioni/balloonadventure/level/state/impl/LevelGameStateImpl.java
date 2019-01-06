@@ -5,11 +5,18 @@ import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 class LevelGameStateImpl implements LevelGameState
 {
     private boolean playerHasWon = false;
+    private boolean playerHasLost = false;
 
     @Override
     public boolean playerHasWon()
     {
         return playerHasWon;
+    }
+
+    @Override
+    public boolean playerHasLost()
+    {
+        return playerHasLost;
     }
 
     @Override
@@ -19,8 +26,15 @@ class LevelGameStateImpl implements LevelGameState
     }
 
     @Override
+    public void playerDied()
+    {
+        playerHasLost = true;
+    }
+
+    @Override
     public void reset()
     {
         playerHasWon = false;
+        playerHasLost = false;
     }
 }

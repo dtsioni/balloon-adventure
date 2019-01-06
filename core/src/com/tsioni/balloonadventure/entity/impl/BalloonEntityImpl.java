@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
@@ -14,18 +13,22 @@ import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityVisitor;
 import com.tsioni.balloonadventure.entity.api.GoalEntity;
+import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 class BalloonEntityImpl implements BalloonEntity
 {
     private final Actor actor;
     private final Body body;
+    private final LevelGameState levelGameState;
 
     BalloonEntityImpl(
-        final Body body)
+        final Body body,
+        final LevelGameState levelGameState)
     {
         this.actor = new BalloonActor();
         this.body = body;
+        this.levelGameState = levelGameState;
     }
 
     @Override
@@ -79,7 +82,13 @@ class BalloonEntityImpl implements BalloonEntity
     @Override
     public void blowBalloon(final Vector2 blowVector)
     {
-        this.body.applyForceToCenter(blowVector, true);
+        body.applyForceToCenter(blowVector, true);
+    }
+
+    @Override
+    public void killBalloon()
+    {
+        levelGameState.playerDied();
     }
 
     class BalloonActor extends Actor

@@ -6,11 +6,18 @@ package com.tsioni.balloonadventure.level.state.api;
 public interface LevelGameState
 {
     /**
-     * @return Whether or not the player has won the level.
+     * @return whether or not the player has won the level.
      */
     boolean playerHasWon();
 
+    /**
+     * @return whether or not the player has lost the level.
+     */
+    boolean playerHasLost();
+
     void playerCollectedAGoal();
+
+    void playerDied();
 
     /**
      * Resets the game state.
