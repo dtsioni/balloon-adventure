@@ -1,6 +1,8 @@
 package com.tsioni.balloonadventure.screen.impl;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
@@ -42,13 +44,15 @@ class LevelLoadingScreen implements Screen
     {
         Debug.out.println("Loading level " + levelId);
 
+        final Batch batch = new SpriteBatch();
+
         final Level level = levelFetcher.fetchLevel(levelId);
 
         final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(
-            level.getLevelInitialState());
+            level.getLevelInitialState(), batch);
 
         final Screen loadedLevelTheaterScreen = screenFactory.createLevelTheaterScreen(
-            level, levelTheater);
+            level, levelTheater, batch);
 
         screenSetter.setScreen(loadedLevelTheaterScreen);
     }

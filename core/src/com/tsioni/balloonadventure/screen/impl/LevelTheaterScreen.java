@@ -3,6 +3,10 @@ package com.tsioni.balloonadventure.screen.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
@@ -16,21 +20,34 @@ class LevelTheaterScreen implements Screen
 {
     private final Level level;
     private final LevelTheater levelTheater;
+    private final Batch batch;
     private final ScreenFactory screenFactory;
     private final ScreenSetter screenSetter;
     private final Debug debug;
 
     private int numberOfMinorGoalsCollected = 0;
 
+    /**
+     * TODO: Move this when GUI is needed elsewhere.
+     */
+    private final Camera guiCamera = new OrthographicCamera();
+    {
+        guiCamera.combined.setToOrtho2D(
+            0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    }
+
+
     @Inject
     public LevelTheaterScreen(
         @Assisted final Level level,
         @Assisted final LevelTheater levelTheater,
+        @Assisted final Batch batch,
         final ScreenFactory screenFactory,
         final ScreenSetter screenSetter)
     {
         this.level = level;
         this.levelTheater = levelTheater;
+        this.batch = batch;
         this.screenFactory = screenFactory;
         this.screenSetter = screenSetter;
         this.debug = new Debug();
@@ -45,8 +62,7 @@ class LevelTheaterScreen implements Screen
     @Override
     public void render(final float delta)
     {
-        levelTheater.getSteppable().step(delta);
-        levelTheater.getDrawable().draw();
+        levelTheater.step(delta);
 
         final LevelGameState levelGameState = levelTheater.getLevelGameState();
 
@@ -73,7 +89,21 @@ class LevelTheaterScreen implements Screen
             levelTheater.setLevelState(level.getLevelInitialState());
         }
 
-        debug.draw();
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        /**
+         * TODO: If any more of these Begin/Draw/End blocks are needed, use behavior parameterization
+         * to avoid the duplicated lines for Batch.begin()/Batch.end().
+         */
+        batch.begin();
+        levelTheater.draw(batch);
+        batch.end();
+
+        batch.setProjectionMatrix(guiCamera.combined);
+
+        batch.begin();
+        debug.draw(batch);
+        batch.end();
     }
 
     @Override

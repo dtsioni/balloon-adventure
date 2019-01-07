@@ -5,20 +5,11 @@ import com.tsioni.balloonadventure.Steppable;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 /**
- * A playable level.
+ * A playable level. This theater is Drawable and Steppable, which is the primary way it will be
+ * advanced through time and viewed.
  */
-public interface LevelTheater
+public interface LevelTheater extends Drawable, Steppable
 {
-    /**
-     * @return The drawable for the theater. This will draw the theater.
-     */
-    Drawable getDrawable();
-
-    /**
-     * @return The steppable for the theater. This will step the theater.
-     */
-    Steppable getSteppable();
-
     /**
      * @return Get the current game state for the level.
      */

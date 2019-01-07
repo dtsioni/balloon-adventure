@@ -3,6 +3,7 @@ package com.tsioni.balloonadventure.level.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -37,7 +38,9 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
     }
 
     @Override
-    public LevelTheater generateLevelTheater(final LevelInitialState levelInitialState)
+    public LevelTheater generateLevelTheater(
+        final LevelInitialState levelInitialState,
+        final Batch batch)
     {
         final int screenWidth = Gdx.graphics.getWidth();
         final int screenHeight = Gdx.graphics.getHeight();
@@ -48,7 +51,7 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 
         final OrthographicCamera orthographicCamera = new OrthographicCamera(screenWidth, screenHeight);
         final FitViewport fitViewport = new FitViewport(viewportWidth, viewportHeight, orthographicCamera);
-        final Stage stage = new Stage(fitViewport);
+        final Stage stage = new Stage(fitViewport, batch);
 
         final InputProcessor inputProcessor = new StageInputProcessorImpl(stage);
         Gdx.input.setInputProcessor(inputProcessor);

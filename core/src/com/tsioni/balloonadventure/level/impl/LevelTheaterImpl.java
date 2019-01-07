@@ -1,13 +1,12 @@
 package com.tsioni.balloonadventure.level.impl;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.tsioni.balloonadventure.Drawable;
-import com.tsioni.balloonadventure.Steppable;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.api.Entity;
 import com.tsioni.balloonadventure.entity.api.EntityDefinition;
@@ -44,36 +43,6 @@ public class LevelTheaterImpl implements LevelTheater
     }
 
     @Override
-    public Drawable getDrawable()
-    {
-        return new Drawable()
-        {
-            @Override
-            public void draw()
-            {
-                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                stage.draw();
-
-                debugMatrix = stage.getCamera().combined;
-                debugRenderer.render(world, debugMatrix);
-            }
-        };
-    }
-
-    @Override
-    public Steppable getSteppable()
-    {
-        return new Steppable() {
-            @Override
-            public void step(float delta)
-            {
-                world.step(WORLD_TIME_STEP, WORLD_VELOCITY_ITERATIONS, WORLD_POSITION_ITERATIONS);
-                stage.act(delta);
-            }
-        };
-    }
-
-    @Override
     public LevelGameState getLevelGameState()
     {
         return levelGameState;
@@ -98,5 +67,34 @@ public class LevelTheaterImpl implements LevelTheater
 
             entityDefinition.hostVisitor(entity.getEntityDefinitionStateSetterVisitor());
         }
+    }
+
+    @Override
+    public void draw(final Batch batch)
+    {
+        /**
+         * This logic is copied from the Stage.draw() method. We want to manage the Batch
+         * ourselves, so we'll handle the Stage drawing manually to avoid the duplicate calls to
+         * Batch.begin() and Batch.end() that are performed in Stage.draw().
+         */
+        final Camera camera = stage.getCamera();
+        camera.update();
+
+        final Group root = stage.getRoot();
+
+        if (!root.isVisible()) return;
+
+        batch.setProjectionMatrix(camera.combined);
+        root.draw(batch, 1);
+
+        debugMatrix = camera.combined;
+        debugRenderer.render(world, debugMatrix);
+    }
+
+    @Override
+    public void step(final float delta)
+    {
+        world.step(WORLD_TIME_STEP, WORLD_VELOCITY_ITERATIONS, WORLD_POSITION_ITERATIONS);
+        stage.act(delta);
     }
 }
