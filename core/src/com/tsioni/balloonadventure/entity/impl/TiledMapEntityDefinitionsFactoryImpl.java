@@ -4,8 +4,11 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.google.inject.Inject;
-import com.tsioni.balloonadventure.debug.Debug;
-import com.tsioni.balloonadventure.entity.api.*;
+import com.tsioni.balloonadventure.entity.api.EntityDefinition;
+import com.tsioni.balloonadventure.entity.api.EntityDefinitionFactory;
+import com.tsioni.balloonadventure.entity.api.EntityId;
+import com.tsioni.balloonadventure.entity.api.EntityIds;
+import com.tsioni.balloonadventure.entity.api.TiledMapEntityDefinitionsFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +32,12 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
         final TiledMapTileLayer tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
         /* Our entities have their origin in the middle, so we need to offset their position by half a tiles width. */
         final int tileOffset = (int) tiledMapTileLayer.getTileWidth() / 2;
-        for(int cellX = 0; cellX < tiledMapTileLayer.getWidth(); cellX++)
+        for (int cellX = 0; cellX < tiledMapTileLayer.getWidth(); cellX++)
         {
-            for(int cellY = 0; cellY < tiledMapTileLayer.getHeight(); cellY++)
+            for (int cellY = 0; cellY < tiledMapTileLayer.getHeight(); cellY++)
             {
                 final TiledMapTileLayer.Cell cell = tiledMapTileLayer.getCell(cellX, cellY);
-                if(cell == null)
+                if (cell == null)
                 {
                     continue;
                 }
@@ -43,38 +46,38 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
                 final int entityY = cellY * (int) tiledMapTileLayer.getTileHeight() + tileOffset;
                 final int entityLayerId = 0;
 
-                EntityId entityId = new EntityId(
+                final EntityId entityId = new EntityId(
                     cell.getTile()
                         .getProperties()
                         .get("entityId")
                         .toString());
 
-                if(EntityIds.BALLOON.equals(entityId))
+                if (EntityIds.BALLOON.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createBalloonEntityDef(entityX, entityY, entityLayerId));
                 }
 
-                if(EntityIds.SQUARE_WALL.equals(entityId))
+                if (EntityIds.SQUARE_WALL.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createSquareWallEntityDef(entityX, entityY, entityLayerId));
                 }
 
-                if(EntityIds.WIND.equals(entityId))
+                if (EntityIds.WIND.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId));
                 }
 
-                if(EntityIds.GOAL.equals(entityId))
+                if (EntityIds.GOAL.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createGoalEntityDef(entityX, entityY, entityLayerId));
                 }
 
-                if(EntityIds.DEATH.equals(entityId))
+                if (EntityIds.DEATH.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createDeathEntityDef(entityX, entityY, entityLayerId));
                 }
 
-                if(EntityIds.MINOR_GOAL.equals(entityId))
+                if (EntityIds.MINOR_GOAL.equals(entityId))
                 {
                     entityDefinitions.add(entityDefinitionFactory.createMinorGoalEntityDef(entityX, entityY, entityLayerId));
                 }

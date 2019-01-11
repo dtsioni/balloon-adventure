@@ -16,8 +16,9 @@ class EntityDefinitionLoaderImpl implements EntityDefinitionLoader
     private final TiledMapEntityDefinitionsFactory tiledMapEntityDefinitionsFactory;
 
     @Inject
-    public EntityDefinitionLoaderImpl(final LevelDeserializer levelDeserializer,
-                                      final TiledMapEntityDefinitionsFactory tiledMapEntityDefinitionsFactory)
+    public EntityDefinitionLoaderImpl(
+        final LevelDeserializer levelDeserializer,
+        final TiledMapEntityDefinitionsFactory tiledMapEntityDefinitionsFactory)
     {
         this.levelDeserializer = levelDeserializer;
         this.tiledMapEntityDefinitionsFactory = tiledMapEntityDefinitionsFactory;
@@ -26,7 +27,7 @@ class EntityDefinitionLoaderImpl implements EntityDefinitionLoader
     @Override
     public List<EntityDefinition> loadEntityDefinitions(LevelId levelId)
     {
-        TiledMap loadedMap = levelDeserializer.deserializeLevel(levelId);
+        final TiledMap loadedMap = levelDeserializer.deserializeLevel(levelId);
 
         final List<EntityDefinition> entityDefinitions = tiledMapEntityDefinitionsFactory.createEntityDefinitions(loadedMap);
 

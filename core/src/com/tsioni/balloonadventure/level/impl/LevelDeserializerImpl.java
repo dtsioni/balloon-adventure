@@ -8,10 +8,10 @@ import com.tsioni.balloonadventure.level.api.LevelId;
 
 class LevelDeserializerImpl implements LevelDeserializer
 {
-    private TmxMapLoader tmxMapLoader;
+    private final TmxMapLoader tmxMapLoader;
 
     @Inject
-    public LevelDeserializerImpl(TmxMapLoader tmxMapLoader)
+    public LevelDeserializerImpl(final TmxMapLoader tmxMapLoader)
     {
         this.tmxMapLoader = tmxMapLoader;
     }

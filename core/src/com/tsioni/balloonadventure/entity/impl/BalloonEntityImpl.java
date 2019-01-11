@@ -100,6 +100,15 @@ class BalloonEntityImpl implements BalloonEntity
 
     class BalloonActor extends Actor
     {
+        private final float IMPULSE = 4;
+        private final float FORCE_IMPULSE = 700;
+
+        private final String IMG_PATH = "core/assets/img/balloon.png";
+        private final Texture texture;
+        private final TextureRegion textureRegion;
+
+        private boolean isTouched;
+
         BalloonActor()
         {
             texture = new Texture(IMG_PATH);
@@ -111,7 +120,7 @@ class BalloonEntityImpl implements BalloonEntity
         }
 
         @Override
-        public void draw(Batch batch, float alpha)
+        public void draw(final Batch batch, final float alpha)
         {
             batch.draw(
                 textureRegion,
@@ -127,11 +136,11 @@ class BalloonEntityImpl implements BalloonEntity
         }
 
         @Override
-        public void act(float delta)
+        public void act(final float delta)
         {
-            if(isTouched)
+            if (isTouched)
             {
-                if(body.getLinearVelocity().y < 0)
+                if (body.getLinearVelocity().y < 0)
                 {
                     body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y + IMPULSE);
                 }
@@ -163,18 +172,9 @@ class BalloonEntityImpl implements BalloonEntity
         }
 
         @Override
-        public Actor hit(float x, float y, boolean touchable)
+        public Actor hit(final float x, final float y, final boolean touchable)
         {
             return this;
         }
-
-        private boolean isTouched;
-
-        private final float IMPULSE = 4;
-        private final float FORCE_IMPULSE = 700;
-
-        private final String IMG_PATH = "core/assets/img/balloon.png";
-        private final Texture texture;
-        private final TextureRegion textureRegion;
     }
 }
