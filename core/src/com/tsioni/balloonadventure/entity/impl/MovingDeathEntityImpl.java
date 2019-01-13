@@ -79,13 +79,13 @@ public class MovingDeathEntityImpl extends DeathEntityImpl implements MovingDeat
         @Override
         protected float getActorWidth()
         {
-            return 16;
+            return 4;
         }
 
         @Override
         protected float getActorHeight()
         {
-            return 16;
+            return 4;
         }
 
         @Override

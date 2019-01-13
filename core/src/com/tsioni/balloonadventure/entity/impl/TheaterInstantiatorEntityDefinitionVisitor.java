@@ -58,10 +58,10 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final Body body = bodyFactory.createCircleShapeBody(
             world,
             false,
+            0.3f,
             0f,
             0f,
-            0f,
-            16,
+            4,
             BodyDef.BodyType.DynamicBody);
 
         final BalloonEntity balloonEntity = new BalloonEntityImpl(body, levelGameState);
@@ -79,7 +79,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            16,
+            8,
             BodyDef.BodyType.StaticBody);
 
         final SquareWallEntity squareWallEntity = new SquareWallEntityImpl(body);
@@ -114,7 +114,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            8,
+            4,
             BodyDef.BodyType.KinematicBody);
 
         final GoalEntity goalEntity = new GoalEntityImpl(body, levelGameState, false);
@@ -131,7 +131,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            16,
+            4,
             BodyDef.BodyType.KinematicBody);
 
         final DeathEntity deathEntity = new DeathEntityImpl(body);
@@ -152,7 +152,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            16,
+            4,
             BodyDef.BodyType.KinematicBody);
 
         final MovingDeathEntity movingDeathEntity = new MovingDeathEntityImpl(body, endX, endY, period, pathFactory);
@@ -169,7 +169,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            16,
+            4,
             BodyDef.BodyType.KinematicBody);
 
         final MinorGoalEntityImpl minorGoalEntity =

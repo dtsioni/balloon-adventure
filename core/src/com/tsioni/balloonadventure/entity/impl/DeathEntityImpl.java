@@ -76,13 +76,13 @@ class DeathEntityImpl implements DeathEntity
         @Override
         protected float getActorWidth()
         {
-            return 16;
+            return 4;
         }
 
         @Override
         protected float getActorHeight()
         {
-            return 16;
+            return 4;
         }
 
         @Override

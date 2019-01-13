@@ -45,7 +45,7 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
         final int screenWidth = Gdx.graphics.getWidth();
         final int screenHeight = Gdx.graphics.getHeight();
         final double aspectRatio = (double) screenWidth / screenHeight;
-        final int viewportWidth = 300;
+        final int viewportWidth = 100;
         // viewport aspect ratio should be the same as the screen aspect ratio
         final int viewportHeight = (int) (viewportWidth / aspectRatio);
 
@@ -56,7 +56,7 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
         final InputProcessor inputProcessor = new StageInputProcessorImpl(stage);
         Gdx.input.setInputProcessor(inputProcessor);
 
-        final World world = new World(new Vector2(0, -100), false);
+        final World world = new World(new Vector2(0, -90), false);
 
         final LevelGameState levelGameState = levelGameStateFactory.createLevelGameState();
 

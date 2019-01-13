@@ -21,7 +21,7 @@ class LevelFetcherImpl implements LevelFetcher
     private Map<LevelId, LevelId> nextLevels = new HashMap<LevelId, LevelId>();
     {
         nextLevels.put(LevelIds.TEST_1, LevelIds.TEST_2);
-        nextLevels.put(LevelIds.TEST_2, LevelIds.TEST_2);
+        nextLevels.put(LevelIds.TEST_2, LevelIds.TEST_1);
     }
 
     @Inject

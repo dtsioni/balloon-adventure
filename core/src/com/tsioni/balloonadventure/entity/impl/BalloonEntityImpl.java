@@ -142,13 +142,13 @@ class BalloonEntityImpl implements BalloonEntity
         @Override
         protected float getActorWidth()
         {
-            return 32;
+            return 4;
         }
 
         @Override
         protected float getActorHeight()
         {
-            return 32;
+            return 4;
         }
 
         @Override

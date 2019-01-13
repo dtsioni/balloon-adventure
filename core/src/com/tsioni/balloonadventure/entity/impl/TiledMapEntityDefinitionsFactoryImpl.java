@@ -39,6 +39,7 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
         final TiledMapTileLayer tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
 
         final int tileWidth = (int) tiledMapTileLayer.getTileWidth();
+        final double metersPerPixel = 8.0 / 32.0;
         final int layerHeight = tiledMapTileLayer.getHeight();
         /* Our entities have their origin in the middle, so we need to offset their position by half a tiles width. */
         final int tileOffset = tileWidth / 2;
@@ -48,8 +49,8 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
             final TiledMapTileMapObject mapObject = (TiledMapTileMapObject) mapObjects.get(i);
             final TiledMapTile objectTile = mapObject.getTile();
             final MapProperties objectProperties = mapObject.getProperties();
-            final int entityX = (int) Float.parseFloat(objectProperties.get("x").toString()) + tileOffset;
-            final int entityY = (int) Float.parseFloat(objectProperties.get("y").toString()) + tileOffset;
+            final int entityX = (int) (Float.parseFloat(objectProperties.get("x").toString()) * metersPerPixel) + tileOffset;
+            final int entityY = (int) (Float.parseFloat(objectProperties.get("y").toString()) * metersPerPixel) + tileOffset;
             final int entityLayerId = 0;
 
             EntityId entityId = new EntityId(objectTile.getProperties().get("entityId").toString());
@@ -86,12 +87,14 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
 
             if(EntityIds.MOVING_DEATH.equals(entityId))
             {
-                final int endX = Integer.parseInt(objectProperties.get("endCellX").toString()) * tileWidth + tileOffset;
+                final int endX =
+                    (int) (Integer.parseInt(objectProperties.get("endCellX").toString()) * tileWidth * metersPerPixel + tileOffset);
                 /**
                  * Tiled has a y-down axis, and we have a y-up axis. Start and end positions are defined in reference
                  * to the Tiled grid, so we need to flip their y-axis.
                   */
-                final int endY = (layerHeight - Integer.parseInt(objectProperties.get("endCellY").toString()) - 1) * tileWidth + tileOffset;
+                final int endY =
+                    (int) ((layerHeight - Integer.parseInt(objectProperties.get("endCellY").toString()) - 1) * metersPerPixel * tileWidth + tileOffset);
                 final int period = Integer.parseInt(objectProperties.get("period").toString());
 
                 entityDefinitions.add(entityDefinitionFactory.createMovingDeathEntityDef(

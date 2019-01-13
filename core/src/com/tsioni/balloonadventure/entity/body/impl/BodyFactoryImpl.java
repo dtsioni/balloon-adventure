@@ -59,7 +59,7 @@ class BodyFactoryImpl implements BodyFactory
         bodyDef.type = bodyType;
         bodyDef.fixedRotation = true;
 
-        shape.setAsBox(width, width);
+        shape.setAsBox(width / 2.0f, width / 2.0f);
 
         fixtureDef.shape = shape;
         fixtureDef.density = density;

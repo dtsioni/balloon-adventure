@@ -69,13 +69,13 @@ class SquareWallEntityImpl implements SquareWallEntity
         @Override
         protected float getActorWidth()
         {
-            return 32;
+            return 8;
         }
 
         @Override
         protected float getActorHeight()
         {
-            return 32;
+            return 8;
         }
 
         @Override

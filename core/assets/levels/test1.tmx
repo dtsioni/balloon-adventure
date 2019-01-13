@@ -106,22 +106,22 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object id="14" type="MOVING_DEATH" gid="57" x="160" y="3008" width="32" height="32">
+  <object id="14" type="MOVING_DEATH" gid="57" x="160" y="3040" width="32" height="32">
    <properties>
-    <property name="endCellX" type="int" value="5"/>
-    <property name="endCellY" type="int" value="98"/>
+    <property name="endCellX" type="int" value="2"/>
+    <property name="endCellY" type="int" value="94"/>
     <property name="entityId" value="MOVING_DEATH"/>
     <property name="period" type="int" value="2"/>
    </properties>
   </object>
   <object id="20" gid="54" x="64" y="3168" width="32" height="32"/>
-  <object id="21" gid="53" x="32" y="3040" width="32" height="32"/>
-  <object id="22" gid="38" x="64" y="3104" width="32" height="32"/>
-  <object id="23" gid="38" x="128" y="3040" width="32" height="32"/>
-  <object id="24" gid="2" x="160" y="3104" width="32" height="32"/>
-  <object id="25" gid="2" x="64" y="3040" width="32" height="32"/>
-  <object id="26" gid="53" x="192" y="3168" width="32" height="32"/>
-  <object id="27" gid="21" x="192" y="3072" width="32" height="32"/>
+  <object id="21" gid="53" x="32" y="3008" width="32" height="32"/>
+  <object id="22" gid="38" x="32" y="3104" width="32" height="32"/>
+  <object id="23" gid="38" x="32" y="3072" width="32" height="32"/>
+  <object id="24" gid="2" x="128" y="3072" width="32" height="32"/>
+  <object id="25" gid="2" x="96" y="3072" width="32" height="32"/>
+  <object id="26" gid="53" x="192" y="3008" width="32" height="32"/>
+  <object id="27" gid="21" x="96" y="3008" width="32" height="32"/>
   <object id="28" gid="10" x="0" y="2976" width="32" height="32"/>
   <object id="29" gid="10" x="0" y="3008" width="32" height="32"/>
   <object id="30" gid="10" x="0" y="3040" width="32" height="32"/>

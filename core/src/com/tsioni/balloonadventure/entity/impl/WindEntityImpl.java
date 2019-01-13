@@ -18,7 +18,7 @@ class WindEntityImpl implements WindEntity
 {
     private final Actor actor;
     private final Body body;
-    private final float FORCE_IMPULSE = 50;
+    private final float FORCE_IMPULSE = 300;
     private final Vector2 blowVector = new Vector2(FORCE_IMPULSE, 0);
 
     private Optional<BalloonEntity> blowingBalloon = Optional.empty();
@@ -111,13 +111,13 @@ class WindEntityImpl implements WindEntity
         @Override
         protected float getActorWidth()
         {
-            return 16;
+            return 8;
         }
 
         @Override
         protected float getActorHeight()
         {
-            return 16;
+            return 8;
         }
 
         @Override
