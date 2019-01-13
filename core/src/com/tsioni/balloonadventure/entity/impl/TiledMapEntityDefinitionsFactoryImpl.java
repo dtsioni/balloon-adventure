@@ -42,7 +42,7 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
         final double metersPerPixel = 8.0 / 32.0;
         final int layerHeight = tiledMapTileLayer.getHeight();
         /* Our entities have their origin in the middle, so we need to offset their position by half a tiles width. */
-        final int tileOffset = tileWidth / 2;
+        final int tileOffset = (int) (tileWidth * metersPerPixel ) / 2;
 
         for(int i = 0; i < mapObjects.getCount(); i++)
         {
@@ -67,7 +67,8 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
 
             if(EntityIds.WIND.equals(entityId))
             {
-                entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId));
+                final int direction = Integer.parseInt(objectProperties.get("direction").toString());
+                entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId, direction));
             }
 
             if(EntityIds.GOAL.equals(entityId))

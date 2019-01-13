@@ -18,9 +18,9 @@ public class EntityDefinitionFactoryImpl implements EntityDefinitionFactory
     }
 
     @Override
-    public EntityDefinition createWindEntityDef(final int x, final int y, final int layerId)
+    public EntityDefinition createWindEntityDef(final int x, final int y, final int layerId, final int direction)
     {
-        return new WindEntityDefinitionImpl(x, y, layerId);
+        return new WindEntityDefinitionImpl(x, y, layerId, direction);
     }
 
     @Override

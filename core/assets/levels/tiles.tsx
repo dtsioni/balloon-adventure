@@ -18,6 +18,7 @@
  </tile>
  <tile id="37">
   <properties>
+   <property name="direction" type="int" value="-1"/>
    <property name="entityId" value="WIND"/>
   </properties>
  </tile>

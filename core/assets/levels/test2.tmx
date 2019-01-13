@@ -55,7 +55,11 @@
   <object id="45" gid="10" x="0" y="2912" width="32" height="32"/>
   <object id="46" gid="10" x="192" y="2912" width="32" height="32"/>
   <object id="47" gid="2" x="160" y="2944" width="32" height="32"/>
-  <object id="48" gid="38" x="64" y="2944" width="32" height="32"/>
+  <object id="48" gid="38" x="64" y="2944" width="32" height="32">
+   <properties>
+    <property name="direction" type="int" value="0"/>
+   </properties>
+  </object>
   <object id="49" gid="21" x="160" y="3168" width="32" height="32"/>
   <object id="51" gid="57" x="160" y="3008" width="32" height="32">
    <properties>

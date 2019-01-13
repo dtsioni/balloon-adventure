@@ -18,15 +18,18 @@ class WindEntityImpl implements WindEntity
 {
     private final Actor actor;
     private final Body body;
+    private final int direction;
     private final float FORCE_IMPULSE = 300;
-    private final Vector2 blowVector = new Vector2(FORCE_IMPULSE, 0);
+    private final float degreesToRadians = 0.0174533f;
 
     private Optional<BalloonEntity> blowingBalloon = Optional.empty();
 
     WindEntityImpl(
-        final Body body)
+        final Body body,
+        final int direction)
     {
         this.body = body;
+        this.direction = direction;
         this.actor = new WindActor();
     }
 
@@ -75,7 +78,7 @@ class WindEntityImpl implements WindEntity
             public void visit(final WindEntityDefinition windEntityDefinition)
             {
                 body.setTransform(new Vector2(
-                    windEntityDefinition.getX(), windEntityDefinition.getY()), 0);
+                    windEntityDefinition.getX(), windEntityDefinition.getY()), direction * degreesToRadians);
 
                 body.setLinearVelocity(new Vector2(0, 0));
                 body.setAngularVelocity(0);
@@ -93,11 +96,20 @@ class WindEntityImpl implements WindEntity
 
     class WindActor extends AbstractBaseActor
     {
+        WindActor()
+        {
+            super();
+            setRotation(direction);
+        }
+
         @Override
         public void act(float delta)
         {
             if (blowingBalloon.isPresent())
             {
+                final Vector2 blowVector = new Vector2(
+                    (float) Math.cos(direction * degreesToRadians) * FORCE_IMPULSE,
+                    (float) Math.sin(direction * degreesToRadians) * FORCE_IMPULSE);
                 blowingBalloon.get().blowBalloon(blowVector);
             }
         }

@@ -5,18 +5,22 @@ import com.tsioni.balloonadventure.entity.api.WindEntityDefinition;
 
 class WindEntityDefinitionImpl implements WindEntityDefinition
 {
+
     private final int x;
     private final int y;
     private final int layerId;
+    private final int direction;
 
     WindEntityDefinitionImpl(
         final int x,
         final int y,
-        final int layerId)
+        final int layerId,
+        final int direction)
     {
         this.x = x;
         this.y = y;
         this.layerId = layerId;
+        this.direction = direction;
     }
 
     @Override
@@ -35,6 +39,12 @@ class WindEntityDefinitionImpl implements WindEntityDefinition
     public int getLayerId()
     {
         return layerId;
+    }
+
+    @Override
+    public int getDirection()
+    {
+        return direction;
     }
 
     @Override

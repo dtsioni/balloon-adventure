@@ -91,6 +91,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     public void visit(
         final WindEntityDefinition windEntityDefinition)
     {
+        final int direction = windEntityDefinition.getDirection();
         final Body body = bodyFactory.createBoxShapeBody(
             world,
             true,
@@ -100,7 +101,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             8,
             BodyDef.BodyType.KinematicBody);
 
-        final WindEntity windEntity = new WindEntityImpl(body);
+        final WindEntity windEntity = new WindEntityImpl(body, direction);
 
         finalizeNewEntity(windEntity, windEntityDefinition, body);
     }
