@@ -70,24 +70,11 @@ public class LevelTheaterImpl implements LevelTheater
     }
 
     @Override
-    public void draw(final Batch batch)
+    public void draw()
     {
-        /**
-         * This logic is copied from the Stage.draw() method. We want to manage the Batch
-         * ourselves, so we'll handle the Stage drawing manually to avoid the duplicate calls to
-         * Batch.begin() and Batch.end() that are performed in Stage.draw().
-         */
-        final Camera camera = stage.getCamera();
-        camera.update();
+        stage.draw();
 
-        final Group root = stage.getRoot();
-
-        if (!root.isVisible()) return;
-
-        batch.setProjectionMatrix(camera.combined);
-        root.draw(batch, 1);
-
-        debugMatrix = camera.combined;
+        debugMatrix = stage.getCamera().combined;
 
         if (Debug.visible)
         {

@@ -10,21 +10,16 @@ public abstract class AbstractId
         this.id = id;
     }
 
-    private String getId()
-    {
-        return id;
-    }
-
     @Override
     public boolean equals(
         final Object id)
     {
-        return id instanceof AbstractId && this.getId().equals(((AbstractId) id).getId());
+        return id instanceof AbstractId && this.id.equals(((AbstractId) id).id);
     }
 
     @Override
     public String toString()
     {
-        return getId();
+        return id;
     }
 }

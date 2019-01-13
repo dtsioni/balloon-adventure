@@ -3,6 +3,8 @@ package com.tsioni.balloonadventure.debug;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.tsioni.balloonadventure.Drawable;
@@ -43,11 +45,24 @@ public class Debug implements Drawable
         bitmapFont.getData().setScale(0.85f);
     }
 
+    private final Batch batch;
+
+    private final Camera guiCamera = new OrthographicCamera();
+    {
+        guiCamera.combined.setToOrtho2D(
+            0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    }
+
     public static boolean visible = true;
 
-    @Override
-    public void draw(
+    public Debug(
         final Batch batch)
+    {
+        this.batch = batch;
+    }
+
+    @Override
+    public void draw()
     {
         if (!visible)
         {
@@ -68,7 +83,11 @@ public class Debug implements Drawable
             output +=  row + "\n";
         }
 
+        batch.setProjectionMatrix(guiCamera.combined);
+
+        batch.begin();
         bitmapFont.draw(batch, output, 0, Gdx.graphics.getHeight());
+        batch.end();
     }
 
     /**
