@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.google.inject.Inject;
 import com.tsioni.balloonadventure.gui.api.Gui;
 import com.tsioni.balloonadventure.gui.api.LevelTheaterGuiFactory;
+import com.tsioni.balloonadventure.level.api.Level;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 class LevelTheaterGuiFactoryImpl implements LevelTheaterGuiFactory
@@ -20,8 +21,10 @@ class LevelTheaterGuiFactoryImpl implements LevelTheaterGuiFactory
     @Override
     public Gui createLevelTheaterGui(
         final Batch batch,
+        final Level level,
         final LevelGameState levelGameState)
     {
-        return new LevelTheaterGuiImpl(guiStageFactory.createGuiStage(batch), levelGameState);
+        return new LevelTheaterGuiImpl(
+            guiStageFactory.createGuiStage(batch), level, levelGameState);
     }
 }

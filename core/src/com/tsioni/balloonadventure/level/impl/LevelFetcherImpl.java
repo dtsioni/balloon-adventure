@@ -44,6 +44,12 @@ class LevelFetcherImpl implements LevelFetcher
         return new Level()
         {
             @Override
+            public LevelId getLevelId()
+            {
+                return levelId;
+            }
+
+            @Override
             public LevelId getNextLevel()
             {
                 return nextLevels.get(levelId);

@@ -43,7 +43,7 @@ class LevelTheaterScreen implements Screen
         this.screenSetter = screenSetter;
         this.debug = new Debug(batch);
         this.levelTheaterGui = levelTheaterGuiFactory.createLevelTheaterGui(
-            batch, levelTheater.getLevelGameState());
+            batch, level, levelTheater.getLevelGameState());
     }
 
     @Override

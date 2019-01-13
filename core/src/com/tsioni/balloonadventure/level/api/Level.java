@@ -6,6 +6,11 @@ package com.tsioni.balloonadventure.level.api;
 public interface Level
 {
     /**
+     * @return the LevelId of this level.
+     */
+    LevelId getLevelId();
+
+    /**
      * @return the LevelId of the level to play after this one.
      */
     LevelId getNextLevel();
