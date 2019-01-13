@@ -3,6 +3,7 @@ package com.tsioni.balloonadventure.entity.impl;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
 import com.tsioni.balloonadventure.entity.api.BalloonEntity;
@@ -90,7 +91,7 @@ class WindEntityImpl implements WindEntity
         visitor.visit(this);
     }
 
-    class WindActor extends Actor
+    class WindActor extends AbstractBaseActor
     {
         @Override
         public void act(float delta)
@@ -99,6 +100,30 @@ class WindEntityImpl implements WindEntity
             {
                 blowingBalloon.get().blowBalloon(blowVector);
             }
+        }
+
+        @Override
+        protected String getImgPath()
+        {
+            return "core/assets/img/arrows.png";
+        }
+
+        @Override
+        protected float getActorWidth()
+        {
+            return 16;
+        }
+
+        @Override
+        protected float getActorHeight()
+        {
+            return 16;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
         }
     }
 }

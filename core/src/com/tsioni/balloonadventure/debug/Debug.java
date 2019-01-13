@@ -3,11 +3,8 @@ package com.tsioni.balloonadventure.debug;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
 import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.input.AbstractBaseInputProcessor;
 
@@ -46,7 +43,7 @@ public class Debug implements Drawable
         bitmapFont.getData().setScale(0.85f);
     }
 
-    private boolean visible = true;
+    public static boolean visible = true;
 
     @Override
     public void draw(

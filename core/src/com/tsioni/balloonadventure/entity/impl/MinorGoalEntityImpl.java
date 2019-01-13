@@ -1,14 +1,11 @@
 package com.tsioni.balloonadventure.entity.impl;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityVisitor;
-import com.tsioni.balloonadventure.entity.api.MinorGoalEntity;
-import com.tsioni.balloonadventure.entity.api.MinorGoalEntityDefinition;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
+import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.util.api.Optional;
 
@@ -32,14 +29,17 @@ class MinorGoalEntityImpl implements MinorGoalEntity
     @Override
     public void collect()
     {
-        isCollected = true;
-        levelGameState.playerCollectedAMinorGoal();
+        if(!isCollected)
+        {
+            isCollected = true;
+            levelGameState.playerCollectedAMinorGoal();
+        }
     }
 
     @Override
     public Optional<? extends Actor> getActor()
     {
-        return Optional.empty();
+        return Optional.of(new MinorGoalActor());
     }
 
     @Override
@@ -77,5 +77,41 @@ class MinorGoalEntityImpl implements MinorGoalEntity
     public void hostVisitor(final EntityVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    class MinorGoalActor extends AbstractBaseActor
+    {
+        @Override
+        protected String getImgPath()
+        {
+            return "core/assets/img/silverStar.png";
+        }
+
+        @Override
+        protected float getActorWidth()
+        {
+            return 16;
+        }
+
+        @Override
+        protected float getActorHeight()
+        {
+            return 16;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
+        }
+
+        @Override
+        public void draw(Batch batch, float alpha)
+        {
+            if(!isCollected)
+            {
+                super.draw(batch, alpha);
+            }
+        }
     }
 }

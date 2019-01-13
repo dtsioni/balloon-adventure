@@ -3,13 +3,8 @@ package com.tsioni.balloonadventure.entity.impl;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.debug.Debug;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityVisitor;
-import com.tsioni.balloonadventure.entity.api.SquareWallEntity;
-import com.tsioni.balloonadventure.entity.api.SquareWallEntityDefinition;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
+import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.util.api.Optional;
 
 class SquareWallEntityImpl implements SquareWallEntity
@@ -25,7 +20,7 @@ class SquareWallEntityImpl implements SquareWallEntity
     @Override
     public Optional<? extends Actor> getActor()
     {
-        return Optional.empty();
+        return Optional.of(new SquareWallActor());
     }
 
     @Override
@@ -61,5 +56,32 @@ class SquareWallEntityImpl implements SquareWallEntity
     public void hostVisitor(final EntityVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    class SquareWallActor extends AbstractBaseActor
+    {
+        @Override
+        protected String getImgPath()
+        {
+            return "core/assets/img/squareWall.jpg";
+        }
+
+        @Override
+        protected float getActorWidth()
+        {
+            return 32;
+        }
+
+        @Override
+        protected float getActorHeight()
+        {
+            return 32;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
+        }
     }
 }

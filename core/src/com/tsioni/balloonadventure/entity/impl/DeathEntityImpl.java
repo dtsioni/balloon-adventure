@@ -1,10 +1,9 @@
 package com.tsioni.balloonadventure.entity.impl;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
 import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.util.api.Optional;
 
@@ -16,14 +15,12 @@ class DeathEntityImpl implements DeathEntity
         final Body body)
     {
         this.body = body;
-        texture = new Texture(IMG_PATH);
-        textureRegion = new TextureRegion(texture);
     }
 
     @Override
     public Optional<? extends Actor> getActor()
     {
-        return Optional.empty();
+        return Optional.of(new DeathActor());
     }
 
     @Override
@@ -68,7 +65,30 @@ class DeathEntityImpl implements DeathEntity
         visitor.visit(this);
     }
 
-    private final String IMG_PATH = "core/assets/img/mine.png";
-    private final Texture texture;
-    protected final TextureRegion textureRegion;
+    class DeathActor extends AbstractBaseActor
+    {
+        @Override
+        protected String getImgPath()
+        {
+            return "core/assets/img/mine.png";
+        }
+
+        @Override
+        protected float getActorWidth()
+        {
+            return 16;
+        }
+
+        @Override
+        protected float getActorHeight()
+        {
+            return 16;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
+        }
+    }
 }

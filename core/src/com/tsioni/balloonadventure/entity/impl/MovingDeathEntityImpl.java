@@ -1,10 +1,9 @@
 package com.tsioni.balloonadventure.entity.impl;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.google.inject.Inject;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
 import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.MovingDeathEntity;
@@ -63,31 +62,8 @@ public class MovingDeathEntityImpl extends DeathEntityImpl implements MovingDeat
         };
     }
 
-    class MovingDeathActor extends Actor
+    class MovingDeathActor extends AbstractBaseActor
     {
-        @Inject
-        MovingDeathActor()
-        {
-            setWidth(10);
-            setHeight(10);
-        }
-
-        @Override
-        public void draw(Batch batch, float alpha)
-        {
-            batch.draw(
-                textureRegion,
-                getX() - getOriginX(),
-                getY() - getOriginY(),
-                getOriginX(),
-                getOriginY(),
-                getWidth(),
-                getHeight(),
-                getScaleX(),
-                getScaleY(),
-                getRotation());
-        }
-
         @Override
         public void act(float delta)
         {
@@ -95,16 +71,27 @@ public class MovingDeathEntityImpl extends DeathEntityImpl implements MovingDeat
         }
 
         @Override
-        public float getX()
+        protected String getImgPath()
         {
-            return body.getPosition().x;
+            return "core/assets/img/mine.png";
         }
 
         @Override
-        public float getY()
+        protected float getActorWidth()
         {
-            return body.getPosition().y;
+            return 16;
         }
 
+        @Override
+        protected float getActorHeight()
+        {
+            return 16;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
+        }
     }
 }

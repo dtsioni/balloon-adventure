@@ -3,13 +3,8 @@ package com.tsioni.balloonadventure.entity.impl;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.debug.Debug;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityVisitor;
-import com.tsioni.balloonadventure.entity.api.GoalEntity;
-import com.tsioni.balloonadventure.entity.api.GoalEntityDefinition;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
+import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.util.api.Optional;
 
@@ -33,14 +28,17 @@ class GoalEntityImpl implements GoalEntity
     @Override
     public void collect()
     {
-        isCollected = true;
-        levelGameState.playerCollectedAGoal();
+        if(!isCollected)
+        {
+            isCollected = true;
+            levelGameState.playerCollectedAGoal();
+        }
     }
 
     @Override
     public Optional<? extends Actor> getActor()
     {
-        return Optional.empty();
+        return Optional.of(new GoalActor());
     }
 
     @Override
@@ -78,5 +76,32 @@ class GoalEntityImpl implements GoalEntity
     public void hostVisitor(final EntityVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    class GoalActor extends AbstractBaseActor
+    {
+        @Override
+        protected String getImgPath()
+        {
+            return "core/assets/img/goldStar.png";
+        }
+
+        @Override
+        protected float getActorWidth()
+        {
+            return 16;
+        }
+
+        @Override
+        protected float getActorHeight()
+        {
+            return 16;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
+        }
     }
 }

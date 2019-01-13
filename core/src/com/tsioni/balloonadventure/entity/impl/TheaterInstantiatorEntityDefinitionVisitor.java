@@ -61,7 +61,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            10,
+            16,
             BodyDef.BodyType.DynamicBody);
 
         final BalloonEntity balloonEntity = new BalloonEntityImpl(body, levelGameState);
@@ -97,7 +97,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            5,
+            8,
             BodyDef.BodyType.KinematicBody);
 
         final WindEntity windEntity = new WindEntityImpl(body);
@@ -114,7 +114,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            5,
+            8,
             BodyDef.BodyType.KinematicBody);
 
         final GoalEntity goalEntity = new GoalEntityImpl(body, levelGameState, false);
@@ -131,7 +131,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            10,
+            16,
             BodyDef.BodyType.KinematicBody);
 
         final DeathEntity deathEntity = new DeathEntityImpl(body);
@@ -152,7 +152,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            10,
+            16,
             BodyDef.BodyType.KinematicBody);
 
         final MovingDeathEntity movingDeathEntity = new MovingDeathEntityImpl(body, endX, endY, period, pathFactory);
@@ -169,7 +169,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            10,
+            16,
             BodyDef.BodyType.KinematicBody);
 
         final MinorGoalEntityImpl minorGoalEntity =

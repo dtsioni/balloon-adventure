@@ -1,11 +1,9 @@
 package com.tsioni.balloonadventure.entity.impl;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
 import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.util.api.Optional;
@@ -91,41 +89,16 @@ class BalloonEntityImpl implements BalloonEntity
         levelGameState.playerDied();
     }
 
-    class BalloonActor extends Actor
+    class BalloonActor extends AbstractBaseActor
     {
         private final float IMPULSE = 4;
         private final float FORCE_IMPULSE = 700;
-
-        private final String IMG_PATH = "core/assets/img/balloon.png";
-        private final Texture texture;
-        private final TextureRegion textureRegion;
 
         private boolean isTouched;
 
         BalloonActor()
         {
-            texture = new Texture(IMG_PATH);
-            textureRegion = new TextureRegion(texture);
-            setWidth(32);
-            setHeight(32);
-
             this.addListener(new BalloonActorInputListener(this));
-        }
-
-        @Override
-        public void draw(final Batch batch, final float alpha)
-        {
-            batch.draw(
-                textureRegion,
-                getX() - getOriginX(),
-                getY() - getOriginY(),
-                getOriginX(),
-                getOriginY(),
-                getWidth(),
-                getHeight(),
-                getScaleX(),
-                getScaleY(),
-                getRotation());
         }
 
         @Override
@@ -154,20 +127,34 @@ class BalloonEntityImpl implements BalloonEntity
             isTouched = false;
         }
 
-        public float getX()
-        {
-            return body.getPosition().x;
-        }
-
-        public float getY()
-        {
-            return body.getPosition().y;
-        }
-
         @Override
         public Actor hit(final float x, final float y, final boolean touchable)
         {
             return this;
+        }
+
+        @Override
+        protected String getImgPath()
+        {
+            return "core/assets/img/balloon.png";
+        }
+
+        @Override
+        protected float getActorWidth()
+        {
+            return 32;
+        }
+
+        @Override
+        protected float getActorHeight()
+        {
+            return 32;
+        }
+
+        @Override
+        protected Body getBody()
+        {
+            return body;
         }
     }
 }

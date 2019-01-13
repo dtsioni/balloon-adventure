@@ -88,7 +88,11 @@ public class LevelTheaterImpl implements LevelTheater
         root.draw(batch, 1);
 
         debugMatrix = camera.combined;
-        debugRenderer.render(world, debugMatrix);
+
+        if (Debug.visible)
+        {
+            debugRenderer.render(world, debugMatrix);
+        }
     }
 
     @Override
