@@ -12,5 +12,7 @@ public interface EntityVisitor
 
     void visit(DeathEntity deathEntity);
 
+    void visit(MovingDeathEntity movingDeathEntity);
+    
     void visit(MinorGoalEntity minorGoalEntity);
 }

@@ -40,4 +40,16 @@ public class EntityDefinitionFactoryImpl implements EntityDefinitionFactory
     {
         return new MinorGoalEntityDefinitionImpl(x, y, layerId);
     }
+
+    @Override
+    public EntityDefinition createMovingDeathEntityDef(
+        final int startX,
+        final int startY,
+        final int layerId,
+        final int endX,
+        final int endY,
+        final int period)
+    {
+        return new MovingDeathEntityDefinitionImpl(startX, startY, layerId, endX, endY, period);
+    }
 }

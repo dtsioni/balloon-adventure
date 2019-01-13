@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.tsioni.balloonadventure.entity.api.*;
+import com.tsioni.balloonadventure.entity.path.guice.PathModule;
 
 public class TheaterInstantiatorInternalModule extends AbstractModule
 {
@@ -21,6 +22,8 @@ public class TheaterInstantiatorInternalModule extends AbstractModule
         bind(EntityDefinitionFactory.class)
             .to(EntityDefinitionFactoryImpl.class)
             .in(Scopes.SINGLETON);
+
+        install(new PathModule());
 
         install(new FactoryModuleBuilder()
             .implement(EntityDefinitionVisitor.class, TheaterInstantiatorEntityDefinitionVisitor.class)

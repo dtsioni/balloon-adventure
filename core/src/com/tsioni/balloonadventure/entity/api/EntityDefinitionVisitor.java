@@ -13,4 +13,6 @@ public interface EntityDefinitionVisitor
     void visit(DeathEntityDefinition deathEntityDefinition);
 
     void visit(MinorGoalEntityDefinition minorGoalEntityDefinition);
+
+    void visit(MovingDeathEntityDefinition movingDeathEntityDefinition);
 }

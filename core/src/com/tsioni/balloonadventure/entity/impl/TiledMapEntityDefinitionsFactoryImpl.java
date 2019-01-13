@@ -1,8 +1,12 @@
 package com.tsioni.balloonadventure.entity.impl;
 
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.google.inject.Inject;
 import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionFactory;
@@ -28,59 +32,75 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
     {
         final List<EntityDefinition> entityDefinitions = new ArrayList<EntityDefinition>();
 
-        final MapLayer mapLayer = tiledMap.getLayers().get("interactive");
+        final MapLayer objectLayer = tiledMap.getLayers().get("objects");
+        final MapObjects mapObjects = objectLayer.getObjects();
+
+        final MapLayer mapLayer = tiledMap.getLayers().get("tiles");
         final TiledMapTileLayer tiledMapTileLayer = (TiledMapTileLayer) mapLayer;
+
+        final int tileWidth = (int) tiledMapTileLayer.getTileWidth();
+        final int layerHeight = tiledMapTileLayer.getHeight();
         /* Our entities have their origin in the middle, so we need to offset their position by half a tiles width. */
-        final int tileOffset = (int) tiledMapTileLayer.getTileWidth() / 2;
-        for (int cellX = 0; cellX < tiledMapTileLayer.getWidth(); cellX++)
+        final int tileOffset = tileWidth / 2;
+
+        for(int i = 0; i < mapObjects.getCount(); i++)
         {
-            for (int cellY = 0; cellY < tiledMapTileLayer.getHeight(); cellY++)
+            final TiledMapTileMapObject mapObject = (TiledMapTileMapObject) mapObjects.get(i);
+            final TiledMapTile objectTile = mapObject.getTile();
+            final MapProperties objectProperties = mapObject.getProperties();
+            final int entityX = (int) Float.parseFloat(objectProperties.get("x").toString()) + tileOffset;
+            final int entityY = (int) Float.parseFloat(objectProperties.get("y").toString()) + tileOffset;
+            final int entityLayerId = 0;
+
+            EntityId entityId = new EntityId(objectTile.getProperties().get("entityId").toString());
+
+            if(EntityIds.BALLOON.equals(entityId))
             {
-                final TiledMapTileLayer.Cell cell = tiledMapTileLayer.getCell(cellX, cellY);
-                if (cell == null)
-                {
-                    continue;
-                }
+                entityDefinitions.add(entityDefinitionFactory.createBalloonEntityDef(entityX, entityY, entityLayerId));
+            }
 
-                final int entityX = cellX * (int) tiledMapTileLayer.getTileWidth() + tileOffset;
-                final int entityY = cellY * (int) tiledMapTileLayer.getTileHeight() + tileOffset;
-                final int entityLayerId = 0;
+            if(EntityIds.SQUARE_WALL.equals(entityId))
+            {
+                entityDefinitions.add(entityDefinitionFactory.createSquareWallEntityDef(entityX, entityY, entityLayerId));
+            }
 
-                final EntityId entityId = new EntityId(
-                    cell.getTile()
-                        .getProperties()
-                        .get("entityId")
-                        .toString());
+            if(EntityIds.WIND.equals(entityId))
+            {
+                entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId));
+            }
 
-                if (EntityIds.BALLOON.equals(entityId))
-                {
-                    entityDefinitions.add(entityDefinitionFactory.createBalloonEntityDef(entityX, entityY, entityLayerId));
-                }
+            if(EntityIds.GOAL.equals(entityId))
+            {
+                entityDefinitions.add(entityDefinitionFactory.createGoalEntityDef(entityX, entityY, entityLayerId));
+            }
 
-                if (EntityIds.SQUARE_WALL.equals(entityId))
-                {
-                    entityDefinitions.add(entityDefinitionFactory.createSquareWallEntityDef(entityX, entityY, entityLayerId));
-                }
+            if(EntityIds.DEATH.equals(entityId))
+            {
+                entityDefinitions.add(entityDefinitionFactory.createDeathEntityDef(entityX, entityY, entityLayerId));
+            }
 
-                if (EntityIds.WIND.equals(entityId))
-                {
-                    entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId));
-                }
+            if(EntityIds.MINOR_GOAL.equals(entityId))
+            {
+                entityDefinitions.add(entityDefinitionFactory.createMinorGoalEntityDef(entityX, entityY, entityLayerId));
+            }
 
-                if (EntityIds.GOAL.equals(entityId))
-                {
-                    entityDefinitions.add(entityDefinitionFactory.createGoalEntityDef(entityX, entityY, entityLayerId));
-                }
+            if(EntityIds.MOVING_DEATH.equals(entityId))
+            {
+                final int endX = Integer.parseInt(objectProperties.get("endCellX").toString()) * tileWidth + tileOffset;
+                /**
+                 * Tiled has a y-down axis, and we have a y-up axis. Start and end positions are defined in reference
+                 * to the Tiled grid, so we need to flip their y-axis.
+                  */
+                final int endY = (layerHeight - Integer.parseInt(objectProperties.get("endCellY").toString()) - 1) * tileWidth + tileOffset;
+                final int period = Integer.parseInt(objectProperties.get("period").toString());
 
-                if (EntityIds.DEATH.equals(entityId))
-                {
-                    entityDefinitions.add(entityDefinitionFactory.createDeathEntityDef(entityX, entityY, entityLayerId));
-                }
-
-                if (EntityIds.MINOR_GOAL.equals(entityId))
-                {
-                    entityDefinitions.add(entityDefinitionFactory.createMinorGoalEntityDef(entityX, entityY, entityLayerId));
-                }
+                entityDefinitions.add(entityDefinitionFactory.createMovingDeathEntityDef(
+                    entityX,
+                    entityY,
+                    entityLayerId,
+                    endX,
+                    endY,
+                    period));
             }
         }
 

@@ -1,26 +1,17 @@
 package com.tsioni.balloonadventure.entity.impl;
 
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.tsioni.balloonadventure.entity.api.BalloonEntity;
-import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.DeathEntity;
-import com.tsioni.balloonadventure.entity.api.DeathEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.Entity;
-import com.tsioni.balloonadventure.entity.api.EntityDefinition;
-import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.GoalEntity;
-import com.tsioni.balloonadventure.entity.api.GoalEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.MinorGoalEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.SquareWallEntity;
-import com.tsioni.balloonadventure.entity.api.SquareWallEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.WindEntity;
-import com.tsioni.balloonadventure.entity.api.WindEntityDefinition;
+import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.entity.body.api.BodyFactory;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerFactory;
 import com.tsioni.balloonadventure.entity.contact.api.ContactListenerMultiplexer;
+import com.tsioni.balloonadventure.entity.path.api.PathFactory;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
 import java.util.Map;
@@ -32,6 +23,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     private final ContactListenerFactory contactListenerFactory;
     private final LevelGameState levelGameState;
     private final BodyFactory bodyFactory;
+    private final PathFactory pathFactory;
     private final Map<EntityDefinition, Entity> entityDefinitionMap;
 
     /**
@@ -47,13 +39,15 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final ContactListenerFactory contactListenerFactory,
         @Assisted final LevelGameState levelGameState,
         final BodyFactory bodyFactory,
-        @Assisted final Map<EntityDefinition, Entity> entityDefinitionMap)
+        @Assisted final Map<EntityDefinition, Entity> entityDefinitionMap,
+        final PathFactory pathFactory)
     {
         this.world = world;
         this.stage = stage;
         this.contactListenerFactory = contactListenerFactory;
         this.levelGameState = levelGameState;
         this.bodyFactory = bodyFactory;
+        this.pathFactory = pathFactory;
         this.entityDefinitionMap = entityDefinitionMap;
     }
 
@@ -143,6 +137,27 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
         final DeathEntity deathEntity = new DeathEntityImpl(body);
 
         finalizeNewEntity(deathEntity, deathEntityDefinition, body);
+    }
+
+    @Override
+    public void visit(final MovingDeathEntityDefinition movingDeathEntityDefinition)
+    {
+        final int period = movingDeathEntityDefinition.getPeriod();
+        final int endX = movingDeathEntityDefinition.getEndX();
+        final int endY = movingDeathEntityDefinition.getEndY();
+
+        final Body body = bodyFactory.createCircleShapeBody(
+            world,
+            true,
+            0f,
+            0f,
+            0f,
+            10,
+            BodyDef.BodyType.KinematicBody);
+
+        final MovingDeathEntity movingDeathEntity = new MovingDeathEntityImpl(body, endX, endY, period, pathFactory);
+
+        finalizeNewEntity(movingDeathEntity, movingDeathEntityDefinition, body);
     }
 
     @Override

@@ -6,14 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.AbstractBaseEntityVisitor;
-import com.tsioni.balloonadventure.entity.api.BalloonEntity;
-import com.tsioni.balloonadventure.entity.api.BalloonEntityDefinition;
-import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.EntityVisitor;
-import com.tsioni.balloonadventure.entity.api.GoalEntity;
-import com.tsioni.balloonadventure.entity.api.MinorGoalEntity;
+import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.util.api.Optional;
 
