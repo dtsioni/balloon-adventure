@@ -2,13 +2,14 @@ package com.tsioni.balloonadventure.debug;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.google.inject.Inject;
 import com.tsioni.balloonadventure.Drawable;
 import com.tsioni.balloonadventure.input.api.AbstractBaseInputProcessor;
+import com.tsioni.balloonadventure.input.api.InputProcessorRegistry;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,10 +26,6 @@ public class Debug implements Drawable
      * Print stream for printing to the on-screen debug console.
      */
     public static final PrintStream out = new PrintStream(new DebugOutputStream());
-    {
-        Gdx.input.setInputProcessor(
-            new InputMultiplexer(Gdx.input.getInputProcessor(), new DebutInputProcessor()));
-    }
 
     private static final int DEBUG_CONSOLE_MAX_LINES = 30;
     private static final int DEBUG_CONSOLE_MAX_WIDTH = 50;
@@ -55,10 +52,14 @@ public class Debug implements Drawable
 
     public static boolean visible = true;
 
+    @Inject
     public Debug(
-        final Batch batch)
+        final Batch batch,
+        final InputProcessorRegistry inputProcessorRegistry)
     {
         this.batch = batch;
+        
+        inputProcessorRegistry.registerInputProcessor(new DebutInputProcessor());
     }
 
     @Override

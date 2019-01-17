@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
@@ -18,7 +17,6 @@ import com.tsioni.balloonadventure.screen.api.ScreenSetter;
 
 class LevelTheaterScreen implements Screen
 {
-    private final Batch batch;
     private final Level level;
     private final LevelTheater levelTheater;
     private final Gui levelTheaterGui;
@@ -31,21 +29,20 @@ class LevelTheaterScreen implements Screen
 
     @Inject
     public LevelTheaterScreen(
-        @Assisted final Batch batch,
         @Assisted final Level level,
         @Assisted final LevelTheater levelTheater,
         final GuiFactory guiFactory,
         final ScreenFactory screenFactory,
-        final ScreenSetter screenSetter)
+        final ScreenSetter screenSetter,
+        final Debug debug)
     {
-        this.batch = batch;
         this.level = level;
         this.levelTheater = levelTheater;
         this.screenFactory = screenFactory;
         this.screenSetter = screenSetter;
-        this.debug = new Debug(batch);
+        this.debug = debug;
         this.levelTheaterGui = guiFactory.createLevelTheaterGui(
-            batch, level, levelTheater.getLevelGameState());
+            level, levelTheater.getLevelGameState());
     }
 
     @Override
@@ -67,7 +64,6 @@ class LevelTheaterScreen implements Screen
             Debug.out.println("You win.");
 
             final Screen screen = screenFactory.createLevelLoadingScreen(
-                batch,
                 level.getNextLevel());
 
             screenSetter.setScreen(screen);

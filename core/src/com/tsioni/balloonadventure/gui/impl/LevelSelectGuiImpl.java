@@ -100,7 +100,7 @@ class LevelSelectGuiImpl implements LevelSelectGui
 
     @Inject
     LevelSelectGuiImpl(
-        @Assisted final Batch batch,
+        final Batch batch,
         final GuiStageFactory guiStageFactory,
         final InputProcessorRegistry inputProcessorRegistry)
     {

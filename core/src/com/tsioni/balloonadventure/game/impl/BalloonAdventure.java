@@ -1,7 +1,6 @@
 package com.tsioni.balloonadventure.game.impl;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.inject.Inject;
 import com.tsioni.balloonadventure.screen.api.ScreenFactory;
 
@@ -19,6 +18,6 @@ class BalloonAdventure extends Game
     @Override
     public void create()
     {
-        this.setScreen(screenFactory.createLevelSelectScreen(new SpriteBatch()));
+        this.setScreen(screenFactory.createLevelSelectScreen());
     }
 }

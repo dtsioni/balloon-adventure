@@ -18,7 +18,6 @@ public interface ScreenFactory
      * @return
      */
     @Named(Screens.LEVEL_THEATER_SCREEN) Screen createLevelTheaterScreen(
-        Batch batch,
         Level level,
         LevelTheater levelTheater);
 
@@ -27,13 +26,11 @@ public interface ScreenFactory
      * level theater screen.
      */
     @Named(Screens.LEVEL_LOADING_SCREEN) Screen createLevelLoadingScreen(
-        Batch batch,
         LevelId levelId);
 
     /**
      * Create a new level select screen which will allow the user to select a level, and then set the
      * screen to a new loading screen for that level.
      */
-    @Named(Screens.LEVEL_SELECT_SCREEN) Screen createLevelSelectScreen(
-        Batch batch);
+    @Named(Screens.LEVEL_SELECT_SCREEN) Screen createLevelSelectScreen();
 }

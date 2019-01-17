@@ -46,14 +46,14 @@ class LevelTheaterGuiImpl implements Gui
 
     @Inject
     LevelTheaterGuiImpl(
-        @Assisted final Batch batch,
         @Assisted final Level level,
         @Assisted final LevelGameState levelGameState,
+        final Batch batch,
         final GuiStageFactory guiStageFactory)
     {
-        this.stage = guiStageFactory.createGuiStage(batch);
         this.level = level;
         this.levelGameState = levelGameState;
+        this.stage = guiStageFactory.createGuiStage(batch);
 
         numberOfMinorGoalsCollected = levelGameState.numberOfMinorGoalsCollected();
         stage.addActor(table);
