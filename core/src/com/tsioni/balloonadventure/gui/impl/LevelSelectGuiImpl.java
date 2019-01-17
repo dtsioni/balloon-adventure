@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.gui.api.LevelSelectGui;
 import com.tsioni.balloonadventure.input.api.InputProcessorRegistry;

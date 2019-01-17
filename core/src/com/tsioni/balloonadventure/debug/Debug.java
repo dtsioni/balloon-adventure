@@ -140,7 +140,7 @@ public class Debug implements Drawable
             {
                 visible = !visible;
             }
-            return false;
+            return true;
         }
     }
 }

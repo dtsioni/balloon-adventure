@@ -1,7 +1,6 @@
 package com.tsioni.balloonadventure.screen.api;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.google.inject.name.Named;
 import com.tsioni.balloonadventure.level.api.Level;
 import com.tsioni.balloonadventure.level.api.LevelId;
@@ -12,7 +11,6 @@ public interface ScreenFactory
     /**
      * Create a new level theater screen.
      *
-     * @param batch The batch to use for drawing.
      * @param level The level that this screen is playing.
      * @param levelTheater The level theater which is playing the level.
      * @return

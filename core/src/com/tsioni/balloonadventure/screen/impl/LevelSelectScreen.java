@@ -1,7 +1,6 @@
 package com.tsioni.balloonadventure.screen.impl;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.google.inject.Inject;
 import com.tsioni.balloonadventure.gui.api.GuiFactory;
 import com.tsioni.balloonadventure.gui.api.LevelSelectGui;

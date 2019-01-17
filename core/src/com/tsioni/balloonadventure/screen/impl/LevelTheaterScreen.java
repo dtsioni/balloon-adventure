@@ -23,8 +23,6 @@ class LevelTheaterScreen implements Screen
     private final ScreenFactory screenFactory;
     private final ScreenSetter screenSetter;
 
-    private final Debug debug;
-
     private int numberOfMinorGoalsCollected = 0;
 
     @Inject
@@ -33,14 +31,12 @@ class LevelTheaterScreen implements Screen
         @Assisted final LevelTheater levelTheater,
         final GuiFactory guiFactory,
         final ScreenFactory screenFactory,
-        final ScreenSetter screenSetter,
-        final Debug debug)
+        final ScreenSetter screenSetter)
     {
         this.level = level;
         this.levelTheater = levelTheater;
         this.screenFactory = screenFactory;
         this.screenSetter = screenSetter;
-        this.debug = debug;
         this.levelTheaterGui = guiFactory.createLevelTheaterGui(
             level, levelTheater.getLevelGameState());
     }
@@ -74,10 +70,8 @@ class LevelTheaterScreen implements Screen
             levelTheater.setLevelState(level.getLevelInitialState());
         }
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         levelTheater.draw();
         levelTheaterGui.draw();
-        debug.draw();
     }
 
     @Override
