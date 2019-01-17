@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.gui.api.Gui;
-import com.tsioni.balloonadventure.gui.api.LevelTheaterGuiFactory;
+import com.tsioni.balloonadventure.gui.api.GuiFactory;
 import com.tsioni.balloonadventure.level.api.Level;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
@@ -18,6 +18,7 @@ import com.tsioni.balloonadventure.screen.api.ScreenSetter;
 
 class LevelTheaterScreen implements Screen
 {
+    private final Batch batch;
     private final Level level;
     private final LevelTheater levelTheater;
     private final Gui levelTheaterGui;
@@ -30,19 +31,20 @@ class LevelTheaterScreen implements Screen
 
     @Inject
     public LevelTheaterScreen(
+        @Assisted final Batch batch,
         @Assisted final Level level,
         @Assisted final LevelTheater levelTheater,
-        @Assisted final Batch batch,
-        final LevelTheaterGuiFactory levelTheaterGuiFactory,
+        final GuiFactory guiFactory,
         final ScreenFactory screenFactory,
         final ScreenSetter screenSetter)
     {
+        this.batch = batch;
         this.level = level;
         this.levelTheater = levelTheater;
         this.screenFactory = screenFactory;
         this.screenSetter = screenSetter;
         this.debug = new Debug(batch);
-        this.levelTheaterGui = levelTheaterGuiFactory.createLevelTheaterGui(
+        this.levelTheaterGui = guiFactory.createLevelTheaterGui(
             batch, level, levelTheater.getLevelGameState());
     }
 
@@ -65,6 +67,7 @@ class LevelTheaterScreen implements Screen
             Debug.out.println("You win.");
 
             final Screen screen = screenFactory.createLevelLoadingScreen(
+                batch,
                 level.getNextLevel());
 
             screenSetter.setScreen(screen);

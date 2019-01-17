@@ -1,7 +1,6 @@
 package com.tsioni.balloonadventure.level.impl;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -13,12 +12,12 @@ import com.tsioni.balloonadventure.entity.api.Entity;
 import com.tsioni.balloonadventure.entity.api.EntityDefinition;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.TheaterInstantiatorFactory;
+import com.tsioni.balloonadventure.input.api.InputProcessorRegistry;
 import com.tsioni.balloonadventure.level.api.LevelInitialState;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 import com.tsioni.balloonadventure.level.api.LevelTheaterGenerator;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 import com.tsioni.balloonadventure.level.state.api.LevelGameStateFactory;
-import com.tsioni.balloonadventure.stage.impl.StageInputProcessorImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +26,17 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
 {
     private final TheaterInstantiatorFactory theaterInstantiatorFactory;
     private final LevelGameStateFactory levelGameStateFactory;
+    private final InputProcessorRegistry inputProcessorRegistry;
 
     @Inject
     LevelTheaterGeneratorImpl(
         final TheaterInstantiatorFactory theaterInstantiatorFactory,
-        final LevelGameStateFactory levelGameStateFactory)
+        final LevelGameStateFactory levelGameStateFactory,
+        final InputProcessorRegistry inputProcessorRegistry)
     {
         this.theaterInstantiatorFactory = theaterInstantiatorFactory;
         this.levelGameStateFactory = levelGameStateFactory;
+        this.inputProcessorRegistry = inputProcessorRegistry;
     }
 
     @Override
@@ -53,8 +55,7 @@ public class LevelTheaterGeneratorImpl implements LevelTheaterGenerator
         final FitViewport fitViewport = new FitViewport(viewportWidth, viewportHeight, orthographicCamera);
         final Stage stage = new Stage(fitViewport, batch);
 
-        final InputProcessor inputProcessor = new StageInputProcessorImpl(stage);
-        Gdx.input.setInputProcessor(inputProcessor);
+        inputProcessorRegistry.registerInputProcessor(stage);
 
         final World world = new World(new Vector2(0, -90), false);
 

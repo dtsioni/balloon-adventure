@@ -19,6 +19,7 @@ public class ScreenInternalModule extends AbstractModule
         install(new FactoryModuleBuilder()
             .implement(Screen.class, Names.named(Screens.LEVEL_LOADING_SCREEN), LevelLoadingScreen.class)
             .implement(Screen.class, Names.named(Screens.LEVEL_THEATER_SCREEN), LevelTheaterScreen.class)
+            .implement(Screen.class, Names.named(Screens.LEVEL_SELECT_SCREEN), LevelSelectScreen.class)
             .build(ScreenFactory.class));
     }
 }

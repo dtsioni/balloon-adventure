@@ -2,6 +2,7 @@ package com.tsioni.balloonadventure.level.guice;
 
 import com.google.inject.AbstractModule;
 import com.tsioni.balloonadventure.entity.guice.TheaterInstantiatorModule;
+import com.tsioni.balloonadventure.input.guice.InputProcessorRegistryModule;
 import com.tsioni.balloonadventure.level.impl.LevelInternalModule;
 import com.tsioni.balloonadventure.level.state.guice.LevelGameStateModule;
 
@@ -12,6 +13,7 @@ public class LevelModule extends AbstractModule
     {
         install(new TheaterInstantiatorModule());
         install(new LevelGameStateModule());
+        install(new InputProcessorRegistryModule());
 
         install(new LevelInternalModule());
     }

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.tsioni.balloonadventure.Drawable;
-import com.tsioni.balloonadventure.input.AbstractBaseInputProcessor;
+import com.tsioni.balloonadventure.input.api.AbstractBaseInputProcessor;
 
 import java.io.IOException;
 import java.io.OutputStream;

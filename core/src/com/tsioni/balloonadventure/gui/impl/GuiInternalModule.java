@@ -1,16 +1,19 @@
 package com.tsioni.balloonadventure.gui.impl;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Scopes;
-import com.tsioni.balloonadventure.gui.api.LevelTheaterGuiFactory;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.tsioni.balloonadventure.gui.api.Gui;
+import com.tsioni.balloonadventure.gui.api.GuiFactory;
+import com.tsioni.balloonadventure.gui.api.LevelSelectGui;
 
 public class GuiInternalModule extends AbstractModule
 {
     @Override
     protected void configure()
     {
-        bind(LevelTheaterGuiFactory.class)
-            .to(LevelTheaterGuiFactoryImpl.class)
-            .in(Scopes.SINGLETON);
+        install(new FactoryModuleBuilder()
+            .implement(Gui.class, LevelTheaterGuiImpl.class)
+            .implement(LevelSelectGui.class, LevelSelectGuiImpl.class)
+            .build(GuiFactory.class));
     }
 }

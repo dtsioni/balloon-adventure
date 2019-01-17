@@ -1,11 +1,14 @@
 package com.tsioni.balloonadventure.gui.impl;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.gui.api.Gui;
 import com.tsioni.balloonadventure.level.api.Level;
@@ -41,12 +44,14 @@ class LevelTheaterGuiImpl implements Gui
 
     private int numberOfMinorGoalsCollected;
 
+    @Inject
     LevelTheaterGuiImpl(
-        final Stage stage,
-        final Level level,
-        final LevelGameState levelGameState)
+        @Assisted final Batch batch,
+        @Assisted final Level level,
+        @Assisted final LevelGameState levelGameState,
+        final GuiStageFactory guiStageFactory)
     {
-        this.stage = stage;
+        this.stage = guiStageFactory.createGuiStage(batch);
         this.level = level;
         this.levelGameState = levelGameState;
 

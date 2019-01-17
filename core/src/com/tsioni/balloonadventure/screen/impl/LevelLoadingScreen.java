@@ -12,6 +12,7 @@ import com.tsioni.balloonadventure.screen.api.ScreenSetter;
 
 class LevelLoadingScreen implements Screen
 {
+    private final Batch batch;
     private final LevelId levelId;
     private final LevelFetcher levelFetcher;
     private final LevelTheaterGenerator levelTheaterGenerator;
@@ -20,12 +21,14 @@ class LevelLoadingScreen implements Screen
 
     @Inject
     LevelLoadingScreen(
+        @Assisted final Batch batch,
         @Assisted final LevelId levelId,
         final LevelFetcher levelFetcher,
         final LevelTheaterGenerator levelTheaterGenerator,
         final ScreenFactory screenFactory,
         final ScreenSetter screenSetter)
     {
+        this.batch = batch;
         this.levelId = levelId;
         this.levelFetcher = levelFetcher;
         this.levelTheaterGenerator = levelTheaterGenerator;
@@ -44,15 +47,13 @@ class LevelLoadingScreen implements Screen
     {
         Debug.out.println("Loading level " + levelId);
 
-        final Batch batch = new SpriteBatch();
-
         final Level level = levelFetcher.fetchLevel(levelId);
 
         final LevelTheater levelTheater = levelTheaterGenerator.generateLevelTheater(
             level.getLevelInitialState(), batch);
 
         final Screen loadedLevelTheaterScreen = screenFactory.createLevelTheaterScreen(
-            level, levelTheater, batch);
+            batch, level, levelTheater);
 
         screenSetter.setScreen(loadedLevelTheaterScreen);
     }

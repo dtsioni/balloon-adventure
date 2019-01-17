@@ -1,4 +1,4 @@
-package com.tsioni.balloonadventure.input;
+package com.tsioni.balloonadventure.input.api;
 
 import com.badlogic.gdx.InputProcessor;
 
