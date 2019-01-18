@@ -19,6 +19,7 @@ class LevelTheaterScreen implements Screen
 {
     private final Level level;
     private final LevelTheater levelTheater;
+    private final LevelGameState levelGameState;
     private final Gui levelTheaterGui;
     private final ScreenFactory screenFactory;
     private final ScreenSetter screenSetter;
@@ -35,6 +36,7 @@ class LevelTheaterScreen implements Screen
     {
         this.level = level;
         this.levelTheater = levelTheater;
+        this.levelGameState = levelTheater.getLevelGameState();
         this.screenFactory = screenFactory;
         this.screenSetter = screenSetter;
         this.levelTheaterGui = guiFactory.createLevelTheaterGui(
@@ -50,10 +52,20 @@ class LevelTheaterScreen implements Screen
     @Override
     public void render(final float delta)
     {
-        levelTheater.step(delta);
-        levelTheaterGui.step(delta);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !levelGameState.gameIsPaused())
+        {
+            levelGameState.pauseGame();
+        }
+        else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && levelGameState.gameIsPaused())
+        {
+            levelGameState.playGame();
+        }
 
-        final LevelGameState levelGameState = levelTheater.getLevelGameState();
+        if (!levelGameState.gameIsPaused())
+        {
+            levelTheater.step(delta);
+            levelTheaterGui.step(delta);
+        }
 
         if (levelGameState.playerHasWon() || Gdx.input.isKeyJustPressed(Input.Keys.W))
         {

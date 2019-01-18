@@ -7,6 +7,7 @@ class LevelGameStateImpl implements LevelGameState
     private boolean playerHasWon = false;
     private boolean playerHasLost = false;
     private int numberOfMinorGoalsCollected = 0;
+    private boolean gameIsPaused = false;
 
     @Override
     public boolean playerHasWon()
@@ -24,6 +25,12 @@ class LevelGameStateImpl implements LevelGameState
     public int numberOfMinorGoalsCollected()
     {
         return numberOfMinorGoalsCollected;
+    }
+
+    @Override
+    public boolean gameIsPaused()
+    {
+        return gameIsPaused;
     }
 
     @Override
@@ -45,10 +52,23 @@ class LevelGameStateImpl implements LevelGameState
     }
 
     @Override
+    public void pauseGame()
+    {
+        gameIsPaused = true;
+    }
+
+    @Override
+    public void playGame()
+    {
+        gameIsPaused = false;
+    }
+
+    @Override
     public void reset()
     {
         playerHasWon = false;
         playerHasLost = false;
         numberOfMinorGoalsCollected = 0;
+        gameIsPaused = false;
     }
 }

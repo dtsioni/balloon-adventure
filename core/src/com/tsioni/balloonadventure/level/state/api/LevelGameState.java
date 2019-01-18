@@ -21,6 +21,11 @@ public interface LevelGameState
     int numberOfMinorGoalsCollected();
 
     /**
+     * @return whether or not the game is paused.
+     */
+    boolean gameIsPaused();
+
+    /**
      * The state should reflect that the player collected a Goal.
      */
     void playerCollectedAGoal();
@@ -34,6 +39,16 @@ public interface LevelGameState
      * The state should reflect that the player has died.
      */
     void playerDied();
+
+    /**
+     * The state should reflect that the game has paused.
+     */
+    void pauseGame();
+
+    /**
+     * The state should reflect that the game has played.
+     */
+    void playGame();
 
     /**
      * Resets the game state.

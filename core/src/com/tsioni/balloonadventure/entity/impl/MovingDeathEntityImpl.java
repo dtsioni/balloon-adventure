@@ -67,6 +67,12 @@ public class MovingDeathEntityImpl extends DeathEntityImpl implements MovingDeat
         @Override
         public void act(float delta)
         {
+            /**
+             * TODO: It might be kind of painful to remember to step this for every actor that has
+             * a path. Ideally all paths in a given level would be managed by a single component,
+             * and is stepped in the same place as everything else in the level.
+             */
+            path.step(delta);
             body.setTransform(path.getX(), path.getY(), body.getAngle());
         }
 
