@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextobjectid="75">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextobjectid="43">
  <tileset firstgid="1" source="tiles.tsx"/>
  <layer name="tiles" width="100" height="100">
   <data encoding="csv">
@@ -106,54 +106,43 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object id="20" gid="54" x="32" y="3168" width="32" height="32"/>
-  <object id="28" gid="10" x="0" y="3008" width="32" height="32"/>
-  <object id="29" gid="10" x="0" y="3040" width="32" height="32"/>
-  <object id="31" gid="10" x="0" y="3072" width="32" height="32"/>
-  <object id="32" gid="10" x="0" y="3104" width="32" height="32"/>
-  <object id="33" gid="10" x="0" y="3136" width="32" height="32"/>
-  <object id="34" gid="10" x="0" y="3168" width="32" height="32"/>
-  <object id="35" gid="10" x="0" y="3200" width="32" height="32"/>
-  <object id="36" gid="10" x="32" y="3200" width="32" height="32"/>
-  <object id="37" gid="10" x="64" y="3200" width="32" height="32"/>
-  <object id="38" gid="10" x="96" y="3200" width="32" height="32"/>
-  <object id="39" gid="10" x="128" y="3200" width="32" height="32"/>
-  <object id="40" gid="10" x="160" y="3200" width="32" height="32"/>
-  <object id="41" gid="10" x="192" y="3200" width="32" height="32"/>
-  <object id="42" gid="10" x="256" y="3200" width="32" height="32"/>
-  <object id="43" gid="10" x="256" y="3168" width="32" height="32"/>
-  <object id="44" gid="10" x="256" y="3136" width="32" height="32"/>
-  <object id="45" gid="10" x="256" y="3104" width="32" height="32"/>
-  <object id="46" gid="10" x="256" y="3072" width="32" height="32"/>
-  <object id="48" gid="10" x="256" y="3040" width="32" height="32"/>
-  <object id="49" gid="10" x="256" y="3008" width="32" height="32"/>
-  <object id="50" gid="10" x="192" y="3008" width="32" height="32"/>
-  <object id="51" gid="10" x="160" y="3008" width="32" height="32"/>
-  <object id="52" gid="10" x="128" y="3008" width="32" height="32"/>
-  <object id="53" gid="10" x="96" y="3008" width="32" height="32"/>
-  <object id="54" gid="10" x="64" y="3008" width="32" height="32"/>
-  <object id="55" gid="10" x="32" y="3008" width="32" height="32"/>
-  <object id="62" gid="2" x="128" y="3136" width="32" height="32"/>
-  <object id="63" gid="38" x="32" y="3104" width="32" height="32">
-   <properties>
-    <property name="direction" type="int" value="0"/>
-   </properties>
-  </object>
-  <object id="64" gid="10" x="224" y="3008" width="32" height="32"/>
-  <object id="65" gid="10" x="224" y="3200" width="32" height="32"/>
-  <object id="66" gid="38" x="224" y="3104" width="32" height="32">
-   <properties>
-    <property name="direction" type="int" value="180"/>
-   </properties>
-  </object>
-  <object id="71" gid="21" x="224" y="3040" width="32" height="32"/>
-  <object id="72" gid="2" x="128" y="3072" width="32" height="32"/>
-  <object id="73" gid="57" x="128" y="3040" width="32" height="32">
-   <properties>
-    <property name="endCellX" type="int" value="4"/>
-    <property name="endCellY" type="int" value="98"/>
-    <property name="period" type="int" value="2"/>
-   </properties>
-  </object>
+  <object id="3" gid="6" x="0" y="3200" width="32" height="32"/>
+  <object id="4" gid="6" x="32" y="3200" width="32" height="32"/>
+  <object id="5" gid="6" x="64" y="3200" width="32" height="32"/>
+  <object id="6" gid="6" x="0" y="3168" width="32" height="32"/>
+  <object id="8" gid="6" x="0" y="3136" width="32" height="32"/>
+  <object id="9" gid="6" x="0" y="3104" width="32" height="32"/>
+  <object id="10" gid="6" x="96" y="3200" width="32" height="32"/>
+  <object id="11" gid="6" x="96" y="3168" width="32" height="32"/>
+  <object id="13" gid="6" x="96" y="3136" width="32" height="32"/>
+  <object id="14" gid="6" x="96" y="3104" width="32" height="32"/>
+  <object id="15" gid="8" x="64" y="3136" width="32" height="32"/>
+  <object id="16" gid="4" x="64" y="3104" width="32" height="32"/>
+  <object id="17" gid="4" x="32" y="3040" width="32" height="32"/>
+  <object id="18" gid="4" x="64" y="2976" width="32" height="32"/>
+  <object id="19" gid="4" x="32" y="2912" width="32" height="32"/>
+  <object id="20" gid="1" x="32" y="3072" width="32" height="32"/>
+  <object id="21" gid="8" x="64" y="3008" width="32" height="32"/>
+  <object id="22" gid="1" x="32" y="2944" width="32" height="32"/>
+  <object id="23" gid="6" x="96" y="3072" width="32" height="32"/>
+  <object id="24" gid="6" x="96" y="3040" width="32" height="32"/>
+  <object id="25" gid="6" x="96" y="3008" width="32" height="32"/>
+  <object id="26" gid="6" x="96" y="2976" width="32" height="32"/>
+  <object id="27" gid="6" x="96" y="2944" width="32" height="32"/>
+  <object id="28" gid="6" x="0" y="3072" width="32" height="32"/>
+  <object id="29" gid="6" x="0" y="3040" width="32" height="32"/>
+  <object id="30" gid="6" x="0" y="3008" width="32" height="32"/>
+  <object id="31" gid="6" x="0" y="2976" width="32" height="32"/>
+  <object id="32" gid="6" x="0" y="2944" width="32" height="32"/>
+  <object id="33" gid="6" x="0" y="2912" width="32" height="32"/>
+  <object id="34" gid="6" x="96" y="2912" width="32" height="32"/>
+  <object id="35" gid="2" x="64" y="3168" width="32" height="32"/>
+  <object id="36" gid="3" x="64" y="2880" width="32" height="32"/>
+  <object id="37" gid="6" x="0" y="2880" width="32" height="32"/>
+  <object id="38" gid="6" x="0" y="2848" width="32" height="32"/>
+  <object id="39" gid="6" x="32" y="2848" width="32" height="32"/>
+  <object id="40" gid="6" x="64" y="2848" width="32" height="32"/>
+  <object id="41" gid="6" x="96" y="2848" width="32" height="32"/>
+  <object id="42" gid="6" x="96" y="2880" width="32" height="32"/>
  </objectgroup>
 </map>

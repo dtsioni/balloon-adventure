@@ -49,11 +49,12 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
             final TiledMapTileMapObject mapObject = (TiledMapTileMapObject) mapObjects.get(i);
             final TiledMapTile objectTile = mapObject.getTile();
             final MapProperties objectProperties = mapObject.getProperties();
+            final MapProperties objectTileProperties = objectTile.getProperties();
             final int entityX = (int) (Float.parseFloat(objectProperties.get("x").toString()) * metersPerPixel) + tileOffset;
             final int entityY = (int) (Float.parseFloat(objectProperties.get("y").toString()) * metersPerPixel) + tileOffset;
             final int entityLayerId = 0;
 
-            EntityId entityId = new EntityId(objectTile.getProperties().get("entityId").toString());
+            EntityId entityId = new EntityId(objectTileProperties.get("entityId").toString());
 
             if(EntityIds.BALLOON.equals(entityId))
             {
@@ -67,7 +68,7 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
 
             if(EntityIds.WIND.equals(entityId))
             {
-                final int direction = Integer.parseInt(objectProperties.get("direction").toString());
+                final int direction = Integer.parseInt(objectTileProperties.get("direction").toString());
                 entityDefinitions.add(entityDefinitionFactory.createWindEntityDef(entityX, entityY, entityLayerId, direction));
             }
 
