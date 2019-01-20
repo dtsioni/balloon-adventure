@@ -40,7 +40,7 @@ class StraightPatrolPathImpl implements StraightPatrolPath
     // Oscillates between 0 and 1.
     private float pulse()
     {
-        return (float) (0.5 * (1 + Math.sin(1000 * delta/(175 * period))));
+        return 1 - (float) (0.5 * (1 + Math.cos(1000 * delta/(175 * period))));
     }
 
     @Override
