@@ -13,6 +13,7 @@ class BalloonEntityImpl implements BalloonEntity
     private final Actor actor;
     private final Body body;
     private final LevelGameState levelGameState;
+    private final int blowSpeed = 5;
 
     BalloonEntityImpl(
         final Body body,
@@ -80,7 +81,14 @@ class BalloonEntityImpl implements BalloonEntity
     @Override
     public void blowBalloon(final Vector2 blowVector)
     {
-        body.applyForceToCenter(blowVector, true);
+        if(blowVector.x < 0)
+        {
+            body.setLinearVelocity(body.getLinearVelocity().x - blowSpeed, body.getLinearVelocity().y);
+        }
+        else
+        {
+            body.setLinearVelocity(body.getLinearVelocity().x + blowSpeed, body.getLinearVelocity().y);
+        }
     }
 
     @Override
@@ -91,8 +99,12 @@ class BalloonEntityImpl implements BalloonEntity
 
     class BalloonActor extends AbstractBaseActor
     {
-        private final float IMPULSE = 4;
-        private final float FORCE_IMPULSE = 700;
+        private final float IMPULSE = 4f;
+
+        private final float MAX_UP_SPEED = 30;
+        private final float MAX_DOWN_SPEED = -30;
+        private final float MAX_LEFT_SPEED = -30;
+        private final float MAX_RIGHT_SPEED = 30;
 
         private boolean isTouched;
 
@@ -108,12 +120,32 @@ class BalloonEntityImpl implements BalloonEntity
             {
                 if (body.getLinearVelocity().y < 0)
                 {
-                    body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y + IMPULSE);
+                    body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y + IMPULSE * 2);
                 }
                 else
                 {
-                    body.applyForceToCenter(0, FORCE_IMPULSE, true);
+                    body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y + IMPULSE);
                 }
+            }
+
+            /* If the balloon is going faster than its max speed, limit it */
+
+            if(body.getLinearVelocity().y > 0)
+            {
+                body.setLinearVelocity(body.getLinearVelocity().x, Math.min(body.getLinearVelocity().y, MAX_UP_SPEED));
+            }
+            else
+            {
+                body.setLinearVelocity(body.getLinearVelocity().x, Math.max(body.getLinearVelocity().y, MAX_DOWN_SPEED));
+            }
+
+            if(body.getLinearVelocity().x > 0)
+            {
+                body.setLinearVelocity(Math.min(body.getLinearVelocity().x, MAX_RIGHT_SPEED), body.getLinearVelocity().y);
+            }
+            else
+            {
+                body.setLinearVelocity(Math.max(body.getLinearVelocity().x, MAX_LEFT_SPEED), body.getLinearVelocity().y);
             }
         }
 

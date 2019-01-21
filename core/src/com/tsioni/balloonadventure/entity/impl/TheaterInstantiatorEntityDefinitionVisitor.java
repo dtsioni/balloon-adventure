@@ -98,7 +98,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             0f,
-            8,
+            6,
             BodyDef.BodyType.KinematicBody);
 
         final WindEntity windEntity = new WindEntityImpl(body, direction);
