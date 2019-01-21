@@ -50,7 +50,7 @@ public class Debug implements Drawable
             0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
-    public static boolean visible = true;
+    public static boolean visible = false;
 
     @Inject
     public Debug(
