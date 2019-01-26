@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tiles" tilewidth="32" tileheight="32" tilecount="8" columns="0">
+<tileset name="tiles" tilewidth="32" tileheight="32" tilecount="9" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
@@ -53,5 +53,14 @@
    <property name="entityId" value="WIND"/>
   </properties>
   <image width="32" height="32" source="../img/arrows-l.png"/>
+ </tile>
+ <tile id="8">
+  <properties>
+   <property name="endCellX" type="int" value="-1"/>
+   <property name="endCellY" type="int" value="-1"/>
+   <property name="entityId" value="MOVING_PLATFORM"/>
+   <property name="period" type="int" value="-1"/>
+  </properties>
+  <image width="32" height="32" source="../img/movingPlatform.png"/>
  </tile>
 </tileset>

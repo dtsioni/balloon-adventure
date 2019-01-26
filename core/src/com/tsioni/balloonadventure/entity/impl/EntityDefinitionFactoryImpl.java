@@ -52,4 +52,16 @@ public class EntityDefinitionFactoryImpl implements EntityDefinitionFactory
     {
         return new MovingDeathEntityDefinitionImpl(startX, startY, layerId, endX, endY, period);
     }
+
+    @Override
+    public EntityDefinition createMovingPlatformEntityDef(
+        final int startX,
+        final int startY,
+        final int layerId,
+        final int endX,
+        final int endY,
+        final int period)
+    {
+        return new MovingPlatformEntityDefinitionImpl(startX, startY, layerId, endX, endY, period);
+    }
 }

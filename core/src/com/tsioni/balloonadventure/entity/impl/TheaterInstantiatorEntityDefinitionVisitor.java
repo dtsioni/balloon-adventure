@@ -162,6 +162,27 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
     }
 
     @Override
+    public void visit(final MovingPlatformEntityDefinition movingPlatformEntityDefinition)
+    {
+        final int period = movingPlatformEntityDefinition.getPeriod();
+        final int endX = movingPlatformEntityDefinition.getEndX();
+        final int endY = movingPlatformEntityDefinition.getEndY();
+
+        final Body body = bodyFactory.createBoxShapeBody(
+            world,
+            false,
+            0f,
+            0f,
+            0f,
+            8,
+            BodyDef.BodyType.StaticBody);
+
+        final MovingPlatformEntity movingPlatformEntity = new MovingPlatformEntityImpl(body, endX, endY, period, pathFactory);
+
+        finalizeNewEntity(movingPlatformEntity, movingPlatformEntityDefinition, body);
+    }
+
+    @Override
     public void visit(final MinorGoalEntityDefinition minorGoalEntityDefinition)
     {
         final Body body = bodyFactory.createCircleShapeBody(

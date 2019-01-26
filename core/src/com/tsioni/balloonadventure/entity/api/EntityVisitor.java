@@ -15,4 +15,6 @@ public interface EntityVisitor
     void visit(MovingDeathEntity movingDeathEntity);
     
     void visit(MinorGoalEntity minorGoalEntity);
+
+    void visit(MovingPlatformEntity movingPlatformEntity);
 }

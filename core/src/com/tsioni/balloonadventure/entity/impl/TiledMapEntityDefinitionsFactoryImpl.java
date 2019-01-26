@@ -107,6 +107,27 @@ class TiledMapEntityDefinitionsFactoryImpl implements TiledMapEntityDefinitionsF
                     endY,
                     period));
             }
+
+            if(EntityIds.MOVING_PLATFORM.equals(entityId))
+            {
+                final int endX =
+                    (int) (Integer.parseInt(objectProperties.get("endCellX").toString()) * tileWidth * metersPerPixel + tileOffset);
+                /**
+                 * Tiled has a y-down axis, and we have a y-up axis. Start and end positions are defined in reference
+                 * to the Tiled grid, so we need to flip their y-axis.
+                 */
+                final int endY =
+                    (int) ((layerHeight - Integer.parseInt(objectProperties.get("endCellY").toString()) - 1) * metersPerPixel * tileWidth + tileOffset);
+                final int period = Integer.parseInt(objectProperties.get("period").toString());
+
+                entityDefinitions.add(entityDefinitionFactory.createMovingPlatformEntityDef(
+                    entityX,
+                    entityY,
+                    entityLayerId,
+                    endX,
+                    endY,
+                    period));
+            }
         }
 
         return entityDefinitions;

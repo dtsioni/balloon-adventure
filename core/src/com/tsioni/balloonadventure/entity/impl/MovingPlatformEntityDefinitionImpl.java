@@ -1,9 +1,9 @@
 package com.tsioni.balloonadventure.entity.impl;
 
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
-import com.tsioni.balloonadventure.entity.api.MovingDeathEntityDefinition;
+import com.tsioni.balloonadventure.entity.api.MovingPlatformEntityDefinition;
 
-class MovingDeathEntityDefinitionImpl implements MovingDeathEntityDefinition
+public class MovingPlatformEntityDefinitionImpl implements MovingPlatformEntityDefinition
 {
     private final int x;
     private final int y;
@@ -12,7 +12,7 @@ class MovingDeathEntityDefinitionImpl implements MovingDeathEntityDefinition
     private final int endY;
     private final int period;
 
-    MovingDeathEntityDefinitionImpl(
+    MovingPlatformEntityDefinitionImpl(
         final int startX,
         final int startY,
         final int layerId,

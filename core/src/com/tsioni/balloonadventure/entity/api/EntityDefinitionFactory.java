@@ -12,4 +12,5 @@ public interface EntityDefinitionFactory
     EntityDefinition createDeathEntityDef(int x, int y, int layerId);
     EntityDefinition createMinorGoalEntityDef(int x, int y, int layerId);
     EntityDefinition createMovingDeathEntityDef(int startX, int startY, int layerId, int endX, int endY, int period);
+    EntityDefinition createMovingPlatformEntityDef(int startX, int startY, int layerId, int endX, int endY, int period);
 }

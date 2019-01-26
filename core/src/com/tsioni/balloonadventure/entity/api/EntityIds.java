@@ -9,4 +9,5 @@ public class EntityIds
     public static final EntityId DEATH = new EntityId("DEATH");
     public static final EntityId MOVING_DEATH = new EntityId("MOVING_DEATH");
     public static final EntityId MINOR_GOAL = new EntityId("MINOR_GOAL");
+    public static final EntityId MOVING_PLATFORM = new EntityId("MOVING_PLATFORM");
 }
