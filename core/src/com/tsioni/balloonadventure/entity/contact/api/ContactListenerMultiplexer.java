@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.tsioni.balloonadventure.util.api.Consumer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,13 +88,5 @@ public class ContactListenerMultiplexer implements ContactListener
         {
             contactListenerConsumer.accept(contactListener);
         }
-    }
-
-    /**
-     * TODO: Replace this when we have access to the Java 8 Stream APIs
-     */
-    interface Consumer<T>
-    {
-        void accept(T t);
     }
 }
