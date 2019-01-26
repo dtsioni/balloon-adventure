@@ -9,7 +9,7 @@ import com.tsioni.balloonadventure.entity.path.api.Path;
 import com.tsioni.balloonadventure.entity.path.api.PathFactory;
 import com.tsioni.balloonadventure.util.api.Optional;
 
-public class MovingPlatformEntityImpl implements MovingPlatformEntity
+class MovingPlatformEntityImpl implements MovingPlatformEntity
 {
     private final Body body;
     private final int endX;

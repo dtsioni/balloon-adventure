@@ -3,7 +3,7 @@ package com.tsioni.balloonadventure.entity.impl;
 import com.tsioni.balloonadventure.entity.api.EntityDefinitionVisitor;
 import com.tsioni.balloonadventure.entity.api.MovingPlatformEntityDefinition;
 
-public class MovingPlatformEntityDefinitionImpl implements MovingPlatformEntityDefinition
+class MovingPlatformEntityDefinitionImpl implements MovingPlatformEntityDefinition
 {
     private final int x;
     private final int y;
