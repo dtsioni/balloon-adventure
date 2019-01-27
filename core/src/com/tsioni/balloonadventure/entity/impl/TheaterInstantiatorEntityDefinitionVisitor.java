@@ -175,7 +175,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             0f,
             0f,
             8,
-            BodyDef.BodyType.StaticBody);
+            BodyDef.BodyType.KinematicBody);
 
         final MovingPlatformEntity movingPlatformEntity = new MovingPlatformEntityImpl(body, endX, endY, period, pathFactory);
 

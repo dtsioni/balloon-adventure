@@ -5,52 +5,37 @@ import com.tsioni.balloonadventure.entity.path.api.StraightPatrolPath;
 
 class StraightPatrolPathImpl implements StraightPatrolPath
 {
-    private final float startPositionX;
-    private final float startPositionY;
     private final float distanceX;
     private final float distanceY;
     private final float period;
 
-    private float delta = 0;
+    private float elapsedTime = 0;
 
     StraightPatrolPathImpl(
         final Vector2 startPosition,
         final Vector2 endPosition,
         final float period)
     {
-        this.startPositionX = startPosition.x;
-        this.startPositionY = startPosition.y;
         this.distanceX = endPosition.x - startPosition.x;
         this.distanceY = endPosition.y - startPosition.y;
         this.period = period;
     }
 
     @Override
-    public float getX()
+    public float getXVelocity()
     {
-        return startPositionX + (distanceX * pulse());
+        return (float) (Math.sin(elapsedTime * 2 * Math.PI / period) * distanceX * Math.PI / period);
     }
 
     @Override
-    public float getY()
+    public float getYVelocity()
     {
-        return startPositionY + (distanceY * pulse());
-    }
-
-    // Oscillates between 0 and 1.
-    private float pulse()
-    {
-        return 1 - (float) (0.5 * (1 + Math.cos(1000 * delta/(175 * period))));
+        return (float) (Math.sin(elapsedTime * 2 * Math.PI / period) * distanceY * Math.PI / period);
     }
 
     @Override
     public void step(final float delta)
     {
-        /**
-         * Because this is essentially counting number of played milliseconds, I think that this
-         * will only overflow in like 60 years, and at that point everyone will be playing
-         * Balloon Adventure 4.
-         */
-        this.delta += delta;
+        this.elapsedTime += delta;
     }
 }

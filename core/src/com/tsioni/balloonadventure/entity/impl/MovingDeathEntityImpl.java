@@ -73,7 +73,7 @@ public class MovingDeathEntityImpl extends DeathEntityImpl implements MovingDeat
              * and is stepped in the same place as everything else in the level.
              */
             path.step(delta);
-            body.setTransform(path.getX(), path.getY(), body.getAngle());
+            body.setLinearVelocity(path.getXVelocity(), path.getYVelocity());
         }
 
         @Override

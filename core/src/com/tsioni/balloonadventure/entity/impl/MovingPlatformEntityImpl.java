@@ -97,7 +97,7 @@ class MovingPlatformEntityImpl implements MovingPlatformEntity
         public void act(float delta)
         {
             path.step(delta);
-            body.setTransform(path.getX(), path.getY(), body.getAngle());
+            body.setLinearVelocity(path.getXVelocity(), path.getYVelocity());
             /** TODO Carry the balloon. This depends on paths being changed to set velocity instead of position */
         }
         @Override
