@@ -68,6 +68,7 @@ class BalloonEntityImpl implements BalloonEntity
 
                 body.setLinearVelocity(new Vector2(0, 0));
                 body.setAngularVelocity(0);
+                body.setLinearDamping(0.2f);
             }
         };
     }

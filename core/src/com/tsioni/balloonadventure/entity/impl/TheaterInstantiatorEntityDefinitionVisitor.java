@@ -59,7 +59,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             world,
             false,
             0.3f,
-            0f,
+            1f,
             0f,
             4,
             BodyDef.BodyType.DynamicBody);
@@ -172,7 +172,7 @@ class TheaterInstantiatorEntityDefinitionVisitor implements EntityDefinitionVisi
             world,
             false,
             0f,
-            0f,
+            1f,
             0f,
             8,
             BodyDef.BodyType.KinematicBody);
