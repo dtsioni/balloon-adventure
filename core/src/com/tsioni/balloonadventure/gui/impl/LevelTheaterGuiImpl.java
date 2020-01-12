@@ -52,6 +52,7 @@ class LevelTheaterGuiImpl implements LevelTheaterGui
             {
                 Debug.out.println("Pause button pressed!");
                 pauseMenuIsOpen = true;
+                pauseMenu.setVisible(true);
             }
         });
     }
@@ -66,7 +67,47 @@ class LevelTheaterGuiImpl implements LevelTheaterGui
         table.add(minorGoalsLabel).right();
     }
 
+    private final Table pauseMenu = new Table();
+    {
+        pauseMenu.setVisible(false);
+        pauseMenu.setFillParent(true);
+    }
+    private final TextButton resumeButton = new TextButton("Resume", skin);
+    {
+        pauseMenu.center();
+        pauseMenu.add(resumeButton);
+        resumeButton.addListener(new ClickListener()
+        {
+            public void clicked (
+                final InputEvent event,
+                final float x,
+                final float y)
+            {
+                Debug.out.println("Resume button pressed!");
+                pauseMenuIsOpen = false;
+                pauseMenu.setVisible(false);
+            }
+        });
+    }
+    private final TextButton backToLevelSelect = new TextButton("Back to level select", skin);
+    {
+        pauseMenu.row();
+        pauseMenu.add(backToLevelSelect);
+        backToLevelSelect.addListener(new ClickListener()
+        {
+            public void clicked (
+                final InputEvent event,
+                final float x,
+                final float y)
+            {
+                Debug.out.println("Back to level select button pressed!");
+                levelWasExited = true;
+            }
+        });
+    }
+
     private boolean pauseMenuIsOpen = false;
+    private boolean levelWasExited = false;
     private int numberOfMinorGoalsCollected;
 
     @Inject
@@ -83,6 +124,7 @@ class LevelTheaterGuiImpl implements LevelTheaterGui
 
         numberOfMinorGoalsCollected = levelGameState.numberOfMinorGoalsCollected();
         stage.addActor(table);
+        stage.addActor(pauseMenu);
         inputProcessorRegistry.registerInputProcessor(stage);
     }
 
@@ -130,5 +172,11 @@ class LevelTheaterGuiImpl implements LevelTheaterGui
     public boolean pauseMenuIsOpen()
     {
         return pauseMenuIsOpen;
+    }
+
+    @Override
+    public boolean levelWasExited()
+    {
+        return levelWasExited;
     }
 }

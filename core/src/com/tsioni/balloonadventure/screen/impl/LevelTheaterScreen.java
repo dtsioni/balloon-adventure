@@ -58,6 +58,13 @@ class LevelTheaterScreen implements Screen
             levelGameState.playGame();
         }
 
+        if (levelTheaterGui.levelWasExited())
+        {
+            final Screen levelSelectScreen = screenFactory.createLevelSelectScreen();
+
+            screenSetter.setScreen(levelSelectScreen);
+        }
+
         if (!(levelTheaterGui.pauseMenuIsOpen() || levelGameState.gameIsPaused()))
         {
             levelTheater.step(delta);
