@@ -1,8 +1,10 @@
 package com.tsioni.balloonadventure.entity.impl;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tsioni.balloonadventure.debug.Debug;
 import com.tsioni.balloonadventure.entity.actor.AbstractBaseActor;
 import com.tsioni.balloonadventure.entity.api.*;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
@@ -107,7 +109,15 @@ class BalloonEntityImpl implements BalloonEntity
         private final float MAX_LEFT_SPEED = -30;
         private final float MAX_RIGHT_SPEED = 30;
 
+        private final float MAX_ROTATION_DEGREES = 30;
+        private final float TIME_TO_MAXIMUM_ROTATION_SECONDS = 0.3f;
+        private final float TIME_TO_RESTORE_ROTATION_SECONDS = 1f;
+
         private boolean isTouched;
+        private Vector2 velocityLastFrame = new Vector2(0, 0);
+
+        private float timeSinceAcceleration = 0.0f;
+        private boolean isRotatingDueToAcceleration = false;
 
         BalloonActor()
         {
@@ -115,7 +125,7 @@ class BalloonEntityImpl implements BalloonEntity
         }
 
         @Override
-        public void act(final float delta)
+        public void act(final float deltaTime)
         {
             if (isTouched)
             {
@@ -128,8 +138,6 @@ class BalloonEntityImpl implements BalloonEntity
                     body.setLinearVelocity(body.getLinearVelocity().x, body.getLinearVelocity().y + IMPULSE);
                 }
             }
-
-            /* If the balloon is going faster than its max speed, limit it */
 
             if(body.getLinearVelocity().y > 0)
             {
@@ -148,6 +156,71 @@ class BalloonEntityImpl implements BalloonEntity
             {
                 body.setLinearVelocity(Math.max(body.getLinearVelocity().x, MAX_LEFT_SPEED), body.getLinearVelocity().y);
             }
+
+            final Vector2 acceleration = getAcceleration(deltaTime);
+
+            velocityLastFrame = new Vector2(body.getLinearVelocity());
+
+            if (acceleration.x != 0 && !isRotatingDueToAcceleration)
+            {
+                isRotatingDueToAcceleration = true;
+                timeSinceAcceleration = 0;
+            }
+
+            // TODO: Handle timelines of behavior in a more graceful way.
+            if (isRotatingDueToAcceleration)
+            {
+                timeSinceAcceleration += deltaTime;
+
+                final float rotationValue;
+
+                if (timeSinceAcceleration >= 0
+                    && timeSinceAcceleration <= TIME_TO_MAXIMUM_ROTATION_SECONDS)
+                {
+                    rotationValue = Interpolation.smooth.apply(
+                        0,
+                        MAX_ROTATION_DEGREES,
+                        timeSinceAcceleration / TIME_TO_MAXIMUM_ROTATION_SECONDS);
+                }
+                else if (timeSinceAcceleration > TIME_TO_MAXIMUM_ROTATION_SECONDS
+                    && timeSinceAcceleration <= TIME_TO_RESTORE_ROTATION_SECONDS)
+                {
+                    rotationValue = Interpolation.smooth.apply(
+                        MAX_ROTATION_DEGREES,
+                        0,
+                        (timeSinceAcceleration - TIME_TO_MAXIMUM_ROTATION_SECONDS) / TIME_TO_RESTORE_ROTATION_SECONDS);
+                }
+                else
+                {
+                    isRotatingDueToAcceleration = false;
+
+                    rotationValue = 0;
+                }
+
+                if (body.getLinearVelocity().x != 0)
+                {
+                    final float oppositeOfXDirection =
+                        -1 * (Math.abs(body.getLinearVelocity().x) / body.getLinearVelocity().x);
+
+                    this.setRotation(oppositeOfXDirection * rotationValue);
+                }
+                else
+                {
+                    this.setRotation(0);
+                    timeSinceAcceleration = 0;
+                }
+            }
+        }
+
+        // Box2d does not seem to calculate acceleration for us.
+        private Vector2 getAcceleration(
+            final float deltaTime)
+        {
+            final Vector2 velocityThisFrame = new Vector2(body.getLinearVelocity());
+
+            final Vector2 deltaVelocityThisFrame = new Vector2(velocityThisFrame).sub(velocityLastFrame);
+
+            return new Vector2(deltaVelocityThisFrame.x / deltaTime, deltaVelocityThisFrame.y / deltaTime);
         }
 
         public boolean touchDown()
