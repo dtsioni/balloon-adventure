@@ -11,7 +11,7 @@ public interface GuiFactory
      * @param level The level being played.
      * @param levelGameState The game state to use initially.
      */
-    Gui createLevelTheaterGui(
+    LevelTheaterGui createLevelTheaterGui(
         Level level,
         LevelGameState levelGameState);
 

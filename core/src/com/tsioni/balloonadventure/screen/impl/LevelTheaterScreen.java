@@ -3,12 +3,11 @@ package com.tsioni.balloonadventure.screen.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
-import com.tsioni.balloonadventure.gui.api.Gui;
 import com.tsioni.balloonadventure.gui.api.GuiFactory;
+import com.tsioni.balloonadventure.gui.api.LevelTheaterGui;
 import com.tsioni.balloonadventure.level.api.Level;
 import com.tsioni.balloonadventure.level.api.LevelTheater;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
@@ -20,11 +19,9 @@ class LevelTheaterScreen implements Screen
     private final Level level;
     private final LevelTheater levelTheater;
     private final LevelGameState levelGameState;
-    private final Gui levelTheaterGui;
+    private final LevelTheaterGui levelTheaterGui;
     private final ScreenFactory screenFactory;
     private final ScreenSetter screenSetter;
-
-    private int numberOfMinorGoalsCollected = 0;
 
     @Inject
     public LevelTheaterScreen(
@@ -61,7 +58,7 @@ class LevelTheaterScreen implements Screen
             levelGameState.playGame();
         }
 
-        if (!levelGameState.gameIsPaused())
+        if (!(levelTheaterGui.pauseMenuIsOpen() || levelGameState.gameIsPaused()))
         {
             levelTheater.step(delta);
             levelTheaterGui.step(delta);

@@ -3,18 +3,22 @@ package com.tsioni.balloonadventure.gui.impl;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.tsioni.balloonadventure.debug.Debug;
-import com.tsioni.balloonadventure.gui.api.Gui;
+import com.tsioni.balloonadventure.gui.api.LevelTheaterGui;
+import com.tsioni.balloonadventure.input.api.InputProcessorRegistry;
 import com.tsioni.balloonadventure.level.api.Level;
 import com.tsioni.balloonadventure.level.state.api.LevelGameState;
 
-class LevelTheaterGuiImpl implements Gui
+class LevelTheaterGuiImpl implements LevelTheaterGui
 {
     private final Stage stage;
     private final LevelGameState levelGameState;
@@ -31,6 +35,26 @@ class LevelTheaterGuiImpl implements Gui
         labelStyle.fontColor = Color.WHITE;
         skin.add("default", labelStyle);
     }
+    private final TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+    {
+        buttonStyle.font = skin.getFont("default");
+        skin.add("default", buttonStyle);
+    }
+    private final TextButton pauseButton = new TextButton("Pause", skin);
+    {
+        table.add(pauseButton);
+        pauseButton.addListener(new ClickListener()
+        {
+            public void clicked (
+                final InputEvent event,
+                final float x,
+                final float y)
+            {
+                Debug.out.println("Pause button pressed!");
+                pauseMenuIsOpen = true;
+            }
+        });
+    }
     private final Label levelIdLabel = new Label("empty", skin);
     private final Label minorGoalsLabel = new Label("empty", skin);
     {
@@ -42,6 +66,7 @@ class LevelTheaterGuiImpl implements Gui
         table.add(minorGoalsLabel).right();
     }
 
+    private boolean pauseMenuIsOpen = false;
     private int numberOfMinorGoalsCollected;
 
     @Inject
@@ -49,7 +74,8 @@ class LevelTheaterGuiImpl implements Gui
         @Assisted final Level level,
         @Assisted final LevelGameState levelGameState,
         final Batch batch,
-        final GuiStageFactory guiStageFactory)
+        final GuiStageFactory guiStageFactory,
+        final InputProcessorRegistry inputProcessorRegistry)
     {
         this.level = level;
         this.levelGameState = levelGameState;
@@ -57,6 +83,7 @@ class LevelTheaterGuiImpl implements Gui
 
         numberOfMinorGoalsCollected = levelGameState.numberOfMinorGoalsCollected();
         stage.addActor(table);
+        inputProcessorRegistry.registerInputProcessor(stage);
     }
 
     @Override
@@ -97,5 +124,11 @@ class LevelTheaterGuiImpl implements Gui
         }
 
         return stateString;
+    }
+
+    @Override
+    public boolean pauseMenuIsOpen()
+    {
+        return pauseMenuIsOpen;
     }
 }
