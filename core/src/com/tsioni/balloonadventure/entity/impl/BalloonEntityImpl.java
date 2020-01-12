@@ -169,7 +169,7 @@ class BalloonEntityImpl implements BalloonEntity
         @Override
         protected String getImgPath()
         {
-            return "core/assets/img/balloon.png";
+            return "core/assets/img/balloon_2.png";
         }
 
         @Override
@@ -181,7 +181,7 @@ class BalloonEntityImpl implements BalloonEntity
         @Override
         protected float getActorHeight()
         {
-            return 4;
+            return 6;
         }
 
         @Override
