@@ -105,9 +105,9 @@ public class Debug implements Drawable
 
             if (bufferRows.size() > DEBUG_CONSOLE_MAX_LINES)
             {
-                final int fromRow = Math.max(0, lastRow - DEBUG_CONSOLE_MAX_LINES);
+                final int numberOfExcessRows = Math.max(0, lastRow - DEBUG_CONSOLE_MAX_LINES);
 
-                bufferRows = bufferRows.subList(fromRow, lastRow + 1);
+                bufferRows.subList(0, numberOfExcessRows).clear();
 
                 lastRow = bufferRows.size() - 1;
             }
