@@ -13,4 +13,6 @@ public interface LevelInitialState
      * @return The entity definitions for all the entities in the level.
      */
     List<EntityDefinition> getEntityDefinitions();
+
+    int getNumberOfMinorGoals();
 }

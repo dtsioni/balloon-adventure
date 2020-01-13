@@ -154,18 +154,11 @@ class LevelTheaterGuiImpl implements LevelTheaterGui
 
     private String stateString()
     {
-        String stateString;
-
-        if (numberOfMinorGoalsCollected == 1)
-        {
-            stateString = "You have collected " + numberOfMinorGoalsCollected + " silver star.";
-        }
-        else
-        {
-            stateString = "You have collected " + numberOfMinorGoalsCollected + " silver stars.";
-        }
-
-        return stateString;
+        return "You have collected "
+            + numberOfMinorGoalsCollected
+            + "/"
+            + level.getLevelInitialState().getNumberOfMinorGoals()
+            + " silver stars.";
     }
 
     @Override
