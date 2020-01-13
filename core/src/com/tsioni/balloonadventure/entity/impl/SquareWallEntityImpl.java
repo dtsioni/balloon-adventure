@@ -63,7 +63,7 @@ class SquareWallEntityImpl implements SquareWallEntity
         @Override
         protected String getImgPath()
         {
-            return "core/assets/img/squareWall.png";
+            return "core/assets/img/bricks.png";
         }
 
         @Override
